@@ -1,0 +1,9 @@
+---
+title: "Correctional Training Facility (Ctf)"
+slug: "correctional-training-facility-ctf"
+url: "/correctional-training-facility-ctf/"
+facilityid: 10000817
+type: facility
+layout: single
+summary: "Current heat conditions at Correctional Training Facility (Ctf), a state facility in Monterey County, California."
+---

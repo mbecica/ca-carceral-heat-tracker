@@ -1,0 +1,358 @@
+facilityid,name,latitude,longitude,baseline_summer_avg_tmax_f,threshold_f,source,prism_scale_m,retrieved
+10006510,Otay Mesa Detention Center,32.57596504758365,-116.91564013788977,78.4,88.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10001521,Del Norte County Jail,41.75310253863079,-124.20082671366757,62.6,72.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000914,Dorothy Kirby Center,34.011725929422504,-118.16917483066176,82.4,92.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006313,Baldwin Park Jail,34.08542320534737,-117.95972580356398,89.7,99.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006488,Claremont Jail,34.096233053161434,-117.72245587010627,88.9,98.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006489,Concord Jail,37.97087039089063,-122.031692397237,85.2,95.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006495,Monrovia Jail,34.14789596650148,-117.9992566100296,88.9,98.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006498,Signal Hill City Jail,33.80680219254155,-118.17245189767004,77.8,87.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006492,Culver City Jail,34.020764242179446,-118.39508559710085,75.3,85.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006179,Fci Mendota,36.73364122914027,-120.3924603239434,92.5,102.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000864,Usp Lompoc,34.679187474299496,-120.50548010652062,68.5,78.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002351,Bell City Jail,33.97910744065924,-118.18841160133736,81.1,91.1,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000771,Alder Conservation Camp #20,41.50102605418069,-124.0614026616772,68.4,78.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005258,Sugar Pine Conservation Camp #9,40.74594991511181,-122.0926140282548,92.6,102.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000871,Mcc San Diego,32.713963558611916,-117.1660704622264,73.7,83.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005267,Salt Creek Conservation Camp #7,39.81202088855824,-122.62925447861537,92.3,102.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005319,Owens Valley Conservation Camp #26,37.38924437916502,-118.55153489518936,90.7,100.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005362,Ventura Conservation Camp #46,34.246176183785806,-119.10677775352286,76.0,86.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000840,Prado Conservation Camp #28,33.99116711079797,-117.68683207528083,89.8,99.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005275,Valley View Conservation Camp #34,39.65246297492119,-122.72173226828056,80.6,90.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000874,Western Region Detention Facility,32.7173817496747,-117.16523774875972,74.1,84.1,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000849,Mesa Verde Ice Processing Center,35.37971816195629,-119.00641253053884,94.5,104.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000897,Glendale City Jail,34.14735399725111,-118.2493590354608,85.5,95.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000911,Torrance City Jail,33.83986898172371,-118.34228828447392,75.7,85.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000777,Sutter County Jail,39.14285926968739,-121.63782617479472,92.5,102.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000823,Tulare County Men'S Correctional Facility,36.44508173488965,-119.32043337950851,93.9,103.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005263,Antelope Conservation Camp #25,40.40164182151751,-120.51004710820791,86.1,96.1,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000772,Herlong Fci,40.151192472135286,-120.16619206516069,87.8,97.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000814,Ben Lomond Conservation Camp #45,37.130265033493735,-122.1690670677042,79.6,89.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002347,Calipatria State Prison (Cal),33.16569335411168,-115.4843440200192,104.1,114.1,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002348,Centinela State Prison (Cen),32.82339731050856,-115.7890554901459,104.7,114.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006310,Adelanto Ice Processing Center,34.55969543666143,-117.44071494857548,95.6,105.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005361,El Centro Service Processing Center,32.80301930673736,-115.56681652692428,104.9,114.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006491,Covina Jail,34.08995454335269,-117.8886708557222,88.8,98.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000781,Sacramento County Work Release,38.600280065057795,-121.49413045068547,90.8,100.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000859,Larry D Smith Correctional Facility,33.91003189843904,-116.87021077101804,94.2,104.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000835,Glen Helen Rehabilitation Center,34.17753047412101,-117.38931449983622,91.0,101.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10001539,Oxnard City Jail,34.200843775017155,-119.18149015571184,71.3,81.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000891,Pitchess Detention Center-South,34.46605502608862,-118.5996116034917,90.4,100.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002330,Fci Dublin Camp,37.717950171696266,-121.8948186675473,85.4,95.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000863,Fci Lompoc,34.676755382981256,-120.4994620676944,68.5,78.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000833,Fci Victorville Medium I Camp,34.56900668681523,-117.36974423441475,95.5,105.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000831,Fci Victorville Medium Ii,34.568484117135945,-117.35831452366868,95.6,105.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006487,Chula Vista Jail,32.63993272300781,-117.08303758871024,74.0,84.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006180,Fci Mendota Camp,36.728576475901214,-120.39236686830785,92.6,102.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000887,Fci Terminal Island,33.72649105995905,-118.26706314344848,76.7,86.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000867,Usp Lompoc Camp,34.67502678354751,-120.5042452703141,68.5,78.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000806,Usp Atwater,37.385902009533794,-120.55881096422864,92.5,102.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000892,Mdc Los Angeles,34.05365172738237,-118.23852864799257,82.2,92.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006299,Usp Lompoc North Camp,34.684348596310315,-120.50342145068144,68.5,78.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005303,Fci Dublin,37.7185793067588,-121.896970997066,85.4,95.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005261,Herlong Fci Camp,40.15300842320584,-120.153899940364,87.8,97.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006194,Usp Atwater Camp,37.38324683391697,-120.56351089902054,92.5,102.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000830,Usp Victorville,34.56511772035156,-117.3705686834497,95.3,105.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000832,Fci Victorville Medium I,34.565479182329916,-117.3645614551476,95.3,105.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002323,"California State Prison, Solano (Sol)",38.320776607604,-121.97523692020748,88.5,98.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002316,Yolo County Juvenile Detention Facility,38.66101321635629,-121.73033404289303,91.3,101.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002350,North County Correctional Facility,34.46449801148207,-118.58669462597126,90.2,100.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002355,Central Juvenile Hall,34.062845125055134,-118.2075310308609,84.4,94.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002354,Mira Loma Detention Center,34.701951456144066,-118.23257916788252,95.4,105.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006242,James G Bowles Juvenile Hall,35.38551690633812,-118.97007208464194,94.8,104.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000893,Long Beach City Jail,33.76887574058282,-118.19740279229644,78.0,88.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006509,Imperial Regional Detention Facility,32.69157796738742,-115.39785934490034,104.9,114.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006224,Camp Mendenhall,34.65294490631566,-118.47692576783348,88.9,98.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006223,Camp Munz,34.65269994694997,-118.4790990449336,88.9,98.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005249,Del Norte Juvenile Hall,41.76415323607952,-124.19060254740864,63.0,73.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005329,Central Valley Juvenile Detention And Assessment Center,34.13232970328932,-117.26894018143396,92.8,102.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000907,Monterey Park City Jail,34.059105896911724,-118.1260141111758,86.3,96.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005366,Pacific Area Community Jail,33.99163063383789,-118.41985259215922,74.9,84.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005364,77Th Street Regional Jail,33.970346036657936,-118.27739864086942,80.1,90.1,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006325,Santa Ana City Jail,33.75017454253526,-117.88059472025569,81.5,91.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006307,Cai - Ocean View,32.70025287997728,-117.11802856467416,74.2,84.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000898,Glendora City Jail,34.134683472370746,-117.86472195529764,88.2,98.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005322,San Benito County Jail,36.88402085050856,-121.41134831394592,80.7,90.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005309,Maguire Correctional Facility,37.48776481473485,-122.23165188434776,76.8,86.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000909,Pomona City Jail,34.054407799325865,-117.7537923831384,88.1,98.1,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006306,Cai - Boston Avenue,32.69354083598739,-117.13502194396476,73.5,83.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006221,Camp Kilpatrick,34.09201895807897,-118.837876371687,80.8,90.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005266,Tehama County Jail,40.175627755533974,-122.23695248454342,92.7,102.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005316,Sunnyvale Department Of Public Safety,37.37040656709717,-122.04014117760228,79.8,89.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000804,Madera County Juvenile Hall,36.95303527822695,-120.0337697819451,93.5,103.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10007007,Kern County - Lerdo Justice Facility,35.50642904042633,-119.1109999113409,94.7,104.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10007001,Northern Branch Jail,34.91837859256055,-120.49241570493896,70.4,80.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000826,Avenal State Prison,35.97394943680589,-120.123101823151,94.3,104.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002345,California Men'S Colony (Cmc),35.324574100099134,-120.69890041992886,76.3,86.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000852,California City Correctional Center (Cac),35.15325120165892,-117.85888005110138,97.4,107.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000824,"California State Prison, Corcoran (Cor)",36.060818292814254,-119.54912102574772,95.3,105.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000825,Ca Substance Abuse Treatment Facility (Satf),36.05395908338128,-119.54782062864966,95.3,105.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000801,Central California Women'S Facility (Ccfw),37.0936807963828,-120.15270979438849,92.5,102.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002346,Chuckawalla Valley State Prison (Cvsp),33.562579498036335,-114.90950576295587,105.2,115.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000869,R J Donovan Correctional Facility (Rjd),32.58456492210108,-116.9335763874008,78.3,88.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002309,Pelican Bay State Prison (Pbsp),41.85480855418667,-124.1490751163596,65.4,75.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000822,Gabilan Conservation Camp #38,36.46407283647074,-121.38305815511475,76.6,86.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000810,Pleasant Valley State Prison(Pvsp),36.131473239777144,-120.24889960644474,96.0,106.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000802,Valley State Prison (Vsp),37.105477428630245,-120.15547185750694,92.5,102.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005251,Devils Garden Conservation Camp #40,41.52359923931703,-120.67020461410344,81.5,91.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000858,Bautista Conservation Camp #36,33.64204515942113,-116.80923524430564,92.8,102.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006530,Folsom Women'S Facility (Fwf),38.69320816978507,-121.14879148409725,91.5,101.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005248,Deadwood Conservation Camp #23,41.67774197144028,-122.82407824218762,86.4,96.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000904,Julius Klein Conservation Camp #19,34.2378303823899,-117.82290059711198,87.5,97.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005252,Eel River Conservation Camp #31,40.13825346356871,-123.8224067420024,85.0,95.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005290,Growlersburg Conservation Camp #33,38.90313303813308,-120.87004293218703,88.8,98.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000905,Malibu Conservation Camp #13,34.08392941062969,-118.86552872385522,80.3,90.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005305,Mount Bullion Conservation Camp #39,37.5359784933773,-120.048738197483,87.8,97.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002310,High Desert State Prison (Hdsp),40.40786908373915,-120.51339082085426,86.1,96.1,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000878,Mccain Valley Conservation Camp #21,32.68422671566009,-116.2667738482972,88.2,98.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000855,Cuesta Conservation Camp #24,35.329429003849334,-120.73344205123828,72.8,82.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006204,Holton Conservation Camp #16,34.300036648410114,-118.36033132151492,88.9,98.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000789,Baseline Conservation Camp #30,37.92402926410429,-120.52961603771271,94.2,104.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000774,Intermountain Conservation Camp #22,41.1231067161181,-121.22419725359636,82.3,92.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005328,Pilot Rock Conservation Fire Camp #15,34.271656892428354,-117.2814657468556,87.1,97.1,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000901,Fenner Canyon Conservation Camp #41,34.39010316279468,-117.77262913360008,85.5,95.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005264,Ishi Conservation Camp #18,40.31308214420257,-121.89495892375476,92.3,102.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000793,O.H.Close Youth Correctional Facility,37.89852127379901,-121.19769467027837,89.5,99.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005324,Mountain Home Conservation Camp #10,36.20791412059433,-118.71392800271092,84.5,94.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005256,Trinity River Conservation Camp #3,40.78981381613563,-122.80394970874065,85.2,95.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000877,Rainbow Conservation Camp #2,33.427961075610796,-117.11832774136676,86.8,96.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006497,Seal Beach Detention Center,33.75270984107934,-118.08776063978296,77.3,87.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006316,Fontana City Jail,34.10164898633541,-117.43379001368056,91.4,101.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006317,Garden Grove City Jail,33.77637797128475,-117.93573132365108,81.2,91.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000884,Ventura County East County Jail,34.24764369046445,-118.83478790538416,82.0,92.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000815,Santa Cruz County Juvenile Hall,37.04370218416292,-122.04884959847284,82.3,92.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10001535,Riverside County Blythe Jail,33.613244388995795,-114.59791339322456,104.6,114.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005370,Lapd Hollywood Area Jail,34.09577047236163,-118.33065860825457,80.8,90.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005368,Lapd Metropolitan Detention Center,34.052080277150985,-118.240951738798,82.2,92.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006228,Camp Scott,34.457183406305845,-118.48669688989436,89.6,99.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006230,Transitional Facilities,37.49315980362607,-122.22085687599696,76.3,86.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005369,Lapd Foothill Area Jail,34.253008666349736,-118.41049483281228,87.0,97.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005371,Lapd Valley Jail Section,34.183695097941026,-118.44523606464249,85.9,95.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005283,Washington Ridge Conservation Camp #44,39.3079091221786,-120.93491737585298,83.3,93.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005340,Cois M. Byrd Detention Center,33.581147847246136,-117.12241672177,89.5,99.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005341,Indio Juvenile Hall,33.70339507605988,-116.22241251718144,103.4,113.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006222,Camp Miller,34.093640682980926,-118.83823161297744,80.8,90.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006225,Camp Paige,34.152893963471456,-117.7445140430745,87.9,97.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005300,Stanislaus County Men'S Jail,37.640028286509654,-120.99654693026912,90.9,100.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005352,Santa Barbara County Medium Security Facility,34.44605863466011,-119.77662913612724,72.0,82.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000799,California Health Care Facility (Chcf),37.89778736654379,-121.1905848230992,89.5,99.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10001537,East Mesa Reentry Facility,32.588806952285296,-116.91889669723231,78.4,88.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006712,Stanislaus County Public Safety Center Unit 1 And Unit 2,37.58469199864496,-120.98530101477655,90.9,100.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006483,Arcadia Police Department Jail,34.13664247675464,-118.039708639047,88.6,98.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006484,Azusa Police Department Jail,34.1348471024137,-117.90660066978482,87.9,97.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006485,Beverly Hills Jail,34.073707405399574,-118.39985494688511,76.9,86.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005273,Chamberlain Creek Conservation Camp #17,39.35761682929475,-123.55627164419816,78.4,88.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002352,Burbank City Jail,34.18344638964236,-118.30845716063072,85.1,95.1,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000780,Folsom State Prison (Fsp),38.69538346625723,-121.1630323451162,91.5,101.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002344,Mcfarland Female Community Reentry Facility,35.667807046660805,-119.22698574189052,94.3,104.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000895,Alhambra City Jail,34.091960461497386,-118.12667840621174,86.2,96.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002314,Placer County Jail,38.93578158697222,-121.10759015408996,89.1,99.1,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000782,Mule Creek State Prison (Mcsp),38.37074337471898,-120.95344581511613,91.2,101.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005351,Youth Leadership Academy,33.78427717878771,-117.88641503087702,82.3,92.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005345,Youth Guidance Center,33.781933227245936,-117.8831662123326,82.1,92.1,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005346,Theo Lacy Facility,33.781923625999724,-117.88736079825428,82.0,92.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005348,Joplin Youth Center,33.67791718589825,-117.5720756599411,84.8,94.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005350,Central Jail Complex,33.749055093408764,-117.87858088438688,81.5,91.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005333,High Desert Juvenile Detention And Assesment Center,34.63575816436559,-117.2056536197532,95.4,105.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10001536,Robert Presley Detention Center,33.97880875192602,-117.37430967453528,91.6,101.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005347,Orange County Juvenile Hall,33.7849812586864,-117.88594679668442,82.3,92.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006231,San Benito County Juvenile Hall,36.882705577003165,-121.41202368335358,80.7,90.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000862,John J. Benoit Detention Center,33.71389710445651,-116.22170360532692,103.3,113.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005269,Plumas County Correctional Facility,39.93342338185887,-120.9078241146987,87.7,97.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000779,Rio Cosumnes Correctional Center,38.30639934939619,-121.42332506830044,87.6,97.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005330,Regional Youth Educational Facility,34.12908750028364,-117.2698025112236,92.8,102.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000860,Riverside County Juvenile Hall,33.92015344766866,-117.45258276134564,91.2,101.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006706,South Placer Jail,38.80841284215149,-121.30157845897398,92.5,102.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10001538,George F Bailey Detention Facility,32.590543113063475,-116.92149827863445,77.6,87.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005344,Southwest Juvenile Hall,33.58079488429191,-117.11979655719516,89.5,99.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005354,East Mesa Juvenile Detention Facility,32.590858306967554,-116.91812114373408,77.6,87.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000876,Las Colinas Detention And Reentry Facility,32.842112726419444,-116.97338191264392,85.3,95.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005360,Facility 8 Detention Facility,32.59134370566924,-116.92328667495188,78.3,88.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005307,San Francisco General Hospital Ward 7D / 7L,37.75575802266862,-122.40447005119576,69.8,79.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005356,Girls Rehabilitation Facility,32.79469992229926,-117.15229112960223,76.4,86.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10001525,San Francisco County Jail #2,37.77525144567049,-122.40490521229466,69.2,79.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000872,San Diego Central Jail,32.71725211349196,-117.16427157272356,74.1,84.1,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005358,Vista Detention Facility,33.19185669461099,-117.25692822932726,79.7,89.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000875,Kearny Mesa Juvenile Detention Facility,32.794226714904966,-117.1533898985926,76.4,86.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000798,San Joaquin County Jail,37.88571630267671,-121.29514967185196,89.2,99.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000795,San Joaquin County Jail (Honor Farm),37.88450335521423,-121.30063185290682,89.0,99.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10001534,San Luis Obispo Juvenile Hall / Service Center,35.32137388763984,-120.71913149908312,73.8,83.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005339,San Luis Obispo County Honor Farm Jail,35.32008468936467,-120.71574744929144,76.8,86.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006709,Maple Street Correctional Center,37.49271532620894,-122.21912359465084,76.3,86.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002333,Elmwood Correctional Complex,37.41857358803495,-121.90826096495222,79.7,89.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006710,Los Prietos Boys Camp,34.54403216104945,-119.77705581302736,87.2,97.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005353,Santa Barbara County Santa Maria Station Jail,34.8820997891649,-120.44654682784352,71.9,81.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005260,Shasta County Jail,40.581341110839354,-122.3961983707309,95.4,105.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005321,Santa Cruz Rountree Medium Security Facility,36.91382082681037,-121.8097597235208,66.2,76.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006232,Santa Clara County Main Jail Complex (South),37.35101112246267,-121.9059750533212,79.9,89.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005317,William F. James Ranch,37.167688466801366,-121.64668361685963,84.4,94.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005246,Charlie'S Place Juvenile Day Reporting Center,41.70814455541497,-122.63516451171624,88.3,98.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002328,Stanislaus County Public Safety Center,37.58464851762791,-120.98997965152364,91.0,101.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000787,Solano County Claybank Detention Facility,38.27466985440152,-121.9999655085075,86.4,96.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10001528,Santa Cruz Blaine Street Facility,36.98062037922893,-122.02368691172828,70.7,80.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005259,Shasta County Juvenile Hall,40.54877363345071,-122.37903034906776,95.7,105.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002321,Sonoma County Main Adult Detention Facility,38.46729912018051,-122.72636627453036,81.0,91.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005268,Tehama County Juvenile Detention Facility,40.17081458396152,-122.2535441639448,92.8,102.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005247,Siskiyou County Jail,41.73061853007981,-122.63942281132562,88.5,98.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005279,Maxine Singer Youth Guidance Center,39.150533216033175,-121.59901636846423,92.6,102.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002337,Tulare County Adult Pre-Trial Facility,36.455097924738425,-119.3212963420362,93.9,103.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002329,Stanislaus County Juvenile Hall And Commitment Facility,37.6621433321267,-121.04312110071773,90.6,100.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002335,Tulare County Juvenile Detention Facility,36.459985601850285,-119.32306031943332,93.9,103.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005255,Trinity County Juvenile Hall,40.74978944878197,-122.9239474369582,89.0,99.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002334,Tulare County Probation Youth Facility,36.45910316552269,-119.32517720490618,93.9,103.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005257,Trinity County Sheriffs Department,40.73648742589344,-122.94609726979162,89.7,99.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005278,Yuba - Sutter County Juvenile Hall,39.14996004987066,-121.60011301200107,92.6,102.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10001523,Tuolumne County Jail,37.98419394935426,-120.38611882763914,91.5,101.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000882,Ventura County Todd Road Facility,34.30928593996256,-119.11220945474956,77.0,87.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002336,Tulare County Jail / Sheriff,36.3281261212818,-119.31714995811475,93.7,103.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000899,Hawthorne City Jail,33.919601544152606,-118.35318367048885,75.3,85.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000896,Downey City Jail,33.940698529363736,-118.12853422450073,82.0,92.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000906,Montebello City Jail,34.0207959161168,-118.11638105213125,85.9,95.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000846,Taft Modified Community Correctional Facility,35.13415778402242,-119.44146788011987,95.9,105.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005365,Vernon City Jail (Holding Facility),34.004594416549466,-118.23087236982576,81.1,91.1,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005304,Fremont Detention Facility,37.55219822678668,-121.9681860469508,77.2,87.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000845,Shafter Modified Community Correctional Facility,35.495318067849404,-119.25905776312544,94.4,104.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000843,Delano Modified Community Correctional Facility,35.76564031898252,-119.30429085361187,94.9,104.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006482,Anaheim Detention Facility,33.83019210335317,-117.91905930414576,82.5,92.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006903,Ontario City Jail,34.02929606104588,-117.59681333407,90.2,100.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006902,Huntington Beach City Jail,33.677626503376,-118.00088530130684,74.6,84.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006904,Hayward Detention Facility,37.65752960106487,-122.0969066128883,74.7,84.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006905,Pasadena Jail,34.14918573594655,-118.14481080966269,86.4,96.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006494,Fullerton City Jail,33.87085843600594,-117.92818641617431,83.4,93.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006493,El Monte Jail,34.07158043477895,-118.0302635150937,86.7,96.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006906,Berkeley Jail Facility,37.87020999993821,-122.27328174212134,72.5,82.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006499,West Covina Jail,34.07130466380657,-117.93886373342276,89.7,99.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005271,Butte County Jail,39.52949746158004,-121.5745062299414,92.3,102.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006490,Costa Mesa Jail,33.6633743002085,-117.9041902557805,77.1,87.1,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005298,Calaveras County Jail,38.19353619014131,-120.66538822180613,91.1,101.1,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006907,South Gate Jail,33.95672114568816,-118.205100443669,81.1,91.1,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006698,Camp Wilmont Sweeney,37.71256207654158,-122.11612045675584,74.9,84.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002324,Marsh Creek Detention Facility,37.8944241433025,-121.86505370001386,83.7,93.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006908,Santa Monica Jail,34.01221467658367,-118.49079223643082,70.4,80.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005286,Colusa County Jail,39.205571786654794,-122.00325941610808,91.1,101.1,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006500,Whittier Jail,33.97496527739392,-118.03462367231562,86.0,96.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005312,Fresno County Jail North Annex,36.738616880263095,-119.79041979901356,95.0,105.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006440,South Lake Juvenile Treatment Center,38.935201491263825,-119.97219591552351,77.5,87.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006486,Buena Park City Jail,33.86413456620653,-117.99695734946756,82.3,92.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005311,Fresno County Main Detention Facility,36.73819529451567,-119.7899519676438,95.0,105.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002312,Glenn County Jail,39.519679878877575,-122.2003805703925,92.1,102.1,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005313,Fresno County Jail South Annex,36.737340306481336,-119.78920805046889,95.0,105.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005254,Humboldt County Correctional Facility,40.80297362800573,-124.16156606209246,61.0,71.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000880,Imperial County Jail,32.74730136464732,-115.56369468007372,104.9,114.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006496,Redondo Beach Jail,33.84487497243068,-118.38832350793837,72.8,82.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002356,Century Regional Detention Center,33.92808328856635,-118.22748820851368,80.4,90.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005336,Kern County Lerdo Pre-Trial Facility,35.509232224714665,-119.11066155139858,94.7,104.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005334,Larry J Rhoades Kern Crossroads Facility,35.50544049501467,-119.11506321759109,94.7,104.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002343,Kern County Central Receiving Facility,35.372514913991346,-119.01775467607553,94.8,104.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000889,Inmate Reception Center,34.05882860956883,-118.2307921797654,82.8,92.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005280,Lake County Hill Road Jail,39.104174901130456,-122.91333000554673,90.5,100.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006704,Mariposa County Juvenile Detention Facility,37.488618729358855,-119.96803812171764,91.5,101.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006909,Huntington Park Jail,33.9796633125608,-118.21863230920243,80.9,90.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000912,Barry J Nidorf Juvenile Hall,34.315820791234124,-118.48324565628825,89.6,99.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005262,Lassen County Juvenile Detention Facility,40.42450028814349,-120.64836918474327,85.8,95.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000888,Men'S Central Jail,34.060423389772325,-118.23112916876896,82.8,92.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000803,Madera County Juvenile Detention Facility,36.95303248598929,-120.03571367061356,93.5,103.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10001524,Marin County Jail,37.999504270594485,-122.53252445910216,78.7,88.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000807,Merced County Jail,37.30716956554306,-120.48382018893972,92.6,102.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005306,Mariposa County Adult Detention Facility,37.49996234905585,-119.987694996906,91.2,101.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005250,Modoc County Jail,41.483803440499145,-120.54072090870048,84.3,94.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005295,Mono County Jail,38.25701172449448,-119.2281627852132,81.2,91.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005284,Wayne Brown Correctional Facility,39.268673229848154,-121.02790388529456,86.6,96.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000890,Pitchess Detention Center-North,34.46919331550016,-118.60482801608542,90.4,100.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005375,Twin Towers Correctional Facility,34.058445694210576,-118.23061700116908,82.8,92.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002319,Napa County Jail,38.296730767207286,-122.2843068502495,80.5,90.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002311,Mendocino County Jail / Sheriff,39.16039412256435,-123.220204359166,89.6,99.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005291,Napa County Juvenile Justice Center,38.28828227700995,-122.29963939302542,80.1,90.1,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005274,Mendocino County Juvenile Hall,39.15926394896029,-123.21691581616892,89.6,99.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10001530,California Correctional Institution (Cci),35.10991555190383,-118.57033067748,84.7,94.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000836,California Institution For Men (Cim),33.98471244959707,-117.68239170046569,90.0,100.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000850,Golden State Annex,35.669938224404156,-119.22807495791346,94.3,104.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000851,Central Valley Annex,35.66816608613756,-119.22874700161184,94.3,104.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000817,Correctional Training Facility (Ctf),36.46964827416208,-121.38223254073095,76.6,86.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002341,California Institution For Women (Ciw),33.94974539755923,-117.6363650322742,89.4,99.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000785,California Medical Facility (Cmf),38.3285102029971,-121.97916451130509,88.7,98.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000786,Delta Conservation Camp #8,38.217626008443645,-121.84722364621932,86.6,96.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000857,California Rehabilitation Center (Crc),33.9292530412966,-117.5725312861978,89.9,99.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005282,Konocti Conservation Camp #27,38.91057030566233,-122.7077601724924,88.8,98.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006347,La Cima Conservation Camp #42,32.93893654769131,-116.53689248814348,82.2,92.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002322,"California State Prison, Sacramento (Sac)",38.694444232143624,-121.15390376526624,91.5,101.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000811,Miramonte Conservation Camp #5,36.672531545811935,-119.08573875853784,88.7,98.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002353,California State Prison-Los Angeles County (Lac),34.693596500791955,-118.2276135961975,95.4,105.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002349,Acton Conservation Camp #11,34.437431767090374,-118.287350782123,92.6,102.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000790,San Quentin State Prison (Sq),37.940039851419016,-122.4903665969169,74.1,84.1,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000847,Wasco State Prison (Wsp),35.59431194493489,-119.40833193657431,95.6,105.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002340,Desert View Annex,34.55992220018533,-117.4373207394121,95.5,105.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000879,Puerta La Cruz Conservation Camp #14,33.32449679713223,-116.68321048338171,91.8,101.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000808,John Latorraca Correctional Facility,37.189420106543345,-120.53775921676562,92.7,102.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000841,North Kern State Prison (Nksp),35.78188517301339,-119.30987566982682,94.8,104.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005299,Vallecito Conservation Camp #1,38.106427356926375,-120.48874358476203,91.4,101.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006532,Department Of State Hospitals - Atascadero,35.46406026013646,-120.6348665784761,85.6,95.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10001522,Sierra Conservation Center (Scc),37.89168865412792,-120.53654018648405,92.9,102.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000784,Pine Grove Conservation Camp,38.4117068986096,-120.63947541383544,88.5,98.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000856,Norco Conservation Camp #0,33.92691793871164,-117.57594424895476,89.7,99.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006531,Department Of State Hospitals - Coalinga,36.13343268870778,-120.24044350195224,96.0,106.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000902,Francisquito Conservation Camp #4,34.565337588031426,-118.47580837113031,91.8,101.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005253,High Rock Conservation Camp #32,40.375077084153816,-123.9312622305967,73.4,83.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000838,Oak Glen Conservation Camp #35,34.03332926365807,-116.90609379198143,83.7,93.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000844,Kern Valley State Prison (Kvsp),35.76647451591408,-119.32536275967016,94.8,104.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000861,Ironwood State Prison (Isp),33.56097662668156,-114.9260675684116,105.2,115.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000821,Salinas Valley State Prison (Svsp),36.47885711260287,-121.37439425565836,77.2,87.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005272,Parlin Fork Conservation Camp #6,39.36977478501272,-123.6556177393927,77.2,87.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000870,South Bay Detention Facility,32.63304064341742,-117.07753111701798,74.4,84.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006220,Camp Gonzales,34.08770877517197,-118.70768791922296,80.9,90.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005296,Amador County Jail,38.351538648718005,-120.76931828684096,90.5,100.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006226,Camp Rockey,34.1345449734149,-117.79496229533272,87.2,97.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002338,Bob Wiley Detention Facility,36.45663045552659,-119.32069305186393,94.0,104.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006229,Camp Scudder,34.45854032992573,-118.4828038923584,90.0,100.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005289,El Dorado County Jail - South Lake Tahoe,38.9340685149632,-119.97213762662253,77.5,87.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005288,El Dorado County Jail - Placerville,38.72391175979539,-120.82363571641528,87.8,97.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005270,Butte County Juvenile Hall,39.529692691577225,-121.57051867645444,92.3,102.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000900,Camp Afflerbaugh,34.15309188637279,-117.74191185518086,87.9,97.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005320,Inyo County Jail,36.79894438134117,-118.19380693837496,96.4,106.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006705,Carl F. Bryan Ii Juvenile Hall,39.26565985450622,-121.03245172516118,86.5,96.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006703,Camp Erwin Owen,35.76932479905095,-118.42746270426794,94.4,104.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000834,Central Detention Center,34.10242616729506,-117.27345082727165,92.7,102.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000827,Kings County Jail,36.33368353541322,-119.66961592010344,94.9,104.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006702,Fresno County Juvenile Justice Campus,36.65951325902287,-119.72474618057136,95.1,105.1,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005331,West Valley Detention Center,34.08118905127584,-117.52915047961852,90.6,100.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000828,High Desert Detention Center,34.5475073764621,-117.45763172644712,95.4,105.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005325,Kings County Juvenile Detention Center,36.33158401889679,-119.66762056058052,94.9,104.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002331,Santa Rita Jail,37.71784061903257,-121.88779040170296,85.4,95.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+20000100,Trinity County Correctional Facility,40.750736220204836,-122.92319829648272,89.0,99.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000775,Lassen County Adult Detention Facility,40.42573469368667,-120.65008647053216,85.8,95.8,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006699,John A. Davis Juvenile Hall,37.98822234273883,-122.08867712061308,84.6,94.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000809,Iris Garrett Juvenile Justice Complex,37.18771223201478,-120.54145188502224,92.6,102.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002325,West County Detention Facility,37.99541519496946,-122.35366094214724,74.3,84.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000778,Sacramento County Main Jail,38.583018280359575,-121.4975209718283,90.7,100.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005349,James A Musick Facility,33.66397649112649,-117.69931931581662,82.4,92.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005308,Madera Adult Correctional Facility,36.95420893495739,-120.03497358639753,93.5,103.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000791,Marin County Juvenile Hall,38.02754018293216,-122.56630899802622,82.2,92.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005335,Mojave Jail,35.04626018655627,-118.1625003600632,95.9,105.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005337,Kern County Lerdo Maximum-Medium Facility,35.510712769404066,-119.11037865485692,94.7,104.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005338,Kern County Lerdo Minimum Facility,35.51247844150768,-119.11013689243094,94.7,104.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002326,Martinez Detention Facility,38.01736383431603,-122.13224601906312,84.7,94.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002313,Yuba County Jail,39.14114653002424,-121.58690840125676,92.6,102.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006439,Placer County Juvenile Detention Center,38.93667972767868,-121.10931248260697,89.1,99.1,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006707,Sacramento County Youth Detention Facility,38.54604226446235,-121.3405908477844,91.0,101.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10001526,San Francisco County Jail #2 Annex,37.77546199277186,-122.40416818642215,69.2,79.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000805,San Francisco County Jail #3,37.62744097672951,-122.4603625644674,68.3,78.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000854,San Luis Obispo County Jail,35.32070973785056,-120.7267914288845,73.0,83.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000797,San Joaquin County Juvenile Hall,37.88362185715131,-121.29059713126162,89.4,99.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000820,Monterey County Youth Center,36.678865705631374,-121.62745479242824,70.0,80.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10006711,Solano County Stanton Correctional Facility,38.27371914804761,-121.99938649727412,86.4,96.4,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005315,Santa Clara County Main Jail Complex (North),37.351471306559965,-121.90623800435311,79.9,89.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000818,Monterey County Jail / Rehabilitation Facility,36.6990536439476,-121.6303604023972,69.7,79.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10001529,Santa Cruz County Main Jail,36.98011161131043,-122.02381977917152,70.7,80.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005314,Santa Clara County Juvenile Hall,37.34970166305614,-121.90715984251057,79.9,89.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000788,Solano County Justice Center Detention Facility,38.24734151191261,-122.0393212229116,85.2,95.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000868,Santa Maria Juvenile Hall,34.8809478871633,-120.44720314021224,71.9,81.9,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000819,Monterey County Juvenile Hall,36.700423193185415,-121.63243384862332,69.7,79.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005277,Sierra County Jail Temporary Holding Facility,39.558897821651826,-120.83026440189096,86.5,96.5,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005293,Sonoma County Juvenile Hall,38.44154467199271,-122.5821207731632,81.2,91.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005297,Solano County Juvenile Detention Facility,38.251590132038416,-122.0642316186344,86.1,96.1,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10005294,Sonoma County Probation Camp,38.504195449308106,-122.8691064487371,81.7,91.7,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002320,North County Detention Facility,38.513140047609944,-122.80147808524178,81.3,91.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000865,Santa Barbara County Main Jail,34.44490502379509,-119.77712765160398,72.0,82.0,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000886,Ventura County Pre-Trial Detention Facility (Main Jail),34.26940988794384,-119.20927538337398,75.2,85.2,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10000885,Ventura County Juvenile Justice Complex,34.25611380659831,-119.15972354105072,74.6,84.6,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
+10002317,Yolo County Monroe Detention Center,38.659879421445865,-121.7314816044994,91.3,101.3,"PRISM Norm91m tmax (1991-2020 JJA mean daily-max), via Google Earth Engine",800,2026-07-17
