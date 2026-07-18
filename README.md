@@ -17,7 +17,6 @@ two weeks of hourly temperature for context. A companion to the
 - **`static/data/`** — generated data the site serves (`facilities.json`, boundaries, and
   per-facility band/live files).
 - **`content/`** — per-facility page stubs.
-- [`SCOPE_AND_PLAN.md`](SCOPE_AND_PLAN.md) — product scope, decisions, and phases.
 - [`METHODS.md`](METHODS.md) — data sources and methodology (seeds the public methods page).
 - [`REFRESH.md`](REFRESH.md) — how to refresh the data.
 

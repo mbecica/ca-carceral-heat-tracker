@@ -6,7 +6,7 @@ For every OPEN facility, reads the **PRISM 1991–2020 30-year normals** (`tmax`
 June–August mean daily-max temperature (°F). The app's display threshold is this
 baseline + 10°F (Skarha et al. 2023 mortality metric).
 
-Why PRISM (see SCOPE_AND_PLAN §2 decision log): it is observation-anchored, so it
+Why PRISM (see METHODS.md): it is observation-anchored, so it
 resolves California's coastal/marine-valley microclimates that a reanalysis model
 (ERA5) reads 5–10°F too warm. PRISM is *published directly* as a normal — we read
 the point value, we do not compute a 30-year climatology ourselves. The
@@ -17,10 +17,10 @@ Access uses the same Earth Engine project as build_historic_bands.py. Authentica
 once with `earthengine authenticate`; the scheduled pipeline uses Workload Identity
 Federation (no key). Set EE_PROJECT or pass --project.
 
-    python3 analysis/heatwave_app/build_baselines.py
-    python3 analysis/heatwave_app/build_baselines.py --only-missing   # new facilities only
+    python3 pipeline/build_baselines.py
+    python3 pipeline/build_baselines.py --only-missing   # new facilities only
 
-Output: analysis/heatwave_app/data/baselines.csv
+Output: pipeline/data/baselines.csv
     facilityid, name, latitude, longitude, baseline_summer_avg_tmax_f,
     threshold_f, source, prism_scale_m, retrieved
 """
