@@ -382,7 +382,8 @@ def main():
                 "baseline_period": BASELINE_PERIOD,
                 "baseline_months": "June-August",
                 "note": f"Threshold = {THRESHOLD_DELTA_F:.0f}°F above the facility's "
-                        f"{BASELINE_PERIOD} June–August average daily high (ERA5).",
+                        f"{BASELINE_PERIOD} June–August average daily high "
+                        f"(PRISM 30-year normals).",
             },
             "vintages": {
                 "facility_list_as_of": FACILITY_LIST_AS_OF,

@@ -27,7 +27,7 @@
    "delta_f": 10.0,
    "baseline_period": "1991-2020",
    "baseline_months": "June-August",
-   "note": "Threshold = 10°F above the facility's 1991-2020 June–August average daily high (ERA5)."
+   "note": "Threshold = 10°F above the facility's 1991-2020 June–August average daily high (PRISM 30-year normals)."
   },
   "vintages": {
    "facility_list_as_of": "2025-07",
