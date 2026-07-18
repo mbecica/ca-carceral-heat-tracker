@@ -7,12 +7,7 @@
 name: ee-auth-smoke
 
 on:
-  workflow_dispatch:        # run on demand once this file reaches the default branch
-  push:
-    branches: [phase2-ee-auth-smoke]   # auto-run when the gate branch is pushed
-    paths:
-      - .github/workflows/ee-auth-smoke.yml
-      - pipeline/validate_ee_headless.py
+  workflow_dispatch:        # keepable manual smoke test for headless WIF auth
 
 permissions:
   contents: read

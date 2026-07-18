@@ -1,0 +1,59 @@
+# Phase 2 live pipeline: every 3 hours, fetch current conditions for all facilities
+# and commit the refreshed JSON. The commit is what triggers the Cloudflare Pages
+# rebuild (Phase 4 will move delivery to R2 and decouple from builds). Auth is keyless
+# via Workload Identity Federation — same setup proven by ee-auth-smoke.yml.
+name: fetch-current
+
+on:
+  schedule:
+    # THROTTLED for prototyping: once a week (Mondays 17:00 UTC ≈ 9-10am PT).
+    # At launch, switch to every 3 hours — "0 */3 * * *" — likely alongside the
+    # Phase 4 R2 migration so the ~240 commits/mo don't churn git history.
+    - cron: "0 17 * * 1"
+  workflow_dispatch:           # allow manual runs from the Actions tab anytime
+
+# Never let two refreshes overlap or race the commit/push.
+concurrency:
+  group: fetch-current
+  cancel-in-progress: false
+
+permissions:
+  contents: write              # commit refreshed data back to the repo
+  id-token: write              # mint the OIDC token WIF consumes
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40        # ~10-13 min expected; generous headroom
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install --quiet earthengine-api google-auth
+
+      - uses: google-github-actions/auth@v3
+        with:
+          project_id: ca-carceral-heat
+          workload_identity_provider: ${{ secrets.GCP_WIF_PROVIDER }}
+          service_account: ${{ secrets.GCP_SA_EMAIL }}
+
+      - name: Fetch current conditions
+        env:
+          AIRNOW_API_KEY: ${{ secrets.AIRNOW_API_KEY }}
+        run: python3 pipeline/fetch_current.py
+
+      - name: Commit refreshed data
+        run: |
+          git config user.name "heat-tracker-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add static/data/statewide.json static/data/recent
+          if git diff --cached --quiet; then
+            echo "No data changes this run."
+          else
+            git commit -m "data: refresh current conditions ($(date -u +%Y-%m-%dT%H:%MZ))"
+            git push
+          fi
