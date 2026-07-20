@@ -4,4 +4,6 @@
 #   /some-closed-facility/  /  301
 
 # BEGIN retired facility redirects (managed by build_facilities.py)
+/california-city-correctional-center-cac/ / 302
+/chuckawalla-valley-state-prison-cvsp/ / 302
 # END retired facility redirects

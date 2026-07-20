@@ -19,6 +19,9 @@
   var FACILITIES_URL = "/data/facilities.json";
   var BOUND_URL = "/data/facility_boundaries.geojson";
   var POLY_ZOOM = 10, DOT_R = 5;
+  // Basemap: CARTO Positron — a neutral light canvas so hot (dark-red) dots read clearly.
+  // Swap here to try others: "dark_all", "rastertiles/voyager", "light_nolabels".
+  var BASEMAP = "light_all";
 
   var CA_COUNTIES = ["Alameda","Alpine","Amador","Butte","Calaveras","Colusa","Contra Costa","Del Norte","El Dorado","Fresno","Glenn","Humboldt","Imperial","Inyo","Kern","Kings","Lake","Lassen","Los Angeles","Madera","Marin","Mariposa","Mendocino","Merced","Modoc","Mono","Monterey","Napa","Nevada","Orange","Placer","Plumas","Riverside","Sacramento","San Benito","San Bernardino","San Diego","San Francisco","San Joaquin","San Luis Obispo","San Mateo","Santa Barbara","Santa Clara","Santa Cruz","Shasta","Sierra","Siskiyou","Solano","Sonoma","Stanislaus","Sutter","Tehama","Trinity","Tulare","Tuolumne","Ventura","Yolo","Yuba"];
 
@@ -45,7 +48,7 @@
   function isDark() { return document.documentElement.dataset.theme === "dark"; }
   function cssVar(n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
   function slugPath(slug) { return "/" + slug + "/"; }
-  function tileUrl() { return "https://{s}.basemaps.cartocdn.com/" + (isDark() ? "dark_all" : "light_all") + "/{z}/{x}/{y}{r}.png"; }
+  function tileUrl() { return "https://{s}.basemaps.cartocdn.com/" + BASEMAP + "/{z}/{x}/{y}{r}.png"; }
   function fillFor(d) { return window.CHTTempScale.tempColor(d.currentTemp) || cssVar("--cht-null"); }
   function isOver(d) { return d.status.hasData && d.status.over; }
   function fmt(n, dp) { return n == null || isNaN(n) ? "—" : (dp ? (+n).toFixed(dp) : Math.round(n)); }
@@ -62,7 +65,7 @@
   function strokeStyle(d) {
     return isOver(d)
       ? { color: cssVar("--cht-over"), weight: 3, opacity: 1 }
-      : { color: cssVar("--cht-marker-stroke"), weight: 1, opacity: 1 };
+      : { color: cssVar("--cht-map-stroke"), weight: 1, opacity: 1 };
   }
 
   /* Shared tooltip/popup body: name, place, current temp + as-of, avg summer max, AQI. */
@@ -115,7 +118,7 @@
   }
 
   function drawMap(boundaries) {
-    map = L.map("cht-map", { center: [37.2, -119.4], zoom: 6, scrollWheelZoom: true, zoomSnap: 0.5 });
+    map = L.map("cht-map", { center: [37.2, -119.4], zoom: 6, scrollWheelZoom: true });
     tiles = L.tileLayer(tileUrl(), {
       subdomains: "abcd", maxZoom: 18,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
@@ -131,7 +134,7 @@
     });
 
     polyGroup = L.geoJSON(boundaries, {
-      style: function () { return { weight: 1.2, color: cssVar("--cht-marker-stroke"), fillOpacity: 0.75 }; },
+      style: function () { return { weight: 1.2, color: cssVar("--cht-map-stroke"), fillOpacity: 0.75 }; },
       onEachFeature: function (feat, layer) {
         var d = bySlug[feat.properties.slug]; if (!d) return;
         var st = strokeStyle(d);
@@ -143,8 +146,7 @@
 
     applyMapFilter();
     circleGroup.addTo(map);
-    map.fitBounds(circleGroup.getBounds(), { padding: [10, 10], maxZoom: 8 });
-    map.setZoom(map.getZoom() + 0.5);
+    map.fitBounds(circleGroup.getBounds(), { padding: [10, 10], maxZoom: 7 });
     map.on("zoomend", updateMode);
     setTimeout(function () { map.invalidateSize(); }, 60);
     window.addEventListener("resize", function () { map.invalidateSize(); });

@@ -1,6 +1,6 @@
 {
  "meta": {
-  "n_facilities": 357,
+  "n_facilities": 355,
   "jurisdictions": [
    [
     "County",
@@ -20,7 +20,7 @@
    ],
    [
     "State",
-    84
+    82
    ]
   ],
   "threshold": {
@@ -646,50 +646,6 @@
    "baseline_summer_avg_high_f": 91.1,
    "threshold_f": 101.1,
    "cdcr": null
-  },
-  {
-   "id": 10000852,
-   "slug": "california-city-correctional-center-cac",
-   "name": "California City Correctional Center (Cac)",
-   "county": "Kern",
-   "city": "California City",
-   "address": "22844 Virginia Blvd, California City, CA 93505",
-   "jurisdiction": "State",
-   "security": "Medium",
-   "website": "https://www.cdcr.ca.gov/facility-locator/cac/",
-   "lat": 35.15325,
-   "lon": -117.85888,
-   "population": null,
-   "population_as_of": null,
-   "capacity": null,
-   "capacity_pct": null,
-   "baseline_summer_avg_high_f": 97.4,
-   "threshold_f": 107.4,
-   "cdcr": {
-    "code": "CAC",
-    "year_opened": null,
-    "planned_closure": null,
-    "air_cooling_pilot": null,
-    "cooling": {
-     "pct_units_refrigeration": null,
-     "pct_units_evaporation": null,
-     "pct_units_ventilation": null,
-     "n_housing_units": null
-    },
-    "demographics": {
-     "female_pct": 0,
-     "poc_pct": 0,
-     "age_over_50_pct": null
-    },
-    "medical": {
-     "mental_health_eop_pct": null,
-     "dpp_pct": null,
-     "high_risk_p1_pct": null,
-     "high_risk_p2_pct": null,
-     "medium_risk_pct": null
-    },
-    "phi_slug": null
-   }
   },
   {
    "id": 10001530,
@@ -1726,50 +1682,6 @@
    "baseline_summer_avg_high_f": 88.3,
    "threshold_f": 98.3,
    "cdcr": null
-  },
-  {
-   "id": 10002346,
-   "slug": "chuckawalla-valley-state-prison-cvsp",
-   "name": "Chuckawalla Valley State Prison (Cvsp)",
-   "county": "Riverside",
-   "city": "Blythe",
-   "address": "19025 Wiley'S Well Road, Blythe, CA 92225",
-   "jurisdiction": "State",
-   "security": "Medium",
-   "website": "https://www.cdcr.ca.gov/facility-locator/cvsp/",
-   "lat": 33.56258,
-   "lon": -114.90951,
-   "population": null,
-   "population_as_of": null,
-   "capacity": 1738,
-   "capacity_pct": null,
-   "baseline_summer_avg_high_f": 105.2,
-   "threshold_f": 115.2,
-   "cdcr": {
-    "code": "CVSP",
-    "year_opened": 1988,
-    "planned_closure": null,
-    "air_cooling_pilot": null,
-    "cooling": {
-     "pct_units_refrigeration": null,
-     "pct_units_evaporation": null,
-     "pct_units_ventilation": null,
-     "n_housing_units": null
-    },
-    "demographics": {
-     "female_pct": 0,
-     "poc_pct": 0,
-     "age_over_50_pct": null
-    },
-    "medical": {
-     "mental_health_eop_pct": null,
-     "dpp_pct": null,
-     "high_risk_p1_pct": null,
-     "high_risk_p2_pct": null,
-     "medium_risk_pct": null
-    },
-    "phi_slug": null
-   }
   },
   {
    "id": 10006487,

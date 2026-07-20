@@ -18,7 +18,8 @@
   --cht-over:   #d63b2f;  /* over-threshold ring + badge */
   --cht-under:  #3a7d44;  /* under-threshold badge */
   --cht-null:   #b9b4ab;  /* no data */
-  --cht-marker-stroke: rgba(0,0,0,0.55);
+  --cht-marker-stroke: rgba(0,0,0,0.55);  /* legend/table swatch borders (on dark UI) */
+  --cht-map-stroke: rgba(0,0,0,0.6);      /* dot/polygon outlines on the light map canvas */
 
   /* cooling-pie categories (CDCR only) */
   --cht-cool-refrig: #2f6fd0;
@@ -39,6 +40,7 @@
   --cht-under:  #5fae6b;
   --cht-null:   #6f6a63;
   --cht-marker-stroke: rgba(255,255,255,0.7);
+  --cht-map-stroke: rgba(0,0,0,0.6);   /* map canvas stays light even in the dark UI */
 }
 
 * { box-sizing: border-box; }
@@ -87,6 +89,8 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 .cht-foot__inner { display: flex; justify-content: space-between; align-items: center; gap: 0.6rem 1.4rem; flex-wrap: wrap; font-size: 0.8rem; color: var(--secondary); }
 .cht-foot__inner a { color: var(--secondary); }
 .cht-foot__asof { color: var(--secondary); white-space: nowrap; }
+.cht-foot__contact { margin-left: 0.6rem; padding-left: 0.7rem; border-left: 1px solid var(--border); }
+@media (max-width: 640px) { .cht-foot__contact { margin-left: 0; padding-left: 0; border-left: 0; display: block; margin-top: 0.2rem; } }
 
 /* ---- Alert bar (sticks above the header; flags facilities 10°F+ above normal) ---- */
 .cht-alert {
@@ -177,8 +181,9 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 .cht-clear[hidden] { display: none; }
 
 /* ---- Map + Leaflet theming (ported .phi-ltip) ---- */
-.cht-map, .cht-detail-map { background: var(--code-bg); }
-.leaflet-container { font-family: inherit; font-size: 12px; background: var(--code-bg); }
+/* Light neutral behind the (light) basemap so tile seams don't show a dark line. */
+.cht-map, .cht-detail-map { background: #e7e5e0; }
+.leaflet-container { font-family: inherit; font-size: 12px; background: #e7e5e0; }
 .leaflet-bar { border: 1px solid var(--border); box-shadow: none; }
 .leaflet-bar a, .leaflet-touch .leaflet-bar a { background: var(--entry); color: var(--primary); border-bottom: 1px solid var(--border); }
 .leaflet-bar a:hover { background: var(--code-bg); color: var(--primary); }
@@ -261,6 +266,7 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 .cht-meta__grid dt { color: var(--secondary); margin: 0; }
 .cht-meta__grid dd { margin: 0; color: var(--primary); font-variant-numeric: tabular-nums; text-align: right; }
 .cht-meta__cap { color: var(--secondary); font-style: italic; }
+.cht-meta__grid .cht-closing { color: var(--cht-over); font-weight: 600; }
 
 /* Status hero */
 .cht-hero {

@@ -69,6 +69,7 @@
               <div><dt>Jurisdiction</dt><dd>{{ with $f.jurisdiction }}{{ . }}{{ else }}Unknown{{ end }}</dd></div>
               <div><dt>Security level</dt><dd>{{ if and $f.security (ne $f.security "Not Available") }}{{ $f.security }}{{ else }}Unknown{{ end }}</dd></div>
               {{- if $cdcr }}<div><dt>Year opened</dt><dd>{{ with $cdcr.year_opened }}{{ . }}{{ else }}Unknown{{ end }}</dd></div>{{ end }}
+              {{- if and $cdcr $cdcr.planned_closure }}<div><dt>Status</dt><dd class="cht-closing">Scheduled to close</dd></div>{{ end }}
               <div><dt>Population{{ if $f.population }} <span class="cht-meta__cap">({{ with $f.population_as_of }}{{ . }}{{ else }}{{ $vint.population_cdcr_as_of }}{{ end }})</span>{{ end }}</dt>
                 <dd>{{ if $f.population }}{{ lang.FormatNumberCustom 0 $f.population }}{{ with $f.capacity_pct }} <em class="cht-meta__cap">({{ printf "%.0f%%" (mul . 100.0) }} of capacity)</em>{{ end }}{{ else }}Unknown{{ end }}</dd></div>
               {{- /* Raw FEMA capacity is null for CDCR; derive it from population ÷ occupancy rate. */ -}}

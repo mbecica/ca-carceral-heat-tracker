@@ -64,6 +64,13 @@ BASELINE_PERIOD = "1991-2020"
 FACILITY_LIST_AS_OF = "2025-07"   # HiFLD/FEMA download vintage
 COOLING_AS_OF = "2025-12"         # CDCR Air Cooling Pilot Supplemental Report (Jan 2026) + Reuters FOIA 2025
 
+# Deactivated CDCR prisons to exclude from the tracker (still in the HiFLD list but
+# no longer operating, so they carry no current population / CCHCS / cooling data).
+DEACTIVATED = {
+    10000852,   # California City Correctional Center (CAC) — deactivated 2024
+    10002346,   # Chuckawalla Valley State Prison (CVSP) — winding down
+}
+
 
 def slugify(name):
     s = str(name).lower().replace("&", " and ")
@@ -301,6 +308,9 @@ def main():
     fac = pd.read_csv(FAC_CSV)
     fac = fac[fac["status"] == "OPEN"].copy()
     fac["facilityid"] = fac["facilityid"].astype(int)
+    # Drop CDCR prisons that have been deactivated / are no longer operating, so
+    # they don't surface with empty current data (CAC deactivated 2024; CVSP winding down).
+    fac = fac[~fac["facilityid"].isin(DEACTIVATED)].copy()
     print(f"{len(fac)} OPEN facilities from {FAC_CSV.name}")
 
     cdcr = pd.read_csv(CDCR_CSV)

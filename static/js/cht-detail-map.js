@@ -13,11 +13,12 @@
   var FACILITIES_URL = "/data/facilities.json";
   var BOUND_URL = "/data/facility_boundaries.geojson";
   var POLY_ZOOM = 11, DOT_R = 5;
+  var BASEMAP = "light_all";   // keep in sync with cht-statewide.js
 
   function isMobile() { return window.matchMedia && window.matchMedia("(max-width: 820px)").matches; }
   function isDark() { return document.documentElement.dataset.theme === "dark"; }
   function cssVar(n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
-  function tileUrl() { return "https://{s}.basemaps.cartocdn.com/" + (isDark() ? "dark_all" : "light_all") + "/{z}/{x}/{y}{r}.png"; }
+  function tileUrl() { return "https://{s}.basemaps.cartocdn.com/" + BASEMAP + "/{z}/{x}/{y}{r}.png"; }
   function slugPath(slug) { return "/" + slug + "/"; }
   function ready(fn) { document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", fn) : fn(); }
   function fmt(n) { return n == null || isNaN(n) ? "—" : Math.round(n); }
@@ -66,7 +67,7 @@
       function isOver(d) { return d.status.hasData && d.status.over; }
       function stroke(d) {
         if (d.slug === activeSlug) return { color: cssVar("--accent"), weight: 3.5 };
-        return isOver(d) ? { color: cssVar("--cht-over"), weight: 3 } : { color: cssVar("--cht-marker-stroke"), weight: 1.2 };
+        return isOver(d) ? { color: cssVar("--cht-over"), weight: 3 } : { color: cssVar("--cht-map-stroke"), weight: 1.2 };
       }
       function tip(d) {
         var s = d.status;
@@ -78,7 +79,7 @@
           (d.slug === activeSlug ? "" : '<span class="cht-ltip__sub">Click to view this profile</span>');
       }
 
-      var map = L.map("cht-detail-map", { center: [active.lat, active.lon], zoom: 6, scrollWheelZoom: true, zoomSnap: 0.5 });
+      var map = L.map("cht-detail-map", { center: [active.lat, active.lon], zoom: 6, scrollWheelZoom: true });
       map.zoomControl.setPosition("topright");
       var tiles = L.tileLayer(tileUrl(), {
         subdomains: "abcd", maxZoom: 19,

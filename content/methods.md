@@ -17,14 +17,16 @@ comparison line is:
 > **the facility's 1991–2020 June–August average daily high, plus 10°F.**
 
 A day whose high reaches that line — 10°F or more above the local summer normal — is what the
-tracker flags.
+tracker flags. It is a single-day signal about one place on one day; it is not a "heatwave,"
+which means two or more consecutive days of above-average heat.
 
-**Why +10°F, and why relative to each place.** This follows Skarha et al. (2023), a
+**Why +10°F, and why relative to each place.** This follows [Skarha et al.
+(2023)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0281389), a
 case-crossover study of heat-related mortality in U.S. state and private prisons (2001–2019).
-They found that for every 10°F a day rose above a prison's own mean summer temperature, the
-risk of death rose about 5%. Anchoring to each facility's own normal is what makes the metric
-meaningful everywhere: a 95°F day is unremarkable in Blythe but a genuine health emergency in
-Crescent City, and only a relative comparison captures that.
+For every 10°F a day's high rose above a prison's own average summer high, the risk of death
+rose about 5% (5.2%; 95% CI 1.5–9.0%). Anchoring to each facility's own normal is what makes
+the metric meaningful everywhere: a 95°F day is unremarkable in Blythe but a genuine health
+emergency in Crescent City, and only a relative comparison captures that.
 
 **Why daily maximum temperature and not heat index.** Skarha et al. used daily maximum
 temperature, and tested heat index and wet-bulb globe temperature as alternatives, finding
@@ -46,13 +48,15 @@ All temperature data is **observation-anchored** — drawn from station-based pr
 directly, rather than from a global reanalysis model. This matters in California: reanalysis
 models (such as ERA5) do not resolve the marine layer that cools the coast and the Salinas
 Valley, and read some facilities 5–10°F too warm. The products below capture those
-microclimates.
+microclimates. The two gridded climate products — PRISM and RTMA/URMA — are read through
+[Google Earth Engine](https://earthengine.google.com/); the current-conditions readings come
+straight from the National Weather Service and EPA.
 
 | What | Source | Resolution | Role |
 |---|---|---|---|
-| **Baseline** — 1991–2020 Jun–Aug mean daily high, per facility | [PRISM Climate Group 30-year Normals](https://prism.oregonstate.edu/normals/) (`tmax`), Oregon State University | 800 m | Sets each facility's comparison line (baseline + 10°F) |
+| **Baseline** — 1991–2020 Jun–Aug mean daily high, per facility | [PRISM Climate Group 30-year Normals](https://prism.oregonstate.edu/normals/) (`tmax`), Oregon State University, via Google Earth Engine | 800 m | Sets each facility's comparison line (baseline + 10°F) |
 | **Current-day high** — today's expected high | [NWS National Digital Forecast Database](https://weather-gov.github.io/api/gridpoints) via `api.weather.gov` | ~2.5 km | Same-day reading |
-| **Last 14 days, hourly** and the **10-year historic band** (2016–2025) | NOAA [Real-Time / Un-Restricted Mesoscale Analysis (RTMA/URMA)](https://www.nco.ncep.noaa.gov/pmb/products/rtma/) | 2.5 km hourly | Detail-page chart |
+| **Last 14 days, hourly** and the **10-year historic band** (2016–2025) | NOAA [Real-Time / Un-Restricted Mesoscale Analysis (RTMA/URMA)](https://www.nco.ncep.noaa.gov/pmb/products/rtma/), via Google Earth Engine | 2.5 km hourly | Detail-page chart |
 | **Temperature now** (detail page) | Nearest [NWS](https://www.weather.gov/documentation/services-web-api) observation station, fetched live in your browser | station | Current-conditions tile |
 | **Current air quality** | [AirNow](https://docs.airnowapi.org/) (EPA, monitor-based NowCast AQI) | monitor network | AQI tile |
 | **Facilities** — locations, jurisdiction, boundaries | FEMA / HIFLD "Prison Boundaries" (July 2025), with CDCR additions | — | Which facilities, where |

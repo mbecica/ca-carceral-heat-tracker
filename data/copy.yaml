@@ -8,50 +8,64 @@
 #   {avg} — a statewide CDCR average count (e.g. "3,116")
 #   {pct} — a statewide CDCR average percentage (e.g. "75%")
 #
-# Every claim that needs a source carries its citation inline, in parentheses.
-# See docs/copy-deck.md for where each tooltip appears and its source notes.
+# Voice: see docs/website-voice-profile.md. Vulnerability-panel tooltips lead
+# with the heat-risk mechanism (told in the carceral setting, with its source)
+# and close with the statewide average as the final sentence.
 # ============================================================================
 tooltips:
   # Detail page — hourly chart (ⓘ next to "Hourly temperatures")
   chart: >-
     The shaded band shows the minimum and maximum temperatures recorded in this
     same two-week window across 2016–2025, and the median is the dashed line.
-    At 10°F above the average summer maximum, the risk of death rises about 5%
+    At 10°F above the average summer maximum, all-cause mortality rises 5.2%
     (Skarha et al. 2023).
 
   # Detail page — CDCR cooling section (ⓘ next to "Cooling Infrastructure in Housing Units")
-  cooling: "Reported by CDCR as of January 2026."
+  cooling: "From CDCR as of January 2026."
 
   # Detail page — CDCR "Heat Vulnerabilities" section (ⓘ next to the heading)
   vulnerabilities_intro: >-
     These are the shares of people held here who face elevated heat-health risk;
-    hover each for the statewide CDCR average and why it matters.
+    hover on each to learn why that demographic matters for heat risk and how this
+    prison compares with the rest of CDCR.
 
   # Detail page — the vulnerability "madlib" numbers (each is an underlined stat)
-  population: "Across CDCR prisons, an average of {avg} people are held per facility."
+  population: "An average of {avg} people are incarcerated per CDCR facility."
 
   people_of_color: >-
-    CDCR prisons house an average of {pct} people of color. People of color face
-    higher thermal inequity and more often arrive already carrying heat-vulnerable
-    illnesses (Hamstead 2023; PPIC 2024).
+    People of color face more heat inequity in their home communities and more
+    often enter prison living with heat-vulnerable illnesses (Hamstead 2023;
+    Jackson et al. 2022). On average in 2025, {pct} of incarcerated people in CDCR
+    prisons are people of color.
 
   age_over_50: >-
-    Across CDCR prisons, an average of {pct} are 50 or older. Older age weakens the
-    body's ability to regulate heat and raises cardiovascular strain (Singh et al. 2024).
+    Older age weakens the body's ability to regulate heat and adds cardiovascular
+    strain. Because incarceration accelerates aging, these effects set in nearer 50
+    than the usual 65 (Singh et al. 2024; Novisky 2025). On average in 2025, {pct}
+    of incarcerated people in CDCR prisons are 50 or older.
 
   mental_health: >-
-    An average of {pct} across CDCR prisons receive enhanced outpatient mental-health
-    care. The psychotropic medications this care often involves impair the body's
-    ability to cool itself (Singh et al. 2024; Brunn et al. 2025).
+    The psychotropic medications involuntarily prescribed for mental-health care in
+    prisons impair the body's ability to cool itself (Singh et al. 2024; Brunn et
+    al. 2025). CDCR does not release data on the heat-risk population taking these
+    medications, so this enhanced-outpatient-care share serves as a heat-vulnerability
+    proxy, alongside the medical-risk category. On average in 2025, {pct} of
+    incarcerated people in CDCR prisons receive enhanced outpatient mental-health care.
 
   disability: >-
-    An average of {pct} across CDCR prisons are in the disability placement program.
-    Disabilities can limit a person's ability to sense, avoid, or escape dangerous
-    heat (Singh et al. 2024).
+    Disability can dull the body's ability to sense heat and to sweat. People with
+    limited mobility often cannot reach water or a cooler space, and that movement is
+    more restricted in carceral settings (Brunn et al. 2025). On average in 2025,
+    {pct} of incarcerated people in CDCR prisons are in the disability placement program.
 
   medical_risk: >-
-    An average of {pct} across CDCR prisons fall in a medium or higher medical-risk
-    category. Chronic illness impairs thermoregulation and raises the risk of heat
-    death (CCHCS 2025; Singh et al. 2024).
+    Chronic illness impairs the body's ability to regulate heat and raises the risk of
+    heat death (CCHCS 2025; Singh et al. 2024). CDCR has not published its own
+    heat-vulnerable counts, so this medium-or-higher medical-risk share serves as a
+    heat-vulnerability proxy. On average in 2025, {pct} of incarcerated people in CDCR
+    prisons fall in a medium or higher medical-risk category.
 
-  womens_facility: "This is a women's facility."
+  womens_facility: >-
+    This is a women's facility. Women's bodies cool themselves less efficiently as they
+    age, and heat is especially dangerous for menopausal women in prison (Leach et al.
+    2024; Kerrison 2026).

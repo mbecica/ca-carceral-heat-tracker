@@ -138,8 +138,7 @@
     if (!el) return;
     var items = ['<span class="cht-chart-legend__item"><span class="cht-chart-legend__swatch" style="background:var(--cht-over)"></span>Hourly °F</span>'];
     if (hasBand) items.push('<span class="cht-chart-legend__item"><span class="cht-chart-legend__band"></span>2016–2025 range (median dashed)</span>');
-    if (hasThresh) items.push('<span class="cht-chart-legend__item"><span class="cht-chart-legend__swatch" style="background:var(--primary)"></span>10°F above average</span>');
-    el.innerHTML = items.join("");
+    el.innerHTML = items.join("");   // the "10°F above average" line is labeled on the chart itself
   }
 
   window.CHTChart = { draw: draw, bandIndex: bandIndex };
