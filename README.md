@@ -5,8 +5,7 @@ carceral facility, relative to that facility's own long-term summer normal — w
 two weeks of hourly temperature for context. A companion to the
 [Prison Heat Index](https://marybecica.com/prison-heat-index/).
 
-> **Status: in development.** The data pipeline and documentation are in place; the Hugo
-> front-end and the scheduled live-data job are not built yet. Not deployed.
+> **Status: in development — prototype phase.**
 
 ## Repository layout
 
@@ -16,9 +15,14 @@ two weeks of hourly temperature for context. A companion to the
   open-data repo. A live fetch job (`fetch_current.py`) will join them.
 - **`static/data/`** — generated data the site serves (`facilities.json`, boundaries, and
   per-facility band/live files).
-- **`content/`** — per-facility page stubs.
+- **`content/`** — per-facility page stubs + the methods page.
+- **`layouts/`** + **`static/{css,js}/`** — the standalone Hugo front-end (`cht-` CSS namespace):
+  statewide temperature map + jurisdiction filter + sortable table, per-facility detail pages with
+  a D3 14-day chart, and the methods page. Status / °F-over is computed in the browser from the raw
+  JSON against `threshold_f` (`static/js/cht-status.js`).
 - [`METHODS.md`](METHODS.md) — data sources and methodology (seeds the public methods page).
 - [`REFRESH.md`](REFRESH.md) — how to refresh the data.
+- [`DEPLOY.md`](DEPLOY.md) — Cloudflare Pages + subdomain setup.
 
 ## Data
 

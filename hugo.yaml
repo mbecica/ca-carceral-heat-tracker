@@ -1,0 +1,37 @@
+# Standalone Hugo site for the CA Carceral Facility Heat Tracker.
+# No theme — this repo owns its whole shell (layouts/ + static/), ported from the
+# Prison Heat Index into the `cht-` CSS namespace. See SCOPE_AND_PLAN.md §3.
+baseURL: "https://heat.marybecica.com/"
+title: "California Carceral Facility Heat Tracker"
+locale: en-us
+enableEmoji: true
+
+# The app is a set of standalone full-page dashboards, not a blog: drop the
+# feeds/taxonomy machinery so Hugo doesn't emit RSS/tag/category pages.
+disableKinds:
+  - taxonomy
+  - term
+  - RSS
+  - sitemap
+
+# The 357 facility pages are generated from committed content stubs; don't let a
+# stray future-dated or draft stub vanish from the build.
+buildFuture: true
+buildDrafts: false
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+markup:
+  goldmark:
+    renderer:
+      # The methods page is authored in Markdown with occasional inline HTML.
+      unsafe: true
+  tableOfContents:
+    startLevel: 2
+    endLevel: 3
+
+params:
+  description: "How hot it is right now at every active California carceral facility, relative to that facility's own long-term summer normal."
+  defaultTheme: auto        # light/dark follows the visitor's system setting, with a manual toggle

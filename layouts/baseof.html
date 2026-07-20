@@ -1,0 +1,14 @@
+{{- /* Standalone shell for the Heat Tracker app: self-contained <head> with a
+       flash-free theme init, no site header/nav, so each page reads as its own
+       dashboard. Every layout renders its own footer via the cht-footer partial.
+       Namespace `cht-`. */ -}}
+<!DOCTYPE html>
+{{- /* Dark theme only for now (no toggle). The JS map code reads data-theme. */ -}}
+<html lang="{{ site.Language.Lang }}" dir="auto" data-theme="dark">
+<head>
+  {{- partial "head.html" . }}
+</head>
+<body id="top" class="cht-standalone">
+  {{- block "main" . }}{{ end }}
+</body>
+</html>

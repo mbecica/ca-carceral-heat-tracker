@@ -1,2 +1,7 @@
+# Cloudflare Pages redirects.
+# When build_facilities.py removes a closed facility, append a line here pointing
+# its old /{slug}/ URL to the home page so external links don't 404. Example:
+#   /some-closed-facility/  /  301
+
 # BEGIN retired facility redirects (managed by build_facilities.py)
 # END retired facility redirects

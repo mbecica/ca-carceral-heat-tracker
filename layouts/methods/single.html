@@ -1,0 +1,24 @@
+{{- /* Methods & Sources doc page. Standalone shell, scrolling body; renders the
+       Markdown body of content/methods.md. */ -}}
+{{- define "main" }}
+<div class="cht-dash cht-dash--doc">
+  <header class="cht-dash__bar">
+    <div class="cht-dash__brand">
+      <a class="cht-dash__title-link" href="{{ "/" | relURL }}">California Carceral Facility Heat Tracker</a>
+      <span class="cht-dash__sub">Methods &amp; Data Sources</span>
+    </div>
+    <div class="cht-dash__actions">
+      <a class="cht-dash__back" href="{{ "/" | relURL }}">&larr; Back to statewide view</a>
+    </div>
+  </header>
+
+  <div class="cht-doc">
+    <article class="cht-app">
+      <h1 class="cht-doc__title">{{ .Title }}</h1>
+      {{ .Content }}
+    </article>
+  </div>
+
+  <footer class="cht-dash__foot">{{ partial "cht-footer.html" . }}</footer>
+</div>
+{{- end }}

@@ -1,0 +1,191 @@
+{{- /* Per-facility detail page. Static fields (address, overview grid, CDCR
+       cooling pie + vulnerability madlib) are server-rendered from
+       static/data/facilities.json at build. Live conditions (status hero,
+       current-temp + AQI tiles, 14-day chart) are filled client-side from
+       recent/{slug}.json + bands/{slug}.json + a keyless NWS top-up, with the
+       threshold applied in the browser (cht-status.js). */ -}}
+{{- define "main" }}
+{{- $all := os.ReadFile "static/data/facilities.json" | transform.Unmarshal -}}
+{{- $slug := .Params.slug -}}
+{{- $matches := where $all.facilities "slug" $slug -}}
+{{- if not $matches }}
+<div class="cht-dash"><div class="cht-doc"><article class="cht-app"><p>Facility profile not found. <a href="{{ "/" | relURL }}">&larr; Back to the statewide view</a></p></article></div></div>
+{{- else -}}
+{{- $f := index $matches 0 -}}
+{{- $cdcr := $f.cdcr -}}
+{{- $vint := $all.meta.vintages -}}
+{{- $copy := hugo.Data.copy.tooltips -}}
+
+{{- /* State averages across CDCR facilities, for the madlib vs-average tooltips. */ -}}
+{{- $cd := where $all.facilities "cdcr" "!=" nil -}}
+{{- $n := len $cd }}{{ $sPoc := 0.0 }}{{ $sAge := 0.0 }}{{ $sEop := 0.0 }}{{ $sDpp := 0.0 }}{{ $sHi := 0.0 }}{{ $sPop := 0.0 }}
+{{- range $cd -}}
+  {{- $sPoc = add $sPoc (default 0.0 .cdcr.demographics.poc_pct) -}}
+  {{- $sAge = add $sAge (default 0.0 .cdcr.demographics.age_over_50_pct) -}}
+  {{- $sEop = add $sEop (default 0.0 .cdcr.medical.mental_health_eop_pct) -}}
+  {{- $sDpp = add $sDpp (default 0.0 .cdcr.medical.dpp_pct) -}}
+  {{- $sHi = add $sHi (add (default 0.0 .cdcr.medical.medium_risk_pct) (add (default 0.0 .cdcr.medical.high_risk_p1_pct) (default 0.0 .cdcr.medical.high_risk_p2_pct))) -}}
+  {{- $sPop = add $sPop (default 0.0 .population) -}}
+{{- end -}}
+{{- $avgPoc := cond (gt $n 0) (div $sPoc $n) 0.0 }}{{ $avgAge := cond (gt $n 0) (div $sAge $n) 0.0 }}
+{{- $avgEop := cond (gt $n 0) (div $sEop $n) 0.0 }}{{ $avgDpp := cond (gt $n 0) (div $sDpp $n) 0.0 }}
+{{- $avgHi := cond (gt $n 0) (div $sHi $n) 0.0 }}{{ $avgPop := cond (gt $n 0) (div $sPop $n) 0.0 }}
+
+<div class="cht-dash">
+  <header class="cht-dash__bar">
+    <div class="cht-dash__brand">
+      <a class="cht-dash__title-link" href="{{ "/" | relURL }}">California Carceral Facility Heat Tracker</a>
+      <a class="cht-dash__back" href="{{ "/" | relURL }}">&larr; Back to statewide view</a>
+    </div>
+    <div class="cht-dash__actions">
+      <button type="button" class="cht-fdrop__btn cht-download-btn" id="cht-download" title="Download this facility's data as CSV">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        CSV
+      </button>
+    </div>
+  </header>
+
+  <div class="cht-dash__body">
+    <section class="cht-dash__map cht-dash__map--detail" aria-label="Map centered on {{ $f.name }}">
+      <div id="cht-detail-map" class="cht-detail-map" data-slug="{{ $f.slug }}" role="img"
+           aria-label="Map of California's carceral facilities centered on {{ $f.name }}; every facility stays clickable so you can open another profile."></div>
+    </section>
+
+    <aside class="cht-dash__side cht-dash__side--profile">
+      <article class="cht-app"
+               data-slug="{{ $f.slug }}"
+               data-lat="{{ $f.lat }}" data-lon="{{ $f.lon }}"
+               data-threshold="{{ $f.threshold_f }}"
+               data-baseline="{{ $f.baseline_summer_avg_high_f }}">
+        <h1 class="cht-profile__title">{{ if and $cdcr $cdcr.code }}{{ $f.name | replaceRE `\s*\([^)]*\)\s*$` "" }} <span class="cht-tcode">{{ $cdcr.code }}</span>{{ else }}{{ $f.name }}{{ end }}</h1>
+        <p class="cht-meta__addr">
+          {{- with $f.address }}<a href="{{ printf "https://www.google.com/maps/search/?%s" (querify "api" "1" "query" .) | safeURL }}" rel="noopener" target="_blank">{{ . }}</a>
+          {{- else }}<span class="cht-na">Address not reported</span>{{ end -}}
+        </p>
+
+        <div class="cht-top">
+          <div class="cht-idblock">
+            <dl class="cht-meta__grid">
+              <div><dt>Jurisdiction</dt><dd>{{ with $f.jurisdiction }}{{ . }}{{ else }}Unknown{{ end }}</dd></div>
+              <div><dt>Security level</dt><dd>{{ if and $f.security (ne $f.security "Not Available") }}{{ $f.security }}{{ else }}Unknown{{ end }}</dd></div>
+              {{- if $cdcr }}<div><dt>Year opened</dt><dd>{{ with $cdcr.year_opened }}{{ . }}{{ else }}Unknown{{ end }}</dd></div>{{ end }}
+              <div><dt>Population{{ if $f.population }} <span class="cht-meta__cap">({{ with $f.population_as_of }}{{ . }}{{ else }}{{ $vint.population_cdcr_as_of }}{{ end }})</span>{{ end }}</dt>
+                <dd>{{ if $f.population }}{{ lang.FormatNumberCustom 0 $f.population }}{{ with $f.capacity_pct }} <em class="cht-meta__cap">({{ printf "%.0f%%" (mul . 100.0) }} of capacity)</em>{{ end }}{{ else }}Unknown{{ end }}</dd></div>
+              {{- /* Raw FEMA capacity is null for CDCR; derive it from population ÷ occupancy rate. */ -}}
+              {{- $designCap := $f.capacity }}{{ if and (not $f.capacity) $f.population $f.capacity_pct (gt $f.capacity_pct 0.0) }}{{ $designCap = math.Round (div $f.population $f.capacity_pct) }}{{ end }}
+              <div><dt>Design capacity</dt><dd>{{ with $designCap }}{{ lang.FormatNumberCustom 0 . }}{{ else }}Unknown{{ end }}</dd></div>
+              <div><dt>Avg. summer max</dt><dd>{{ with $f.baseline_summer_avg_high_f }}{{ printf "%.0f°F" . }}{{ else }}Unknown{{ end }}</dd></div>
+              {{- with $f.website }}
+              <div><dt>Website</dt><dd><a href="{{ . }}" rel="noopener" target="_blank">Facility website ↗</a></dd></div>
+              {{- end }}
+            </dl>
+            {{- if and $cdcr $cdcr.air_cooling_pilot }}
+            <div class="cht-flags"><span class="cht-flag"><span class="cht-flag__dot"></span>In CDCR’s Air Cooling Pilot</span></div>
+            {{- end }}
+          </div>
+        </div>
+
+        {{- /* Current conditions tiles */ -}}
+        <div class="cht-tiles">
+          <div class="cht-tile">
+            <div class="cht-tile__label">Temperature now</div>
+            <div class="cht-tile__val" id="cht-temp-now">—</div>
+            <div class="cht-tile__sub" id="cht-temp-sub">Loading…</div>
+          </div>
+          <div class="cht-tile" id="cht-aqi-tile" hidden>
+            <div class="cht-tile__label">Air quality now</div>
+            <div class="cht-tile__val"><span class="cht-aqi-dot" id="cht-aqi-dot"></span><span id="cht-aqi-val">—</span></div>
+            <div class="cht-tile__sub" id="cht-aqi-sub"></div>
+          </div>
+        </div>
+
+        {{- /* NWS forecast link (moved up per feedback) */ -}}
+        <div class="cht-actions">
+          <a class="cht-linkout" href="https://forecast.weather.gov/MapClick.php?lat={{ $f.lat }}&lon={{ $f.lon }}" rel="noopener" target="_blank">
+            7-day forecast for this location
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        {{- /* Hourly chart with a time-range toggle (default: last week) */ -}}
+        <section class="cht-comp">
+          <div class="cht-comp__head">
+            <h3 class="cht-comp__title">Hourly temperatures
+              <span class="cht-info" tabindex="0" data-tip="{{ $copy.chart }}" aria-label="{{ $copy.chart }}">i</span>
+            </h3>
+            <div class="cht-range" role="group" aria-label="Time range">
+              <button type="button" class="cht-range__btn" data-range="7" aria-pressed="true">Last week</button>
+              <button type="button" class="cht-range__btn" data-range="14" aria-pressed="false">Last 14 days</button>
+            </div>
+          </div>
+          <div class="cht-chart-wrap">
+            <div class="cht-chart-legend" id="cht-chart-legend"></div>
+            <div class="cht-chart" id="cht-chart" role="img" aria-label="Hourly temperature for {{ $f.name }}, with the above-average line and the historic range for this window."></div>
+          </div>
+        </section>
+
+        {{- /* CDCR-only extras: cooling pie + vulnerability madlib */ -}}
+        {{- if $cdcr }}
+        {{- $c := $cdcr.cooling }}{{ $dem := $cdcr.demographics }}{{ $med := $cdcr.medical }}
+        {{- if $c.n_housing_units }}
+        {{- $r := mul (default 0.0 $c.pct_units_refrigeration) 100.0 }}{{ $e := mul (default 0.0 $c.pct_units_evaporation) 100.0 }}{{ $vn := mul (default 0.0 $c.pct_units_ventilation) 100.0 }}{{ $re := add $r $e }}
+        <section class="cht-comp">
+          <h3 class="cht-comp__title">Cooling Infrastructure in Housing Units
+            <span class="cht-info" tabindex="0" data-tip="{{ $copy.cooling }}" aria-label="{{ $copy.cooling }}">i</span>
+          </h3>
+          <div class="cht-exp">
+            <div class="cht-pie-wrap">
+              <div>
+                <div class="cht-pie" style="background:conic-gradient(var(--cht-cool-refrig) 0 {{ $r }}%, var(--cht-cool-evap) {{ $r }}% {{ $re }}%, var(--cht-cool-vent) {{ $re }}% 100%)" role="img" aria-label="Cooling mix of housing units"></div>
+                <p class="cht-pie-total"><strong>{{ $c.n_housing_units }}</strong> housing units</p>
+              </div>
+              <ul class="cht-pie-legend">
+                <li><span class="cht-pie-sw" style="background:var(--cht-cool-refrig)"></span>Refrigerated A/C: {{ printf "%.0f%%" $r }}</li>
+                <li><span class="cht-pie-sw" style="background:var(--cht-cool-evap)"></span>Evaporative (“swamp”): {{ printf "%.0f%%" $e }}</li>
+                <li><span class="cht-pie-sw" style="background:var(--cht-cool-vent)"></span>No cooling: {{ printf "%.0f%%" $vn }}</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        {{- end }}
+
+        {{- if $f.population }}
+        {{- $highMed := add (default 0.0 $med.medium_risk_pct) (add (default 0.0 $med.high_risk_p1_pct) (default 0.0 $med.high_risk_p2_pct)) }}
+        {{- $tipPop := replace $copy.population "{avg}" (lang.FormatNumberCustom 0 $avgPop) }}
+        {{- $tipPoc := replace $copy.people_of_color "{pct}" (printf "%.0f%%" $avgPoc) }}
+        {{- $tipAge := replace $copy.age_over_50 "{pct}" (printf "%.0f%%" $avgAge) }}
+        {{- $tipEop := replace $copy.mental_health "{pct}" (printf "%.0f%%" $avgEop) }}
+        {{- $tipDpp := replace $copy.disability "{pct}" (printf "%.0f%%" $avgDpp) }}
+        {{- $tipHi := replace $copy.medical_risk "{pct}" (printf "%.0f%%" $avgHi) }}
+        <section class="cht-comp">
+          <h3 class="cht-comp__title">Heat Vulnerabilities
+            <span class="cht-info" tabindex="0" data-tip="{{ $copy.vulnerabilities_intro }}" aria-label="{{ $copy.vulnerabilities_intro }}">i</span>
+          </h3>
+          <p class="cht-madlib">Of the {{ partial "cht-stat.html" (dict "display" (lang.FormatNumberCustom 0 $f.population) "tip" $tipPop) }} people held here,
+            {{ partial "cht-stat.html" (dict "value" $dem.poc_pct "tip" $tipPoc) }} are people of color and
+            {{ partial "cht-stat.html" (dict "value" $dem.age_over_50_pct "tip" $tipAge) }} are 50 or older.
+            {{ partial "cht-stat.html" (dict "value" $med.mental_health_eop_pct "tip" $tipEop) }} receive enhanced outpatient mental-health care,
+            {{ partial "cht-stat.html" (dict "value" $med.dpp_pct "tip" $tipDpp) }} have a disability accommodation, and
+            {{ partial "cht-stat.html" (dict "value" $highMed "tip" $tipHi) }} fall in a medium or higher medical-risk category.
+            {{- if gt (default 0.0 $dem.female_pct) 50.0 }}
+            {{ partial "cht-stat.html" (dict "value" $dem.female_pct "tip" $copy.womens_facility) }} are women.
+            {{- end }}</p>
+        </section>
+        {{- end }}
+        {{- end }}
+      </article>
+    </aside>
+  </div>
+
+  <footer class="cht-dash__foot">{{ partial "cht-footer.html" . }}</footer>
+</div>
+{{- end }}
+
+<script src="{{ "js/leaflet.js" | relURL }}"></script>
+<script src="{{ "js/d3.min.js" | relURL }}"></script>
+<script src="{{ "js/cht-temp-scale.js" | relURL }}"></script>
+<script src="{{ "js/cht-status.js" | relURL }}"></script>
+<script src="{{ "js/cht-chart.js" | relURL }}" defer></script>
+<script src="{{ "js/cht-detail.js" | relURL }}" defer></script>
+<script src="{{ "js/cht-detail-map.js" | relURL }}" defer></script>
+{{- end }}

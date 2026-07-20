@@ -1,0 +1,57 @@
+# ============================================================================
+# User-facing tooltip copy for the CA Carceral Facility Heat Tracker.
+#
+# This is the single home for tooltip prose. Edit the text here (in cowork or
+# anywhere) — the site reads it on rebuild, no template changes needed.
+#
+# Placeholders filled in at render time (leave them in place):
+#   {avg} — a statewide CDCR average count (e.g. "3,116")
+#   {pct} — a statewide CDCR average percentage (e.g. "75%")
+#
+# Every claim that needs a source carries its citation inline, in parentheses.
+# See docs/copy-deck.md for where each tooltip appears and its source notes.
+# ============================================================================
+tooltips:
+  # Detail page — hourly chart (ⓘ next to "Hourly temperatures")
+  chart: >-
+    The shaded band shows the minimum and maximum temperatures recorded in this
+    same two-week window across 2016–2025, and the median is the dashed line.
+    At 10°F above the average summer maximum, the risk of death rises about 5%
+    (Skarha et al. 2023).
+
+  # Detail page — CDCR cooling section (ⓘ next to "Cooling Infrastructure in Housing Units")
+  cooling: "Reported by CDCR as of January 2026."
+
+  # Detail page — CDCR "Heat Vulnerabilities" section (ⓘ next to the heading)
+  vulnerabilities_intro: >-
+    These are the shares of people held here who face elevated heat-health risk;
+    hover each for the statewide CDCR average and why it matters.
+
+  # Detail page — the vulnerability "madlib" numbers (each is an underlined stat)
+  population: "Across CDCR prisons, an average of {avg} people are held per facility."
+
+  people_of_color: >-
+    CDCR prisons house an average of {pct} people of color. People of color face
+    higher thermal inequity and more often arrive already carrying heat-vulnerable
+    illnesses (Hamstead 2023; PPIC 2024).
+
+  age_over_50: >-
+    Across CDCR prisons, an average of {pct} are 50 or older. Older age weakens the
+    body's ability to regulate heat and raises cardiovascular strain (Singh et al. 2024).
+
+  mental_health: >-
+    An average of {pct} across CDCR prisons receive enhanced outpatient mental-health
+    care. The psychotropic medications this care often involves impair the body's
+    ability to cool itself (Singh et al. 2024; Brunn et al. 2025).
+
+  disability: >-
+    An average of {pct} across CDCR prisons are in the disability placement program.
+    Disabilities can limit a person's ability to sense, avoid, or escape dangerous
+    heat (Singh et al. 2024).
+
+  medical_risk: >-
+    An average of {pct} across CDCR prisons fall in a medium or higher medical-risk
+    category. Chronic illness impairs thermoregulation and raises the risk of heat
+    death (CCHCS 2025; Singh et al. 2024).
+
+  womens_facility: "This is a women's facility."

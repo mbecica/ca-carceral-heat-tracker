@@ -1,0 +1,10 @@
+# Cloudflare Pages headers.
+# Live data changes on each pipeline commit — keep it briefly cached but revalidated.
+/data/*
+  Cache-Control: public, max-age=300, must-revalidate
+
+# Fingerprint-free static assets: cache a day, revalidate.
+/js/*
+  Cache-Control: public, max-age=86400
+/css/*
+  Cache-Control: public, max-age=86400

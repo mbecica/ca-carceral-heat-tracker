@@ -1,0 +1,9 @@
+{{- /* Highlighted "madlib" number with a hover/focus tooltip. Portaled tooltip
+       is wired in cht-detail.js; the title attribute is a native fallback.
+       Params: value (numeric %, shown unless display given), display, tip, digits. */ -}}
+{{- $v := .value | default 0.0 -}}{{ $dg := .digits | default 0 }}
+{{- $fmt := printf "%%.%df%%%%" $dg -}}
+{{- $disp := .display | default (printf $fmt $v) -}}
+{{- $tip := .tip -}}
+<span class="cht-madlib__n" tabindex="0" data-tip="{{ $tip }}" title="{{ $tip }}">{{ $disp }}</span>
+{{- /* */ -}}

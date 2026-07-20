@@ -202,6 +202,12 @@ def write_stubs(facilities):
         )
         (STUB_DIR / f"{f['slug']}.md").write_text(fm)
 
+    # Non-rendering section index so /facilities/ never emits a stray list page.
+    current.add("_index.md")
+    (STUB_DIR / "_index.md").write_text(
+        '---\ntitle: "Facilities"\nbuild:\n  render: never\n  list: never\n---\n'
+    )
+
     orphans = [p for p in STUB_DIR.glob("*.md") if p.name not in current]
     for p in orphans:
         p.unlink()
@@ -358,6 +364,7 @@ def main():
             "address": full_address(f),
             "jurisdiction": text(f["type"], title=True),
             "security": text(f.get("securelvl"), title=True),
+            "website": text(f.get("website")),
             "lat": num(f["latitude"], 5),
             "lon": num(f["longitude"], 5),
             "population": pop,

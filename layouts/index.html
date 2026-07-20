@@ -1,0 +1,97 @@
+{{- /* Statewide dashboard: temperature map (left) + client-sorted table (right).
+       A dismissable alert flags facilities running 10°F+ above their summer normal.
+       Page-wide filters (an over-10°F toggle + jurisdiction / population / county
+       multi-select + search) narrow BOTH the map and the table. On mobile, a
+       Map/Table toggle switches panes. All status is computed in the browser from
+       static/data/{statewide,facilities}.json — raw data only (see cht-status.js). */ -}}
+{{- define "main" }}
+<div class="cht-dash" data-mobile-view="map">
+  <div class="cht-alert" id="cht-alert" role="alert" hidden>
+    <span class="cht-alert__icon" aria-hidden="true">▲</span>
+    <span class="cht-alert__text"><strong id="cht-alert-count">0</strong> <span id="cht-alert-label">facilities are currently 10&deg;F or more above their average summer maximum</span></span>
+    <button type="button" class="cht-alert__link" id="cht-alert-link">View facilities</button>
+    <button type="button" class="cht-alert__x" id="cht-alert-dismiss" aria-label="Dismiss alert">&times;</button>
+  </div>
+
+  <header class="cht-dash__bar">
+    <div class="cht-dash__brand">
+      <span class="cht-dash__title">California Carceral Facility Heat Tracker</span>
+      <span class="cht-dash__sub">Current temperatures at California prisons and jails<span class="cht-dash__asof" id="cht-asof"></span></span>
+    </div>
+  </header>
+
+  <div class="cht-filters" id="cht-filters" role="group" aria-label="Filter facilities">
+    <button type="button" class="cht-toggle-over" id="cht-over-toggle" aria-pressed="false">
+      <span class="cht-toggle-over__ring" aria-hidden="true"></span>10&deg;F above average
+    </button>
+    <div class="cht-fdrop" data-filter="jurisdiction">
+      <button type="button" class="cht-fdrop__btn" aria-expanded="false" aria-haspopup="true">
+        <span class="cht-fdrop__label">Jurisdiction</span><span class="cht-fdrop__badge" hidden></span>
+        <svg class="cht-fdrop__caret" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="cht-fdrop__panel" hidden role="group" aria-label="Filter by jurisdiction"></div>
+    </div>
+    <div class="cht-fdrop" data-filter="population">
+      <button type="button" class="cht-fdrop__btn" aria-expanded="false" aria-haspopup="true">
+        <span class="cht-fdrop__label">Population</span><span class="cht-fdrop__badge" hidden></span>
+        <svg class="cht-fdrop__caret" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="cht-fdrop__panel" hidden role="group" aria-label="Filter by population"></div>
+    </div>
+    <div class="cht-fdrop" data-filter="county">
+      <button type="button" class="cht-fdrop__btn" aria-expanded="false" aria-haspopup="true">
+        <span class="cht-fdrop__label">County</span><span class="cht-fdrop__badge" hidden></span>
+        <svg class="cht-fdrop__caret" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="cht-fdrop__panel cht-fdrop__panel--tall" hidden role="group" aria-label="Filter by county"></div>
+    </div>
+    <div class="cht-filters__right">
+      <button type="button" class="cht-clear" id="cht-clear" hidden>Clear all</button>
+      <button type="button" class="cht-fdrop__btn cht-download-btn" id="cht-download" title="Download the current view as CSV">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        CSV
+      </button>
+      <label class="cht-search-wrap">
+        <svg class="cht-search-ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><line x1="12.6" y1="12.6" x2="17" y2="17" stroke-linecap="round"/></svg>
+        <input type="search" id="cht-search" class="cht-search" placeholder="Search facility or county…" aria-label="Search facilities by name or county">
+      </label>
+    </div>
+  </div>
+
+  <div class="cht-viewtoggle" role="tablist" aria-label="Choose map or table view">
+    <button type="button" class="cht-viewtoggle__btn" data-view="map" role="tab" aria-selected="true">Map</button>
+    <button type="button" class="cht-viewtoggle__btn" data-view="table" role="tab" aria-selected="false">Table</button>
+  </div>
+
+  <div class="cht-dash__body">
+    <section class="cht-dash__map" aria-label="Map of California carceral facilities colored by current temperature">
+      <div id="cht-map" class="cht-map" role="img"
+           aria-label="Map of California's active carceral facilities, each colored by its current temperature. Facilities running well above their average summer maximum are ringed. The same data is in the sortable table beside the map."></div>
+      <div class="cht-legend" id="cht-legend" aria-hidden="true"></div>
+    </section>
+
+    <aside class="cht-dash__side">
+      <table class="cht-table" id="cht-table">
+        <thead>
+          <tr>
+            <th scope="col" data-sort="name">Facility</th>
+            <th scope="col" class="cht-hide-sm" data-sort="county">County</th>
+            <th scope="col" class="cht-hide-md" data-sort="jurisdiction">Type</th>
+            <th scope="col" class="cht-num" data-sort="today" aria-sort="descending">Today</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="cht-empty" colspan="4">Loading current conditions…</td></tr>
+        </tbody>
+      </table>
+    </aside>
+  </div>
+
+  <footer class="cht-dash__foot">{{ partial "cht-footer.html" . }}</footer>
+</div>
+
+<script src="{{ "js/leaflet.js" | relURL }}"></script>
+<script src="{{ "js/cht-temp-scale.js" | relURL }}"></script>
+<script src="{{ "js/cht-status.js" | relURL }}"></script>
+<script src="{{ "js/cht-statewide.js" | relURL }}" defer></script>
+{{- end }}
