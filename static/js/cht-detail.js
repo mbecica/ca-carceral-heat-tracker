@@ -34,6 +34,18 @@
     if (sub) sub.innerHTML = sourceHtml + (asOf ? " · " + fmtStamp(asOf) : "");
   }
 
+  // Secondary "nearest NWS station" reading, shown under the primary (RTMA) tile.
+  // The primary value is the NOAA RTMA value so it matches the map/table tooltips
+  // everywhere; this is a fresher-but-spot side note, hidden when no station reports.
+  function fillStationNote(tempF, asOf, linkHtml) {
+    var note = $("cht-temp-station");
+    if (!note) return;
+    if (tempF == null) { note.hidden = true; note.innerHTML = ""; return; }
+    note.hidden = false;
+    note.innerHTML = "Nearest station " + linkHtml + ": <strong>" + fmt(tempF) +
+      "°F</strong>" + (asOf ? " · " + fmtStamp(asOf) : "");
+  }
+
   // Always render the AQI tile; when no nearby monitor reports, say so rather than vanish.
   function fillAqiTile(aqi, category, lat, lon) {
     var tile = $("cht-aqi-tile"), dot = $("cht-aqi-dot"), val = $("cht-aqi-val"), sub = $("cht-aqi-sub");
@@ -118,7 +130,9 @@
     window.addEventListener("scroll", hide, true);
   }
 
-  // Keyless NWS current-obs top-up: points -> observationStations -> latest obs.
+  // Keyless NWS current-obs lookup: points -> observationStations -> latest obs.
+  // Fills the SECONDARY station note only; the primary tile stays on the RTMA
+  // value so it matches the tooltips on every page.
   function nwsTopUp(lat, lon) {
     if (lat == null || lon == null) return;
     var pt = "https://api.weather.gov/points/" + (+lat).toFixed(4) + "," + (+lon).toFixed(4);
@@ -137,12 +151,14 @@
         var t = j.properties && j.properties.temperature;
         if (!t || t.value == null) return;
         var f = t.unitCode && t.unitCode.indexOf("degC") >= 0 ? t.value * 9 / 5 + 32 : t.value;
-        var href = stationId ? "https://forecast.weather.gov/data/obhistory/" + stationId + ".html"
-                             : "https://forecast.weather.gov/MapClick.php?lat=" + lat + "&lon=" + lon;
-        fillTempTile(f, j.properties.timestamp,
-          'live · <a class="cht-src" href="' + href + '" target="_blank" rel="noopener">nearest NWS station</a>');
+        // Link to the human-readable NWS point page for this location (shows the
+        // nearest station's current conditions) rather than the raw obs table.
+        var href = "https://forecast.weather.gov/MapClick.php?lat=" + lat + "&lon=" + lon;
+        var linkHtml = '<a class="cht-src" href="' + href + '" target="_blank" rel="noopener">' +
+          (stationId || "NWS observation") + '</a>';
+        fillStationNote(f, j.properties.timestamp, linkHtml);
       })
-      .catch(function () { /* keep the pipeline value */ });
+      .catch(function () { /* no nearby station reporting; note stays hidden */ });
   }
 
   ready(function () {
@@ -201,7 +217,11 @@
     // Recent live data -> temp tile + chart.
     fetch("/data/recent/" + slug + ".json").then(function (r) { return r.json(); }).then(function (recent) {
       recentData = recent;
-      fillTempTile(recent.current_temp_f, recent.current_temp_as_of, "RTMA analysis");
+      // Link to the actual RTMA dataset we sample (via Earth Engine). RTMA is a
+      // gridded model with no per-point weather page, so this points at the source
+      // itself; the human-readable NWS page lives on the station note below.
+      var rtmaSrc = '<a class="cht-src" href="https://developers.google.com/earth-engine/datasets/catalog/NOAA_NWS_RTMA" target="_blank" rel="noopener">NOAA RTMA</a>';
+      fillTempTile(recent.current_temp_f, recent.current_temp_as_of, rtmaSrc);
       var foot = document.querySelector("[data-cht-asof]");
       if (foot) foot.textContent = recent.generated_at ? "Data as of " + fmtStamp(recent.generated_at) : "";
 
@@ -210,7 +230,7 @@
         .then(function (band) { bandData = band; drawChart(); });
 
       drawChart();          // draw immediately; the band redraws when it arrives
-      nwsTopUp(lat, lon);   // top-up overrides the temp tile if it succeeds
+      nwsTopUp(lat, lon);   // fills the secondary station note; primary stays RTMA
     }).catch(function (e) {
       if (window.console) console.error("heat tracker: detail load failed", e);
       fillTempTile(null, null, "unavailable");

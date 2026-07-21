@@ -209,20 +209,38 @@
     });
   }
 
-  /* ---- Geolocation: "My location" on-map control ---- */
+  /* ---- Geolocation: "My location" on-map control ----
+     Surfaces WHY it fails (silent failure was impossible to debug): geolocation only
+     works in a secure context (https or localhost) — over a plain-http LAN IP the
+     browser refuses it with no prompt, which is the usual "nothing happens on mobile". */
+  function flashLocate(msg, keep) {
+    var host = document.querySelector(".cht-dash__map"); if (!host) return;
+    var el = document.getElementById("cht-locate-msg");
+    if (!el) { el = document.createElement("div"); el.id = "cht-locate-msg"; el.className = "cht-locate-msg"; host.appendChild(el); }
+    el.textContent = msg; el.hidden = false;
+    clearTimeout(el._t); if (!keep) el._t = setTimeout(function () { el.hidden = true; }, 4500);
+  }
+  function hideLocate() { var el = document.getElementById("cht-locate-msg"); if (el) el.hidden = true; }
   function locateMe() {
-    if (!map || !navigator.geolocation) return;
-    map.locate({ setView: true, maxZoom: 11, enableHighAccuracy: true });
+    if (!map) return;
+    if (!window.isSecureContext) return flashLocate("“My location” needs a secure (https) connection");
+    if (!navigator.geolocation) return flashLocate("Location isn’t available in this browser");
+    flashLocate("Locating…", true);
+    map.locate({ setView: true, maxZoom: 11, enableHighAccuracy: true, timeout: 10000 });
   }
   function wireLocate() {
     var btn = document.getElementById("cht-locate");
     if (btn) btn.addEventListener("click", locateMe);
     if (!map) return;
     map.on("locationfound", function (e) {
+      hideLocate();
       if (userMarker) userMarker.setLatLng(e.latlng);
       else userMarker = L.circleMarker(e.latlng, { radius: 7, color: "#fff", weight: 2, fillColor: "#2f6fd0", fillOpacity: 1 }).addTo(map).bindTooltip("You are here", { className: "cht-ltip" });
     });
-    map.on("locationerror", function () { if (window.console) console.warn("heat tracker: location unavailable"); });
+    map.on("locationerror", function (e) {
+      flashLocate(e && e.code === 1 ? "Location permission denied" : "Couldn’t get your location");
+      if (window.console) console.warn("heat tracker: location error", e && (e.message || e.code));
+    });
   }
 
   function drawLegend() {
