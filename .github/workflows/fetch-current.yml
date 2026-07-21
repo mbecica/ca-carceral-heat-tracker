@@ -6,10 +6,10 @@ name: fetch-current
 
 on:
   schedule:
-    # THROTTLED for prototyping: once a week (Mondays 17:00 UTC ≈ 9-10am PT).
-    # At launch, switch to every 3 hours — "0 */3 * * *" — likely alongside the
-    # Phase 4 R2 migration so the ~240 commits/mo don't churn git history.
-    - cron: "0 17 * * 1"
+    # Launched (2026-07-21): once a day at 17:00 UTC (≈ 9-10am PT) — ~30 commit-
+    # rebuilds/mo, comfortably under the shared 500-build/mo quota. Phase 4 (R2)
+    # decouples delivery from builds and can bump this to hourly/every-3h then.
+    - cron: "0 17 * * *"
   workflow_dispatch:           # allow manual runs from the Actions tab anytime
 
 # Never let two refreshes overlap or race the commit/push.

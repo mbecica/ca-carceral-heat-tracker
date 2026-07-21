@@ -1,0 +1,26 @@
+{{- /* Not-found page. Without this, Hugo emits no public/404.html and Cloudflare
+       Pages serves the home page with a 200 for unmatched URLs (soft-404). Same
+       standalone shell + doc styling as methods/single.html. */ -}}
+{{- define "main" }}
+<div class="cht-dash cht-dash--doc">
+  <header class="cht-dash__bar">
+    <div class="cht-dash__brand">
+      <a class="cht-dash__title-link" href="{{ "/" | relURL }}">California Carceral Facility Heat Tracker</a>
+      <span class="cht-dash__sub">Page not found</span>
+    </div>
+    <div class="cht-dash__actions">
+      <a class="cht-dash__back" href="{{ "/" | relURL }}">&larr; Back to statewide view</a>
+    </div>
+  </header>
+
+  <div class="cht-doc">
+    <article class="cht-app">
+      <h1 class="cht-doc__title">This page isn&rsquo;t here</h1>
+      <p>The facility or page you&rsquo;re looking for doesn&rsquo;t exist, or has moved.
+         Head back to the <a href="{{ "/" | relURL }}">statewide view</a> to find a facility.</p>
+    </article>
+  </div>
+
+  <footer class="cht-dash__foot">{{ partial "cht-footer.html" . }}</footer>
+</div>
+{{- end }}
