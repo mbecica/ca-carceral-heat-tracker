@@ -105,12 +105,12 @@
     if (average != null) {
       g.append("line").attr("class", "cht-average").attr("x1", 0).attr("x2", iw).attr("y1", y(average)).attr("y2", y(average));
       g.append("text").attr("class", "cht-avg-label").attr("x", iw).attr("y", y(average) - 4).attr("text-anchor", "end")
-        .text("Average (" + Math.round(average) + "°)");
+        .text("Average max (" + Math.round(average) + "°F)");
     }
     if (threshold != null) {
       g.append("line").attr("class", "cht-threshold").attr("x1", 0).attr("x2", iw).attr("y1", y(threshold)).attr("y2", y(threshold));
       g.append("text").attr("class", "cht-thresh-label").attr("x", iw).attr("y", y(threshold) - 4).attr("text-anchor", "end")
-        .text("10°F above average (" + Math.round(threshold) + "°)");
+        .text("10°F above average max (" + Math.round(threshold) + "°F)");
     }
 
     // Recent trace.

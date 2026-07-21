@@ -216,8 +216,8 @@
       '<span class="cht-legend__group"><span class="cht-legend__ends">55°</span>' +
       '<span class="cht-legend__scale">' + cells + "</span>" +
       '<span class="cht-legend__ends">110°F now</span></span>' +
-      '<span class="cht-legend__item"><span class="cht-legend__ring cht-legend__ring--avg"></span>Over average</span>' +
-      '<span class="cht-legend__item"><span class="cht-legend__ring cht-legend__ring--hi"></span>10°F above average</span>' +
+      '<span class="cht-legend__item"><span class="cht-legend__ring cht-legend__ring--avg"></span>Over average max</span>' +
+      '<span class="cht-legend__item"><span class="cht-legend__ring cht-legend__ring--hi"></span>10°F above average max</span>' +
       '<span class="cht-legend__item"><span class="cht-legend__swatch" style="background:var(--cht-null)"></span>no data</span>' +
       '<button type="button" class="cht-locate" id="cht-locate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke-linecap="round"/></svg>My location</button>';
     wireLocate();
@@ -312,8 +312,8 @@
   }
   function buildDropdowns() {
     setPanel("heat",
-      heatOptionRow("avg", "Over historic average today", data.filter(isOverAvg).length, "avg") +
-      heatOptionRow("hi", "10°F over historic average today", data.filter(isOverHi).length, "hi"));
+      heatOptionRow("avg", "Over average max", data.filter(isOverAvg).length, "avg") +
+      heatOptionRow("hi", "10°F above average max", data.filter(isOverHi).length, "hi"));
 
     var jc = {}; data.forEach(function (d) { jc[d.jurisdiction] = (jc[d.jurisdiction] || 0) + 1; });
     setPanel("jurisdiction", Object.keys(jc).sort(function (a, b) { return jc[b] - jc[a]; })

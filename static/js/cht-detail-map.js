@@ -75,8 +75,8 @@
       function tip(d) {
         var s = d.status;
         var nm = d.code ? d.name.replace(/\s*\([^)]*\)\s*$/, "") + ' <span class="cht-tcode">' + d.code + "</span>" : d.name;
-        var statusLine = s.hasData && s.overHi ? '<span class="cht-ltip__over">10°F above average</span>'
-          : (s.hasData && s.overAvg ? '<span class="cht-ltip__over">Over average</span>' : "");
+        var statusLine = s.hasData && s.overHi ? '<span class="cht-ltip__over">10°F above average max</span>'
+          : (s.hasData && s.overAvg ? '<span class="cht-ltip__over">Over average max</span>' : "");
         return '<span class="cht-ltip__name">' + nm + "</span>" +
           '<span class="cht-ltip__sub">' + (d.county || "") + " County · " + (d.jurisdiction || "") + "</span>" +
           '<span class="cht-ltip__val">Now: ' + (d.temp != null ? fmt(d.temp) + "°F" : "—") + "</span>" +

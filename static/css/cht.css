@@ -22,6 +22,7 @@
   --cht-warn:   #b96e12;  /* chart "average" reference line */
   --cht-marker-stroke: rgba(0,0,0,0.55);  /* legend/table swatch borders (on dark UI) */
   --cht-map-stroke: rgba(0,0,0,0.6);      /* dot/polygon outlines on the light map canvas */
+  --cht-map-bg: #e7e5e0;                  /* the (always-light) basemap canvas; legend matches it */
 
   /* cooling-pie categories (CDCR only) */
   --cht-cool-refrig: #2f6fd0;
@@ -83,7 +84,16 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
   padding: 0; border-right: 1px solid var(--border);
 }
 .cht-dash__map #cht-map, .cht-dash__map #cht-detail-map { flex: 1 1 auto; min-height: 0; position: relative; }
-.cht-dash__map .cht-legend { flex: 0 0 auto; margin: 0; padding: 0.45rem 0.9rem; border-top: 1px solid var(--border); background: var(--theme); }
+/* Legend strip matches the (always-light) basemap canvas, with fixed dark ink so
+   the near-black status rings and text read regardless of the dark app chrome. */
+.cht-dash__map .cht-legend { flex: 0 0 auto; margin: 0; padding: 0.45rem 0.9rem; border-top: 1px solid var(--cht-map-stroke); background: var(--cht-map-bg); }
+.cht-dash__map .cht-legend .cht-legend__item,
+.cht-dash__map .cht-legend .cht-legend__ends,
+.cht-dash__map .cht-legend .cht-legend__label { color: #3d3a36; }
+.cht-dash__map .cht-legend .cht-legend__ring { background: var(--cht-map-bg); }
+.cht-dash__map .cht-legend .cht-legend__swatch,
+.cht-dash__map .cht-legend .cht-legend__scale { border-color: var(--cht-map-stroke); }
+.cht-dash__map .cht-legend .cht-locate { background: #fff; border-color: var(--cht-map-stroke); color: #3d3a36; }
 .cht-dash__map .cht-caveat { flex: 0 0 auto; margin: 0; padding: 0.4rem 0.9rem; font-size: 0.76rem; }
 
 /* Side (table / profile) column — table is full-bleed; the profile re-adds padding */
@@ -179,8 +189,8 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 
 /* ---- Map + Leaflet theming (ported .phi-ltip) ---- */
 /* Light neutral behind the (light) basemap so tile seams don't show a dark line. */
-.cht-map, .cht-detail-map { background: #e7e5e0; }
-.leaflet-container { font-family: inherit; font-size: 12px; background: #e7e5e0; }
+.cht-map, .cht-detail-map { background: var(--cht-map-bg); }
+.leaflet-container { font-family: inherit; font-size: 12px; background: var(--cht-map-bg); }
 .leaflet-bar { border: 1px solid var(--border); box-shadow: none; }
 .leaflet-bar a, .leaflet-touch .leaflet-bar a { background: var(--entry); color: var(--primary); border-bottom: 1px solid var(--border); }
 .leaflet-bar a:hover { background: var(--code-bg); color: var(--primary); }

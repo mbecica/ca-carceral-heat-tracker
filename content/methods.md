@@ -7,21 +7,16 @@ summary: "How the California Carceral Facility Heat Tracker measures heat and ai
 
 ## About this tracker
 
-This tool tracks how hot it currently is at each active California carceral facility, measured against that facility's own long-term summer normal. It was built to help advocates spot heat events in California prisons and strengthen advocacy around a public-health and human-rights crisis, and it extends the work of [The Toxic Prisons Mapping Project](https://www.toxicprisons.com/).
+This tool tracks how hot it currently is at California prisons, jails and other carceral facilities, measured against that facility's own long-term historic summer temperatures. It was built to help advocates highlight heat events in California prisons and bring attention to this public-health and human-rights crisis, in support of the Climate Justice Coalition for California Prisons. This project acknowledges and extends the work of [The Toxic Prisons Mapping Project](https://www.toxicprisons.com/).
 
-**This is version 0.1.** It has not been tested or validated by incarcerated or formerly incarcerated people, and it draws entirely on publicly available datasets, which is itself a limitation on what it can show. Until that engagement, feedback, and further iteration have happened, it should not be treated as an authoritative source. If something looks wrong, or you want to weigh in, use the email and GitHub issue links in the site footer.
+**This is version 0.1.** The California Carceral Facility Heat Tracker has not yet been tested or validated by incarcerated or formerly incarcerated people, and the tool relies entirely on publicly available datasets, which come with their own limitations. Until engagement, feedback, and further iteration have occurred, this tool should not be treated as an authoritative source. If you see an issue or want to provide feedback, please let us know by emailing Mary or filing a Github Issue. Your input is greatly appreciated. If your organization would like to support launching this prototype into a public tool, please email Mary.
 
 ## How heat and air quality are measured
 
-Each facility is compared against its own local climate, not a statewide number, because the same temperature means very different things in different places. The tracker also shows local air quality, because heat and air pollution harm health together, not separately.
+Temperature Thresholds:
 
-Heat:
-
-- The comparison line is the facility's 1991–2020 June–August average daily high, plus 10°F. A day that reaches it is 10°F or more above the local summer normal.
-- This is calibrated to Skarha et al. (2023): across U.S. state and private prisons, every 10°F above a prison's own summer average was associated with a 5.2% rise in all-cause mortality that day.
-- The metric is daily maximum temperature. Skarha et al. tested heat index and wet-bulb globe temperature and found they did not better capture the link between heat and death.
-- Comparing each facility to itself is what makes the measure meaningful everywhere: 95°F is ordinary in Blythe but dangerous in Crescent City.
-- The line is a single-day signal, not a "heatwave," which means two or more consecutive days of above-average heat.
+- Each facility's historic annual average summer maximum temperature is calculated from its 1991–2020 June–August average daily maximum (PRISM Climate Group). A heatwave is typically considered 2+ consecutive days where temperatures exceed this historic average (source). 
+- 10°F above a facility's historic summer average is highlighted to align with Skarha et al. (2023)'s finding: across U.S. state and private prisons, every 10°F above a prison's own summer average was associated with a 5.2% rise in all-cause mortality that day.
 
 Air quality:
 
@@ -30,25 +25,25 @@ Air quality:
 
 ## Where the data comes from
 
-All temperature data is observation-anchored: it comes from station-based products read directly, not from a global reanalysis model. This matters in California, where reanalysis models like ERA5 miss the marine layer that cools the coast and can read some facilities 5–10°F too warm. The products below capture those local conditions. The two gridded climate products, PRISM and RTMA/URMA, are read through Google Earth Engine; the current-conditions readings come from the National Weather Service and EPA.
+All temperature data comes from station-based products based on observed temperatures. This matters in California, where reanalysis models like ERA5 miss the marine layer that cools the coast and can read some facilities 5–10°F too warm. The two gridded climate products, PRISM and RTMA/URMA, are read through Google Earth Engine; the current-conditions readings come from the National Weather Service and EPA.
 
 | What | Source | Resolution | Role |
 |---|---|---|---|
-| Baseline: 1991–2020 Jun–Aug mean daily high, per facility | PRISM Climate Group 30-year Normals (`tmax`), Oregon State University, via Google Earth Engine | 800 m | Sets each facility's comparison line (baseline + 10°F) |
+| Baseline: 1991–2020 Jun–Aug mean daily high, per facility | PRISM Climate Group 30-year Normals (`tmax`), Oregon State University, via Google Earth Engine | 800 m | Sets each facility's comparison line (historic average + 10°F) |
 | Current-day high | NWS National Digital Forecast Database (`api.weather.gov`) | ~2.5 km | Same-day reading |
 | Last 14 days, hourly, and the 2016–2025 historic band | NOAA Real-Time / Un-Restricted Mesoscale Analysis (RTMA/URMA), via Google Earth Engine | 2.5 km hourly | Detail-page chart |
 | Temperature now | Nearest NWS observation station, fetched live | station | Current-conditions reading |
 | Current air quality | AirNow (EPA, monitor-based NowCast AQI) | monitor network | AQI |
 | Facilities: locations, jurisdiction, boundaries | FEMA / HIFLD Prison Boundaries (July 2025), with CDCR additions | — | Which facilities, where |
-| CDCR population, cooling, vulnerability | CDCR and CCHCS public data | — | CDCR state-prison panels |
+| CDCR population, cooling infrastructure, vulnerability indicators | CDCR and CCHCS public data | — | CDCR state prison panels |
 
 *Data credits: PRISM data courtesy of the PRISM Climate Group, Oregon State University. NWS, RTMA, and URMA are public-domain products of NOAA / the National Weather Service. Air quality data from the U.S. EPA AirNow program, which does not endorse derived products. Facility locations from FEMA / HIFLD.*
 
 ## Additional data for CDCR state prisons
 
-Some facilities show extra panels: population, cooling infrastructure, and heat-vulnerability indicators. These appear only for California's CDCR **state prisons**, and not for every CDCR facility, since fire camps and other sites are outside the tool's current scope. Comparable data may exist for some county jails or other systems, but it was not collected here.
+CDCR state prisons show additional data on their populations, cooling infrastructure, and heat-vulnerability indicators. Comparable data may exist for state fire camps, county jails or other systems, but were not in scope for this version of the tool.
 
-These indicators are only as good as the public data CDCR releases, and that data has gaps. In particular, CDCR has not published facility-level counts of who it designates heat-vulnerable under its heat plan. In place of those counts, the tracker uses demographic shares as proxies: the share of people who are 50 or older, in the Disability Placement Program, receiving enhanced outpatient mental-health care, in a medium-or-higher medical-risk category, or people of color. Each is drawn from CDCR and CCHCS public data for 2025. The hover text on each indicator explains why that group faces elevated heat risk.
+These indicators are only as good as the public data CDCR releases, which has many limitations. In particular, CDCR has not published facility-level counts of who it designates heat-vulnerable under its heat plan. In place of those counts, the tracker uses demographic shares as proxies: the share of people who are 50 or older, in the Disability Placement Program, receiving enhanced outpatient mental-health care, in a medium-or-higher medical-risk category, or people of color. Each is drawn from 2025 CDCR and CCHCS public data. The hover text on each indicator explains why that group faces elevated heat risk.
 
 ## Data availability
 
