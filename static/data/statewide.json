@@ -1743,7 +1743,7 @@
   },
   {
    "slug": "ca-substance-abuse-treatment-facility-satf",
-   "name": "Ca Substance Abuse Treatment Facility (Satf)",
+   "name": "Ca Substance Abuse Treatment Facility (SATF)",
    "county": "Kings",
    "jurisdiction": "State",
    "lat": 36.05396,
@@ -2031,7 +2031,7 @@
   },
   {
    "slug": "california-correctional-institution-cci",
-   "name": "California Correctional Institution (Cci)",
+   "name": "California Correctional Institution (CCI)",
    "county": "Kern",
    "jurisdiction": "State",
    "lat": 35.10992,
@@ -2103,7 +2103,7 @@
   },
   {
    "slug": "california-health-care-facility-chcf",
-   "name": "California Health Care Facility (Chcf)",
+   "name": "California Health Care Facility (CHCF)",
    "county": "San Joaquin",
    "jurisdiction": "State",
    "lat": 37.89779,
@@ -2175,7 +2175,7 @@
   },
   {
    "slug": "california-institution-for-men-cim",
-   "name": "California Institution For Men (Cim)",
+   "name": "California Institution For Men (CIM)",
    "county": "San Bernardino",
    "jurisdiction": "State",
    "lat": 33.98471,
@@ -2247,7 +2247,7 @@
   },
   {
    "slug": "california-institution-for-women-ciw",
-   "name": "California Institution For Women (Ciw)",
+   "name": "California Institution For Women (CIW)",
    "county": "San Bernardino",
    "jurisdiction": "State",
    "lat": 33.94975,
@@ -2319,7 +2319,7 @@
   },
   {
    "slug": "california-medical-facility-cmf",
-   "name": "California Medical Facility (Cmf)",
+   "name": "California Medical Facility (CMF)",
    "county": "Solano",
    "jurisdiction": "State",
    "lat": 38.32851,
@@ -2391,7 +2391,7 @@
   },
   {
    "slug": "california-mens-colony-cmc",
-   "name": "California Men's Colony (Cmc)",
+   "name": "California Men's Colony (CMC)",
    "county": "San Luis Obispo",
    "jurisdiction": "State",
    "lat": 35.32457,
@@ -2463,7 +2463,7 @@
   },
   {
    "slug": "california-rehabilitation-center-crc",
-   "name": "California Rehabilitation Center (Crc)",
+   "name": "California Rehabilitation Center (CRC)",
    "county": "Riverside",
    "jurisdiction": "State",
    "lat": 33.92925,
@@ -2535,7 +2535,7 @@
   },
   {
    "slug": "california-state-prison-corcoran-cor",
-   "name": "California State Prison, Corcoran (Cor)",
+   "name": "California State Prison, Corcoran (COR)",
    "county": "Kings",
    "jurisdiction": "State",
    "lat": 36.06082,
@@ -2607,7 +2607,7 @@
   },
   {
    "slug": "california-state-prison-sacramento-sac",
-   "name": "California State Prison, Sacramento (Sac)",
+   "name": "California State Prison, Sacramento (SAC)",
    "county": "Sacramento",
    "jurisdiction": "State",
    "lat": 38.69444,
@@ -2679,7 +2679,7 @@
   },
   {
    "slug": "california-state-prison-solano-sol",
-   "name": "California State Prison, Solano (Sol)",
+   "name": "California State Prison, Solano (SOL)",
    "county": "Solano",
    "jurisdiction": "State",
    "lat": 38.32078,
@@ -2751,7 +2751,7 @@
   },
   {
    "slug": "california-state-prison-los-angeles-county-lac",
-   "name": "California State Prison-Los Angeles County (Lac)",
+   "name": "California State Prison-Los Angeles County (LAC)",
    "county": "Los Angeles",
    "jurisdiction": "State",
    "lat": 34.6936,
@@ -2823,7 +2823,7 @@
   },
   {
    "slug": "calipatria-state-prison-cal",
-   "name": "Calipatria State Prison (Cal)",
+   "name": "Calipatria State Prison (CAL)",
    "county": "Imperial",
    "jurisdiction": "State",
    "lat": 33.16569,
@@ -3831,7 +3831,7 @@
   },
   {
    "slug": "centinela-state-prison-cen",
-   "name": "Centinela State Prison (Cen)",
+   "name": "Centinela State Prison (CEN)",
    "county": "Imperial",
    "jurisdiction": "State",
    "lat": 32.8234,
@@ -3903,7 +3903,7 @@
   },
   {
    "slug": "central-california-womens-facility-ccfw",
-   "name": "Central California Women's Facility (Ccfw)",
+   "name": "Central California Women's Facility (CCWF)",
    "county": "Madera",
    "jurisdiction": "State",
    "lat": 37.09368,
@@ -4911,7 +4911,7 @@
   },
   {
    "slug": "correctional-training-facility-ctf",
-   "name": "Correctional Training Facility (Ctf)",
+   "name": "Correctional Training Facility (CTF)",
    "county": "Monterey",
    "jurisdiction": "State",
    "lat": 36.46965,
@@ -6711,7 +6711,7 @@
   },
   {
    "slug": "fci-dublin",
-   "name": "Fci Dublin",
+   "name": "FCI Dublin",
    "county": "Alameda",
    "jurisdiction": "Federal",
    "lat": 37.71858,
@@ -6783,7 +6783,7 @@
   },
   {
    "slug": "fci-dublin-camp",
-   "name": "Fci Dublin Camp",
+   "name": "FCI Dublin Camp",
    "county": "Alameda",
    "jurisdiction": "Federal",
    "lat": 37.71795,
@@ -6855,7 +6855,7 @@
   },
   {
    "slug": "fci-lompoc",
-   "name": "Fci Lompoc",
+   "name": "FCI Lompoc",
    "county": "Santa Barbara",
    "jurisdiction": "Federal",
    "lat": 34.67676,
@@ -6927,7 +6927,7 @@
   },
   {
    "slug": "fci-mendota",
-   "name": "Fci Mendota",
+   "name": "FCI Mendota",
    "county": "Fresno",
    "jurisdiction": "Federal",
    "lat": 36.73364,
@@ -6999,7 +6999,7 @@
   },
   {
    "slug": "fci-mendota-camp",
-   "name": "Fci Mendota Camp",
+   "name": "FCI Mendota Camp",
    "county": "Fresno",
    "jurisdiction": "Federal",
    "lat": 36.72858,
@@ -7071,7 +7071,7 @@
   },
   {
    "slug": "fci-terminal-island",
-   "name": "Fci Terminal Island",
+   "name": "FCI Terminal Island",
    "county": "Los Angeles",
    "jurisdiction": "Federal",
    "lat": 33.72649,
@@ -7143,7 +7143,7 @@
   },
   {
    "slug": "fci-victorville-medium-i",
-   "name": "Fci Victorville Medium I",
+   "name": "FCI Victorville Medium I",
    "county": "San Bernardino",
    "jurisdiction": "Federal",
    "lat": 34.56548,
@@ -7215,7 +7215,7 @@
   },
   {
    "slug": "fci-victorville-medium-i-camp",
-   "name": "Fci Victorville Medium I Camp",
+   "name": "FCI Victorville Medium I Camp",
    "county": "San Bernardino",
    "jurisdiction": "Federal",
    "lat": 34.56901,
@@ -7287,7 +7287,7 @@
   },
   {
    "slug": "fci-victorville-medium-ii",
-   "name": "Fci Victorville Medium II",
+   "name": "FCI Victorville Medium II",
    "county": "San Bernardino",
    "jurisdiction": "Federal",
    "lat": 34.56848,
@@ -7431,7 +7431,7 @@
   },
   {
    "slug": "folsom-state-prison-fsp",
-   "name": "Folsom State Prison (Fsp)",
+   "name": "Folsom State Prison (FOL)",
    "county": "Sacramento",
    "jurisdiction": "State",
    "lat": 38.69538,
@@ -7503,7 +7503,7 @@
   },
   {
    "slug": "folsom-womens-facility-fwf",
-   "name": "Folsom Women's Facility (Fwf)",
+   "name": "Folsom Women's Facility (FWF)",
    "county": "Sacramento",
    "jurisdiction": "State",
    "lat": 38.69321,
@@ -9015,7 +9015,7 @@
   },
   {
    "slug": "herlong-fci",
-   "name": "Herlong Fci",
+   "name": "Herlong FCI",
    "county": "Lassen",
    "jurisdiction": "Federal",
    "lat": 40.15119,
@@ -9087,7 +9087,7 @@
   },
   {
    "slug": "herlong-fci-camp",
-   "name": "Herlong Fci Camp",
+   "name": "Herlong FCI Camp",
    "county": "Lassen",
    "jurisdiction": "Federal",
    "lat": 40.15301,
@@ -9303,7 +9303,7 @@
   },
   {
    "slug": "high-desert-state-prison-hdsp",
-   "name": "High Desert State Prison (Hdsp)",
+   "name": "High Desert State Prison (HDSP)",
    "county": "Lassen",
    "jurisdiction": "State",
    "lat": 40.40787,
@@ -10239,7 +10239,7 @@
   },
   {
    "slug": "ironwood-state-prison-isp",
-   "name": "Ironwood State Prison (Isp)",
+   "name": "Ironwood State Prison (ISP)",
    "county": "Riverside",
    "jurisdiction": "State",
    "lat": 33.56098,
@@ -11319,7 +11319,7 @@
   },
   {
    "slug": "kern-valley-state-prison-kvsp",
-   "name": "Kern Valley State Prison (Kvsp)",
+   "name": "Kern Valley State Prison (KVSP)",
    "county": "Kern",
    "jurisdiction": "State",
    "lat": 35.76647,
@@ -13479,7 +13479,7 @@
   },
   {
    "slug": "mcc-san-diego",
-   "name": "Mcc San Diego",
+   "name": "MCC San Diego",
    "county": "San Diego",
    "jurisdiction": "Federal",
    "lat": 32.71396,
@@ -13551,7 +13551,7 @@
   },
   {
    "slug": "mccain-valley-conservation-camp-21",
-   "name": "Mccain Valley Conservation Camp #21",
+   "name": "McCain Valley Conservation Camp #21",
    "county": "San Diego",
    "jurisdiction": "State",
    "lat": 32.68423,
@@ -13623,7 +13623,7 @@
   },
   {
    "slug": "mcfarland-female-community-reentry-facility",
-   "name": "Mcfarland Female Community Reentry Facility",
+   "name": "McFarland Female Community Reentry Facility",
    "county": "Kern",
    "jurisdiction": "State",
    "lat": 35.66781,
@@ -15063,7 +15063,7 @@
   },
   {
    "slug": "mule-creek-state-prison-mcsp",
-   "name": "Mule Creek State Prison (Mcsp)",
+   "name": "Mule Creek State Prison (MCSP)",
    "county": "Amador",
    "jurisdiction": "State",
    "lat": 38.37074,
@@ -15495,7 +15495,7 @@
   },
   {
    "slug": "north-kern-state-prison-nksp",
-   "name": "North Kern State Prison (Nksp)",
+   "name": "North Kern State Prison (NKSP)",
    "county": "Kern",
    "jurisdiction": "State",
    "lat": 35.78189,
@@ -16359,7 +16359,7 @@
   },
   {
    "slug": "pelican-bay-state-prison-pbsp",
-   "name": "Pelican Bay State Prison (Pbsp)",
+   "name": "Pelican Bay State Prison (PBSP)",
    "county": "Del Norte",
    "jurisdiction": "State",
    "lat": 41.85481,
@@ -16863,7 +16863,7 @@
   },
   {
    "slug": "pleasant-valley-state-prison-pvsp",
-   "name": "Pleasant Valley State Prison(Pvsp)",
+   "name": "Pleasant Valley State Prison(PVSP)",
    "county": "Fresno",
    "jurisdiction": "State",
    "lat": 36.13147,
@@ -17223,7 +17223,7 @@
   },
   {
    "slug": "r-j-donovan-correctional-facility-rjd",
-   "name": "R J Donovan Correctional Facility (Rjd)",
+   "name": "R J Donovan Correctional Facility (RJD)",
    "county": "San Diego",
    "jurisdiction": "State",
    "lat": 32.58456,
@@ -18015,7 +18015,7 @@
   },
   {
    "slug": "salinas-valley-state-prison-svsp",
-   "name": "Salinas Valley State Prison (Svsp)",
+   "name": "Salinas Valley State Prison (SVSP)",
    "county": "Monterey",
    "jurisdiction": "State",
    "lat": 36.47886,
@@ -19095,7 +19095,7 @@
   },
   {
    "slug": "san-quentin-state-prison-sq",
-   "name": "San Quentin State Prison (Sq)",
+   "name": "San Quentin State Prison (SQ)",
    "county": "Marin",
    "jurisdiction": "State",
    "lat": 37.94004,
@@ -20463,7 +20463,7 @@
   },
   {
    "slug": "sierra-conservation-center-scc",
-   "name": "Sierra Conservation Center (Scc)",
+   "name": "Sierra Conservation Center (SCC)",
    "county": "Tuolumne",
    "jurisdiction": "State",
    "lat": 37.89169,
@@ -23343,7 +23343,7 @@
   },
   {
    "slug": "usp-atwater",
-   "name": "Usp Atwater",
+   "name": "USP Atwater",
    "county": "Merced",
    "jurisdiction": "Federal",
    "lat": 37.3859,
@@ -23415,7 +23415,7 @@
   },
   {
    "slug": "usp-atwater-camp",
-   "name": "Usp Atwater Camp",
+   "name": "USP Atwater Camp",
    "county": "Merced",
    "jurisdiction": "Federal",
    "lat": 37.38325,
@@ -23487,7 +23487,7 @@
   },
   {
    "slug": "usp-lompoc",
-   "name": "Usp Lompoc",
+   "name": "USP Lompoc",
    "county": "Santa Barbara",
    "jurisdiction": "Federal",
    "lat": 34.67919,
@@ -23559,7 +23559,7 @@
   },
   {
    "slug": "usp-lompoc-camp",
-   "name": "Usp Lompoc Camp",
+   "name": "USP Lompoc Camp",
    "county": "Santa Barbara",
    "jurisdiction": "Federal",
    "lat": 34.67503,
@@ -23631,7 +23631,7 @@
   },
   {
    "slug": "usp-lompoc-north-camp",
-   "name": "Usp Lompoc North Camp",
+   "name": "USP Lompoc North Camp",
    "county": "Santa Barbara",
    "jurisdiction": "Federal",
    "lat": 34.68435,
@@ -23703,7 +23703,7 @@
   },
   {
    "slug": "usp-victorville",
-   "name": "Usp Victorville",
+   "name": "USP Victorville",
    "county": "San Bernardino",
    "jurisdiction": "Federal",
    "lat": 34.56512,
@@ -23847,7 +23847,7 @@
   },
   {
    "slug": "valley-state-prison-vsp",
-   "name": "Valley State Prison (Vsp)",
+   "name": "Valley State Prison (VSP)",
    "county": "Madera",
    "jurisdiction": "State",
    "lat": 37.10548,
@@ -24495,7 +24495,7 @@
   },
   {
    "slug": "wasco-state-prison-wsp",
-   "name": "Wasco State Prison (Wsp)",
+   "name": "Wasco State Prison (WSP)",
    "county": "Kern",
    "jurisdiction": "State",
    "lat": 35.59431,
