@@ -25,14 +25,14 @@ Air quality:
 
 ## Where the data comes from
 
-All temperature data comes from station-based products based on observed temperatures. This matters in California, where reanalysis models like ERA5 miss the marine layer that cools the coast and can read some facilities 5–10°F too warm. The two gridded climate products, PRISM and RTMA/URMA, are read through Google Earth Engine; the current-conditions readings come from the National Weather Service and EPA.
+All temperature data comes from station-based products based on observed temperatures. This matters in California, where reanalysis models like ERA5 miss the marine layer that cools the coast and can read some facilities 5–10°F too warm. The two gridded climate products, PRISM and RTMA/URMA, are read through Google Earth Engine. The latest temperature you see anywhere on the site comes from RTMA/URMA, as does the historic chart. The forecast high and the secondary nearest-station reading come from the National Weather Service, and air quality from EPA.
 
 | What | Source | Resolution | Role |
 |---|---|---|---|
 | Baseline: 1991–2020 Jun–Aug mean daily high, per facility | PRISM Climate Group 30-year Normals (`tmax`), Oregon State University, via Google Earth Engine | 800 m | Sets each facility's comparison line (historic average + 10°F) |
-| Current-day high | NWS National Digital Forecast Database (`api.weather.gov`) | ~2.5 km | Same-day reading |
-| Last 14 days, hourly, and the 2016–2025 historic band | NOAA Real-Time / Un-Restricted Mesoscale Analysis (RTMA/URMA), via Google Earth Engine | 2.5 km hourly | Detail-page chart |
-| Temperature now | Nearest NWS observation station, fetched live | station | Current-conditions reading |
+| Latest temperature, last 14 days (hourly), and the 2016–2025 historic band | NOAA Real-Time / Un-Restricted Mesoscale Analysis (RTMA/URMA), via Google Earth Engine | 2.5 km hourly | Current temperature everywhere on the site, and the detail-page chart and historic band |
+| Current-day forecast high | NWS National Digital Forecast Database (`api.weather.gov`) | ~2.5 km | Same-day forecast high |
+| Nearest-station reading (secondary) | Nearest NWS observation station, fetched live | station | A fresher spot cross-check, shown as a note beside the latest temperature on detail pages |
 | Current air quality | AirNow (EPA, monitor-based NowCast AQI) | monitor network | AQI |
 | Facilities: locations, jurisdiction, boundaries | FEMA / HIFLD Prison Boundaries (July 2025), with CDCR additions | — | Which facilities, where |
 | CDCR population, cooling infrastructure, vulnerability indicators | CDCR and CCHCS public data | — | CDCR state prison panels |
