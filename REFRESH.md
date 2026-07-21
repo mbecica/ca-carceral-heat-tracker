@@ -63,6 +63,6 @@ removed facilities on its next run.
 - `slugs.csv` is **append-only** — never edit slugs by hand; retired slugs are never reused
   (URL stability contract).
 - Baselines use PRISM 800 m normals; bands and live use NWS/RTMA at 2.5 km — a small
-  PRISM-vs-RTMA offset is expected and spot-checked (see `METHODS.md`).
+  (~1–2°F) PRISM-vs-RTMA offset is expected and spot-checked at sample facilities before launch.
 - The static builds are the only thing that needs the climate-justice checkout; the live
   cron job does not.

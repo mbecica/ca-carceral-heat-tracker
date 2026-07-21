@@ -6,7 +6,7 @@ For every OPEN facility, reads the **PRISM 1991–2020 30-year normals** (`tmax`
 June–August mean daily-max temperature (°F). The app's display threshold is this
 baseline + 10°F (Skarha et al. 2023 mortality metric).
 
-Why PRISM (see METHODS.md): it is observation-anchored, so it
+Why PRISM: it is observation-anchored, so it
 resolves California's coastal/marine-valley microclimates that a reanalysis model
 (ERA5) reads 5–10°F too warm. PRISM is *published directly* as a normal — we read
 the point value, we do not compute a 30-year climatology ourselves. The

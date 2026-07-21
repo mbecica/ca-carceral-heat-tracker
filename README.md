@@ -1,9 +1,13 @@
 # California Carceral Facility Heat Tracker
 
-A live map and per-facility view of how hot it currently is at each active California
-carceral facility, relative to that facility's own long-term summer normal — with the last
-two weeks of hourly temperature for context. A companion to the
-[Prison Heat Index](https://marybecica.com/prison-heat-index/).
+Live at **[heat.marybecica.com](https://heat.marybecica.com)**.
+
+This tool tracks how hot it currently is at California prisons, jails and other carceral
+facilities, measured against that facility's own long-term historic summer temperatures. It
+was built to help advocates highlight heat events in California prisons and bring attention to
+this public-health and human-rights crisis, in support of the Climate Justice Coalition for
+California Prisons. This project acknowledges and extends the work of
+[The Toxic Prisons Mapping Project](https://www.toxicprisons.com/).
 
 > **Status: in development — prototype phase.**
 
@@ -20,12 +24,15 @@ two weeks of hourly temperature for context. A companion to the
   statewide temperature map + jurisdiction filter + sortable table, per-facility detail pages with
   a D3 14-day chart, and the methods page. Status / °F-over is computed in the browser from the raw
   JSON against `threshold_f` (`static/js/cht-status.js`).
-- [`METHODS.md`](METHODS.md) — data sources and methodology (seeds the public methods page).
+- [`content/methods.md`](content/methods.md) — the public Methods & Sources page (data sources + methodology).
 - [`REFRESH.md`](REFRESH.md) — how to refresh the data.
 - [`DEPLOY.md`](DEPLOY.md) — Cloudflare Pages + subdomain setup.
 
 ## Data
 
 Facility and climate data are drawn from public sources (PRISM, NOAA/NWS, EPA, FEMA/HIFLD,
-CDCR). Facility attributes originate in the open
-[`ca_prison_climate_justice`](https://github.com/mbecica/ca_prison_climate_justice) repository.
+CDCR). See the [methods page](https://heat.marybecica.com/methods/) for the full source list,
+resolutions, and methodology, including how each facility's historic summer comparison is
+built. Facility attributes originate in the open
+[`ca_prison_climate_justice`](https://github.com/mbecica/ca_prison_climate_justice) repository,
+which also publishes the facility-level hazard, exposure, and vulnerability dataset.
