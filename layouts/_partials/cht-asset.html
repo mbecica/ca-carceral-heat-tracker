@@ -1,0 +1,11 @@
+{{- /* cht-asset: return a cache-busted URL for a file under static/.
+       The ?v= hash changes only when the file's content changes, so browsers and
+       Cloudflare's edge can cache aggressively (see static/_headers) yet pick up a
+       new deploy immediately. Pass the path relative to static/, e.g. "css/cht.css".
+       Falls back to the plain URL if the file can't be read. */ -}}
+{{- $path := . -}}
+{{- $url := $path | relURL -}}
+{{- with (os.ReadFile (printf "static/%s" $path)) -}}
+  {{- $url = printf "%s?v=%s" $url (substr (md5 .) 0 10) -}}
+{{- end -}}
+{{- return $url -}}

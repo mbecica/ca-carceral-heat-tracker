@@ -150,6 +150,7 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
   padding: 0 0.3rem; border-radius: 999px; background: var(--accent); color: #fff; font-size: 0.72rem; font-weight: 700;
 }
 .cht-fdrop__badge[hidden] { display: none; }
+.cht-fdrop__label { margin-right: auto; }   /* pushes the count badge + caret to the right (full-width mobile buttons) */
 .cht-fdrop__caret { width: 0.7rem; height: 0.7rem; color: var(--secondary); }
 .cht-fdrop__panel {
   position: absolute; top: calc(100% + 4px); right: 0; z-index: 1200;
@@ -207,7 +208,12 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 .cht-ltip__sub { color: var(--secondary); font-size: 0.8rem; }
 .cht-ltip__val { color: var(--primary); font-weight: 600; margin-top: 0.2rem; }
 .cht-ltip__over { color: var(--cht-over); font-weight: 600; }
-.cht-ltip.leaflet-tooltip-top::before { border-top-color: var(--border); }
+/* Arrow matches the tooltip background for EVERY direction — the detail map's
+   sticky (auto-direction) tooltips were showing Leaflet's default white arrow. */
+.cht-ltip.leaflet-tooltip-top::before { border-top-color: var(--entry); }
+.cht-ltip.leaflet-tooltip-bottom::before { border-bottom-color: var(--entry); }
+.cht-ltip.leaflet-tooltip-left::before { border-left-color: var(--entry); }
+.cht-ltip.leaflet-tooltip-right::before { border-right-color: var(--entry); }
 
 /* ---- Legend + caveat ---- */
 .cht-legend { display: flex; flex-wrap: wrap; gap: 0.3rem 0.9rem; align-items: center; margin-top: 0.4rem; }
@@ -261,6 +267,7 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 .cht-dash__side--profile { padding: 1rem 1.7rem 1.6rem; }
 .cht-app { max-width: 820px; margin: 0; }
 .cht-profile__title { font-size: 1.55rem; line-height: 1.2; margin: 0 0 0.35rem; }
+.cht-profile__back { display: none; }   /* desktop uses the header's "Back to statewide view" */
 .cht-meta__addr { margin: 0 0 0.7rem; font-size: 0.9rem; line-height: 1.4; }
 .cht-meta__addr a { color: var(--accent); text-decoration: underline; text-underline-offset: 0.15em; }
 .cht-na { color: var(--secondary); font-style: italic; }
@@ -424,6 +431,22 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 .cht-viewtoggle__btn:last-child { border-radius: 0 8px 8px 0; }
 .cht-viewtoggle__btn[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
 
+/* ---- Mobile toolbar + Filters toggle (shown only on mobile) ---- */
+.cht-mobilebar { display: none; }
+.cht-filter-toggle {
+  display: inline-flex; align-items: center; gap: 0.35rem; position: relative; font: inherit;
+  font-size: 0.82rem; cursor: pointer; padding: 0.4rem 0.75rem; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--entry); color: var(--primary);
+}
+.cht-filter-toggle svg { flex: 0 0 auto; }
+.cht-filter-toggle[aria-expanded="true"] { border-color: var(--accent); color: var(--accent); }
+.cht-filter-toggle__dot { display: none; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.cht-filter-toggle--active .cht-filter-toggle__dot { display: inline-block; }
+.cht-filter-close {
+  display: none; font: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer;
+  padding: 0.3rem 0.9rem; border-radius: 8px; border: 1px solid var(--border); background: var(--entry); color: var(--accent);
+}
+
 /* ---- "My location" on-map control (sits over the light basemap) ---- */
 .cht-locate {
   display: inline-flex; align-items: center; gap: 0.35rem; font: inherit;
@@ -447,17 +470,51 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 
 /* ---- Mobile ---- */
 @media (max-width: 820px) {
-  .cht-dash { height: 100dvh; min-height: 100dvh; }
-  .cht-viewtoggle { display: flex; flex: 0 0 auto; padding: 0.5rem 1.15rem; border-bottom: 1px solid var(--border); background: var(--theme); }
+  .cht-dash { height: 100dvh; min-height: 100dvh; position: relative; }
+
+  /* Mobile toolbar: Map/Table toggle (left) + Filters button (right) */
+  .cht-mobilebar { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem;
+    flex: 0 0 auto; padding: 0.5rem 1.15rem; border-bottom: 1px solid var(--border); background: var(--theme); }
+  .cht-viewtoggle { display: flex; }
+
   .cht-dash__body { display: flex; flex-direction: column; }
   .cht-dash__map { border-right: none; }
   .cht-dash__map--detail { display: none; }   /* no map on detail pages on mobile */
-  /* statewide pane switching */
+  /* statewide pane switching — the pane fills all remaining height (taller map) */
   .cht-dash[data-mobile-view="map"] .cht-dash__side { display: none; }
   .cht-dash[data-mobile-view="map"] .cht-dash__map { flex: 1 1 auto; min-height: 0; }
   .cht-dash[data-mobile-view="table"] .cht-dash__map { display: none; }
   .cht-dash[data-mobile-view="table"] .cht-dash__side { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
-  .cht-search-wrap { flex: 1 1 12rem; }
+
+  /* Filters + search hidden by default; the Filters button opens them as an overlay
+     OVER the map (top set by JS to sit just under the toolbar, so the map keeps its height). */
+  .cht-filters { display: none; }
+  .cht-dash[data-filters="open"] .cht-filters {
+    display: flex; flex-direction: column; align-items: stretch; gap: 0.55rem;
+    position: absolute; left: 0; right: 0; z-index: 1500;
+    padding: 0.7rem 1.15rem 0.9rem; background: var(--theme);
+    border-bottom: 1px solid var(--border); box-shadow: 0 12px 28px rgba(0,0,0,0.5);
+  }
+  .cht-dash[data-filters="open"] .cht-fdrop { width: 100%; }
+  .cht-dash[data-filters="open"] .cht-fdrop__btn { width: 100%; }
+  /* Search on its own line; Clear all + Done share the bottom line (Done pinned right). */
+  .cht-filters__right { margin-left: 0; width: 100%; flex-wrap: wrap; }
+  .cht-search-wrap { order: -1; flex: 1 1 100%; }
   .cht-search { width: 100%; }
+  .cht-download-btn { display: none; }        /* no CSV download on mobile */
+  .cht-filter-close { display: inline-flex; margin-left: auto; }
+  .cht-dash[data-mobile-view] .cht-foot__asof { display: none; }   /* statewide only: as-of already in the header on mobile */
   .cht-hero { width: 100%; }
+
+  /* Detail page: scroll the whole document so the footer flows at the END (not
+     pinned), and keep the facility name pinned at the top for context. */
+  .cht-dash--detail { height: auto; min-height: 100dvh; }
+  .cht-dash--detail .cht-dash__body { display: block; }
+  .cht-dash--detail .cht-dash__side { overflow: visible; }
+  .cht-dash--detail .cht-profile__title {
+    position: sticky; top: 0; z-index: 20; background: var(--theme);
+    margin: 0 -1.7rem 0.6rem; padding: 0.55rem 1.7rem; border-bottom: 1px solid var(--border);
+  }
+  .cht-dash--detail .cht-profile__back { display: inline; margin-right: 0.45rem; color: var(--secondary); font-weight: 400; text-decoration: none; }
+  .cht-dash--detail .cht-profile__back:hover { color: var(--accent); }
 }

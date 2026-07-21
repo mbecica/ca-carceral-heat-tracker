@@ -31,7 +31,7 @@
 {{- $avgEop := cond (gt $n 0) (div $sEop $n) 0.0 }}{{ $avgDpp := cond (gt $n 0) (div $sDpp $n) 0.0 }}
 {{- $avgHi := cond (gt $n 0) (div $sHi $n) 0.0 }}{{ $avgPop := cond (gt $n 0) (div $sPop $n) 0.0 }}
 
-<div class="cht-dash">
+<div class="cht-dash cht-dash--detail">
   <header class="cht-dash__bar">
     <div class="cht-dash__brand">
       <a class="cht-dash__title-link" href="{{ "/" | relURL }}">California Carceral Facility Heat Tracker</a>
@@ -57,7 +57,7 @@
                data-lat="{{ $f.lat }}" data-lon="{{ $f.lon }}"
                data-threshold="{{ $f.threshold_f }}"
                data-baseline="{{ $f.baseline_summer_avg_high_f }}">
-        <h1 class="cht-profile__title">{{ if and $cdcr $cdcr.code }}{{ $f.name | replaceRE `\s*\([^)]*\)\s*$` "" }} <span class="cht-tcode">{{ $cdcr.code }}</span>{{ else }}{{ $f.name }}{{ end }}</h1>
+        <h1 class="cht-profile__title"><a class="cht-profile__back" href="{{ "/" | relURL }}" aria-label="Back to statewide view">&larr;</a>{{ if and $cdcr $cdcr.code }}{{ $f.name | replaceRE `\s*\([^)]*\)\s*$` "" }} <span class="cht-tcode">{{ $cdcr.code }}</span>{{ else }}{{ $f.name }}{{ end }}</h1>
         <p class="cht-meta__addr">
           {{- with $f.address }}<a href="{{ printf "https://www.google.com/maps/search/?%s" (querify "api" "1" "query" .) | safeURL }}" rel="noopener" target="_blank">{{ . }}</a>
           {{- else }}<span class="cht-na">Address not reported</span>{{ end -}}
@@ -182,11 +182,11 @@
 </div>
 {{- end }}
 
-<script src="{{ "js/leaflet.js" | relURL }}"></script>
-<script src="{{ "js/d3.min.js" | relURL }}"></script>
-<script src="{{ "js/cht-temp-scale.js" | relURL }}"></script>
-<script src="{{ "js/cht-status.js" | relURL }}"></script>
-<script src="{{ "js/cht-chart.js" | relURL }}" defer></script>
-<script src="{{ "js/cht-detail.js" | relURL }}" defer></script>
-<script src="{{ "js/cht-detail-map.js" | relURL }}" defer></script>
+<script src="{{ partial "cht-asset.html" "js/leaflet.js" }}"></script>
+<script src="{{ partial "cht-asset.html" "js/d3.min.js" }}"></script>
+<script src="{{ partial "cht-asset.html" "js/cht-temp-scale.js" }}"></script>
+<script src="{{ partial "cht-asset.html" "js/cht-status.js" }}"></script>
+<script src="{{ partial "cht-asset.html" "js/cht-chart.js" }}" defer></script>
+<script src="{{ partial "cht-asset.html" "js/cht-detail.js" }}" defer></script>
+<script src="{{ partial "cht-asset.html" "js/cht-detail-map.js" }}" defer></script>
 {{- end }}

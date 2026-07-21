@@ -60,12 +60,19 @@
         <svg class="cht-search-ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><line x1="12.6" y1="12.6" x2="17" y2="17" stroke-linecap="round"/></svg>
         <input type="search" id="cht-search" class="cht-search" placeholder="Search facility or county…" aria-label="Search facilities by name or county">
       </label>
+      <button type="button" class="cht-filter-close" id="cht-filter-close" aria-label="Close filters and search">Done</button>
     </div>
   </div>
 
-  <div class="cht-viewtoggle" role="tablist" aria-label="Choose map or table view">
-    <button type="button" class="cht-viewtoggle__btn" data-view="map" role="tab" aria-selected="true">Map</button>
-    <button type="button" class="cht-viewtoggle__btn" data-view="table" role="tab" aria-selected="false">Table</button>
+  <div class="cht-mobilebar">
+    <div class="cht-viewtoggle" role="tablist" aria-label="Choose map or table view">
+      <button type="button" class="cht-viewtoggle__btn" data-view="map" role="tab" aria-selected="true">Map</button>
+      <button type="button" class="cht-viewtoggle__btn" data-view="table" role="tab" aria-selected="false">Table</button>
+    </div>
+    <button type="button" class="cht-filter-toggle" id="cht-filter-toggle" aria-expanded="false" aria-controls="cht-filters">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+      Filters<span class="cht-filter-toggle__dot" aria-hidden="true"></span>
+    </button>
   </div>
 
   <div class="cht-dash__body">
@@ -95,8 +102,8 @@
   <footer class="cht-dash__foot">{{ partial "cht-footer.html" . }}</footer>
 </div>
 
-<script src="{{ "js/leaflet.js" | relURL }}"></script>
-<script src="{{ "js/cht-temp-scale.js" | relURL }}"></script>
-<script src="{{ "js/cht-status.js" | relURL }}"></script>
-<script src="{{ "js/cht-statewide.js" | relURL }}" defer></script>
+<script src="{{ partial "cht-asset.html" "js/leaflet.js" }}"></script>
+<script src="{{ partial "cht-asset.html" "js/cht-temp-scale.js" }}"></script>
+<script src="{{ partial "cht-asset.html" "js/cht-status.js" }}"></script>
+<script src="{{ partial "cht-asset.html" "js/cht-statewide.js" }}" defer></script>
 {{- end }}

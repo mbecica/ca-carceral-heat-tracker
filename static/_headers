@@ -3,8 +3,10 @@
 /data/*
   Cache-Control: public, max-age=300, must-revalidate
 
-# Fingerprint-free static assets: cache a day, revalidate.
+# Assets are cache-busted via a ?v=<content-hash> query string (see the
+# cht-asset partial), so a URL's bytes never change: cache hard and skip
+# revalidation. A content change ships a new URL, picked up immediately.
 /js/*
-  Cache-Control: public, max-age=86400
+  Cache-Control: public, max-age=31536000, immutable
 /css/*
-  Cache-Control: public, max-age=86400
+  Cache-Control: public, max-age=31536000, immutable

@@ -6,10 +6,13 @@ name: fetch-current
 
 on:
   schedule:
-    # Launched (2026-07-21): once a day at 17:00 UTC (≈ 9-10am PT) — ~30 commit-
-    # rebuilds/mo, comfortably under the shared 500-build/mo quota. Phase 4 (R2)
-    # decouples delivery from builds and can bump this to hourly/every-3h then.
-    - cron: "0 17 * * *"
+    # Temporary bump (2026-07-21 → revert ~2026-08-21): every 6 h at 05/11/17/23
+    # UTC = ≈ 4am / 10am / 4pm / 10pm PT — captures a morning reading and an
+    # afternoon-high reading (CA inland peak ~3-5pm PT) each day. ~4 commit-
+    # rebuilds/day ≈ 120/mo, still well under the shared 500-build/mo quota.
+    # AFTER the trial, revert to the daily "0 17 * * *" — or, once Phase 4 (R2)
+    # decouples delivery from builds, this can go higher without rebuild cost.
+    - cron: "0 5,11,17,23 * * *"
   workflow_dispatch:           # allow manual runs from the Actions tab anytime
 
 # Never let two refreshes overlap or race the commit/push.

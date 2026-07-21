@@ -353,8 +353,12 @@
       if (badge) { badge.textContent = n; badge.hidden = n === 0; }
       dd.classList.toggle("cht-fdrop--active", n > 0);
     });
+    var active = !!anyActive();
     var clear = document.getElementById("cht-clear");
-    if (clear) clear.hidden = !anyActive();
+    if (clear) clear.hidden = !active;
+    // Mobile: dot on the "Filters" button when any filter/search is active.
+    var ft = document.getElementById("cht-filter-toggle");
+    if (ft) ft.classList.toggle("cht-filter-toggle--active", active);
     // Keep the alert's "View facilities" link in sync with the over-average floor.
     var link = document.getElementById("cht-alert-link");
     if (link) link.setAttribute("aria-pressed", state.heat.has("avg") ? "true" : "false");
@@ -364,6 +368,42 @@
     if (map) applyMapFilter();
     rebuildTable();
     updateBadges();
+    persist();
+  }
+
+  /* ---- Session persistence: keep the filtered/sorted view (and mobile Map/Table
+     pane) across navigation — e.g. opening a detail page and clicking "Back to
+     statewide view". Session-scoped (sessionStorage); resets when the tab closes. */
+  var SS_KEY = "cht.statewide.v1";
+  function persist() {
+    try {
+      var dash = document.querySelector(".cht-dash");
+      sessionStorage.setItem(SS_KEY, JSON.stringify({
+        heat: Array.from(state.heat), jurisdiction: Array.from(state.jurisdiction),
+        population: Array.from(state.population), county: Array.from(state.county),
+        search: state.search, sortKey: sort.key, sortDir: sort.dir,
+        view: dash ? dash.getAttribute("data-mobile-view") : null
+      }));
+    } catch (e) { /* storage unavailable (private mode) — no-op */ }
+  }
+  function restore() {
+    try {
+      var s = JSON.parse(sessionStorage.getItem(SS_KEY) || "null");
+      if (!s) return;
+      state.heat = new Set(s.heat || []); state.jurisdiction = new Set(s.jurisdiction || []);
+      state.population = new Set(s.population || []); state.county = new Set(s.county || []);
+      state.search = s.search || "";
+      if (s.sortKey) { sort.key = s.sortKey; sort.dir = s.sortDir || "desc"; }
+      var input = document.getElementById("cht-search");
+      if (input) input.value = state.search;
+      var dash = document.querySelector(".cht-dash");
+      if (dash && s.view) {
+        dash.setAttribute("data-mobile-view", s.view);
+        document.querySelectorAll(".cht-viewtoggle__btn").forEach(function (b) {
+          b.setAttribute("aria-selected", b.getAttribute("data-view") === s.view ? "true" : "false");
+        });
+      }
+    } catch (e) { /* ignore malformed state */ }
   }
 
   function wireDropdowns() {
@@ -435,6 +475,7 @@
         if (sort.key === key) sort.dir = sort.dir === "asc" ? "desc" : "asc";
         else { sort.key = key; sort.dir = (key === "name" || key === "county" || key === "jurisdiction") ? "asc" : "desc"; }
         rebuildTable();
+        persist();
       }
       th.addEventListener("click", toggle);
       th.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } });
@@ -463,14 +504,39 @@
       applyAll();
     });
 
+    // Mobile: filters + search collapse under a "Filters" button, opening as an
+    // overlay OVER the map (positioned just below the mobile bar so the map keeps
+    // its height). The toggle button and the "Done" button both collapse it.
+    var dashEl = document.querySelector(".cht-dash");
+    var fToggle = document.getElementById("cht-filter-toggle");
+    var fClose = document.getElementById("cht-filter-close");
+    var filtersEl = document.getElementById("cht-filters");
+    function positionFilters() {
+      if (!filtersEl) return;
+      var bar = document.querySelector(".cht-mobilebar");
+      filtersEl.style.top = (bar ? bar.offsetTop + bar.offsetHeight : 0) + "px";
+    }
+    function setFiltersOpen(open) {
+      if (!dashEl) return;
+      if (open) { positionFilters(); dashEl.setAttribute("data-filters", "open"); }
+      else { dashEl.removeAttribute("data-filters"); }
+      if (fToggle) fToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+    if (fToggle) fToggle.addEventListener("click", function () { setFiltersOpen(dashEl.getAttribute("data-filters") !== "open"); });
+    if (fClose) fClose.addEventListener("click", function () { setFiltersOpen(false); });
+    window.addEventListener("resize", function () {
+      if (dashEl && dashEl.getAttribute("data-filters") === "open") positionFilters();
+    });
+
     // Mobile Map/Table view toggle.
-    var dash = document.querySelector(".cht-dash");
+    var dash = dashEl;
     document.querySelectorAll(".cht-viewtoggle__btn").forEach(function (btn) {
       btn.addEventListener("click", function () {
         var view = btn.getAttribute("data-view");
         if (dash) dash.setAttribute("data-mobile-view", view);
         document.querySelectorAll(".cht-viewtoggle__btn").forEach(function (b) { b.setAttribute("aria-selected", b === btn ? "true" : "false"); });
         if (view === "map" && map) setTimeout(function () { map.invalidateSize(); }, 30);
+        persist();
       });
     });
   }
@@ -505,6 +571,7 @@
       });
       data.forEach(function (d) { bySlug[d.slug] = d; });
 
+      restore();      // hydrate filters/search/sort/view from the last session before first render
       buildDropdowns();
       wireSort();
       wireControls();
