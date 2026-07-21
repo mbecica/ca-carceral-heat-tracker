@@ -42,7 +42,7 @@
 
   var state = { heat: new Set(), jurisdiction: new Set(), population: new Set(), county: new Set(), search: "" };
   var sort = { key: "today", dir: "desc" };   // default: hottest current temperature first
-  var data = [], bySlug = {}, meta = null, alertDismissed = false;
+  var data = [], bySlug = {}, meta = null, alertDismissed = false, baselinePeriod = "";
   var map = null, tiles = null, circleGroup = null, polyGroup = null, polyShown = false, userMarker = null;
   var circles = {}, polys = {};
 
@@ -82,7 +82,7 @@
     var t = d.currentTemp;
     var now = t != null ? fmt(t) + "°F" + (d.tempAsOf ? " · as of " + fmtAsOf(d.tempAsOf) : "") : "—";
     var avg = d.fac && d.fac.baseline_summer_avg_high_f;
-    var avgLine = avg != null ? '<span class="cht-ltip__sub">Avg. summer max: ' + fmt(avg) + "°F</span>" : "";
+    var avgLine = avg != null ? '<span class="cht-ltip__sub">Avg summer max' + (baselinePeriod ? " (" + baselinePeriod + ")" : "") + ": " + fmt(avg) + "°F</span>" : "";
     var aqi = d.aqi != null
       ? '<span class="cht-ltip__val">AQI ' + d.aqi + (d.aqiCat ? " · " + d.aqiCat : "") + '<i class="cht-aqi-mini" style="background:' + aqiColor(d.aqi) + '"></i></span>'
       : "";
@@ -164,6 +164,21 @@
     circleGroup.addTo(map);
     map.fitBounds(circleGroup.getBounds(), { padding: [10, 10], maxZoom: 7 });
     map.on("zoomend", updateMode);
+
+    // "My location" as an on-map control (top-right), not a legend item.
+    var LocateCtl = L.Control.extend({
+      options: { position: "topright" },
+      onAdd: function () {
+        var b = L.DomUtil.create("button", "cht-locate");
+        b.type = "button"; b.id = "cht-locate";
+        b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke-linecap="round"/></svg>My location';
+        L.DomEvent.disableClickPropagation(b);
+        return b;
+      }
+    });
+    map.addControl(new LocateCtl());
+    wireLocate();
+
     setTimeout(function () { map.invalidateSize(); }, 60);
     window.addEventListener("resize", function () { map.invalidateSize(); });
     if (window.matchMedia) window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function () { tiles.setUrl(tileUrl()); recolor(); });
@@ -192,7 +207,7 @@
     });
   }
 
-  /* ---- Geolocation: "My location" control in the legend ---- */
+  /* ---- Geolocation: "My location" on-map control ---- */
   function locateMe() {
     if (!map || !navigator.geolocation) return;
     map.locate({ setView: true, maxZoom: 11, enableHighAccuracy: true });
@@ -212,15 +227,17 @@
     var el = document.getElementById("cht-legend"); if (!el) return;
     var cells = window.CHTTempScale.legendCells(55, 110, 5)
       .map(function (c) { return '<span class="cht-legend__scale-cell" style="background:' + c.color + '"></span>'; }).join("");
+    // Order: fill-color legend (temp gradient + no-data) grouped first, then the two
+    // status rings together. "My location" is a map control, not a legend item.
     el.innerHTML =
       '<span class="cht-legend__group"><span class="cht-legend__ends">55°</span>' +
       '<span class="cht-legend__scale">' + cells + "</span>" +
       '<span class="cht-legend__ends">110°F now</span></span>' +
-      '<span class="cht-legend__item"><span class="cht-legend__ring cht-legend__ring--avg"></span>Over average max</span>' +
-      '<span class="cht-legend__item"><span class="cht-legend__ring cht-legend__ring--hi"></span>10°F above average max</span>' +
       '<span class="cht-legend__item"><span class="cht-legend__swatch" style="background:var(--cht-null)"></span>no data</span>' +
-      '<button type="button" class="cht-locate" id="cht-locate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke-linecap="round"/></svg>My location</button>';
-    wireLocate();
+      '<span class="cht-legend__pair">' +
+        '<span class="cht-legend__item"><span class="cht-legend__ring cht-legend__ring--avg"></span>Above historic avg</span>' +
+        '<span class="cht-legend__item"><span class="cht-legend__ring cht-legend__ring--hi"></span>10°F above historic avg</span>' +
+      '</span>';
   }
 
   function sortVal(d, key) {
@@ -312,8 +329,8 @@
   }
   function buildDropdowns() {
     setPanel("heat",
-      heatOptionRow("avg", "Over average max", data.filter(isOverAvg).length, "avg") +
-      heatOptionRow("hi", "10°F above average max", data.filter(isOverHi).length, "hi"));
+      heatOptionRow("avg", "Above historic avg", data.filter(isOverAvg).length, "avg") +
+      heatOptionRow("hi", "10°F above historic avg", data.filter(isOverHi).length, "hi"));
 
     var jc = {}; data.forEach(function (d) { jc[d.jurisdiction] = (jc[d.jurisdiction] || 0) + 1; });
     setPanel("jurisdiction", Object.keys(jc).sort(function (a, b) { return jc[b] - jc[a]; })
@@ -474,6 +491,7 @@
     ]).then(function (res) {
       var statewide = res[0], facilities = res[1], boundaries = res[2];
       meta = statewide.meta;
+      baselinePeriod = ((facilities.meta && facilities.meta.threshold && facilities.meta.threshold.baseline_period) || "").replace("-", "–");
       var facBySlug = {}; facilities.facilities.forEach(function (f) { facBySlug[f.slug] = f; });
       data = statewide.facilities.map(function (row) {
         var fac = facBySlug[row.slug] || {};

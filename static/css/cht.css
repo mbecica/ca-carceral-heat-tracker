@@ -93,7 +93,6 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 .cht-dash__map .cht-legend .cht-legend__ring { background: var(--cht-map-bg); }
 .cht-dash__map .cht-legend .cht-legend__swatch,
 .cht-dash__map .cht-legend .cht-legend__scale { border-color: var(--cht-map-stroke); }
-.cht-dash__map .cht-legend .cht-locate { background: #fff; border-color: var(--cht-map-stroke); color: #3d3a36; }
 .cht-dash__map .cht-caveat { flex: 0 0 auto; margin: 0; padding: 0.4rem 0.9rem; font-size: 0.76rem; }
 
 /* Side (table / profile) column — table is full-bleed; the profile re-adds padding */
@@ -214,6 +213,7 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 .cht-legend { display: flex; flex-wrap: wrap; gap: 0.3rem 0.9rem; align-items: center; margin-top: 0.4rem; }
 .cht-legend__group { display: inline-flex; align-items: center; gap: 0.3rem; }
 .cht-legend__item { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.8rem; color: var(--secondary); }
+.cht-legend__pair { display: inline-flex; align-items: center; gap: 0.9rem; }   /* keep the two status rings together on wrap */
 .cht-legend__swatch { width: 14px; height: 14px; border-radius: 3px; border: 1px solid var(--cht-marker-stroke); }
 .cht-legend__ring { width: 13px; height: 13px; border-radius: 50%; background: var(--code-bg); border: 2px solid var(--cht-ring); display: inline-block; box-sizing: border-box; }
 .cht-legend__ring--hi { border-width: 3.5px; }
@@ -424,11 +424,11 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 .cht-viewtoggle__btn:last-child { border-radius: 0 8px 8px 0; }
 .cht-viewtoggle__btn[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
 
-/* ---- "My location" control in the legend ---- */
+/* ---- "My location" on-map control (sits over the light basemap) ---- */
 .cht-locate {
-  margin-left: auto; display: inline-flex; align-items: center; gap: 0.35rem; font: inherit;
-  font-size: 0.78rem; cursor: pointer; padding: 0.22rem 0.55rem; border: 1px solid var(--border);
-  border-radius: 6px; background: var(--entry); color: var(--secondary);
+  display: inline-flex; align-items: center; gap: 0.35rem; font: inherit;
+  font-size: 0.78rem; cursor: pointer; padding: 0.28rem 0.6rem; border: 1px solid var(--cht-map-stroke);
+  border-radius: 6px; background: #fff; color: #3d3a36; box-shadow: 0 1px 4px rgba(0,0,0,0.28);
 }
 .cht-locate:hover { border-color: var(--accent); color: var(--accent); }
 .cht-locate svg { width: 0.95rem; height: 0.95rem; }

@@ -22,8 +22,15 @@
   function slugPath(slug) { return "/" + slug + "/"; }
   function ready(fn) { document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", fn) : fn(); }
   function fmt(n) { return n == null || isNaN(n) ? "—" : Math.round(n); }
+  function fmtAsOf(s) { try { return new Date(s).toLocaleString(undefined, { month: "short", day: "numeric", hour: "numeric" }); } catch (e) { return s; } }
+  // EPA AQI category color (kept in sync with cht-statewide.js).
+  function aqiColor(a) {
+    if (a == null) return cssVar("--cht-null");
+    if (a <= 50) return "#00e400"; if (a <= 100) return "#ffd000"; if (a <= 150) return "#ff7e00";
+    if (a <= 200) return "#ff0000"; if (a <= 300) return "#8f3f97"; return "#7e0023";
+  }
 
-  var started = false;
+  var started = false, baselinePeriod = "";
 
   ready(function () {
     // No map at mobile widths; but if the window is later widened to desktop,
@@ -51,12 +58,15 @@
       fetch(BOUND_URL).then(function (r) { return r.json(); }).catch(function () { return { type: "FeatureCollection", features: [] }; })
     ]).then(function (res) {
       var statewide = res[0], facilities = res[1], boundaries = res[2];
+      baselinePeriod = ((facilities.meta && facilities.meta.threshold && facilities.meta.threshold.baseline_period) || "").replace("-", "–");
       var facBySlug = {}; facilities.facilities.forEach(function (f) { facBySlug[f.slug] = f; });
       var data = statewide.facilities.map(function (row) {
         var fac = facBySlug[row.slug] || {};
         return { slug: row.slug, name: row.name, county: row.county, jurisdiction: row.jurisdiction,
           code: fac.cdcr ? fac.cdcr.code : null,
           lat: row.lat, lon: row.lon, temp: row.current_temp_f,
+          tempAsOf: row.current_temp_as_of, aqi: row.aqi, aqiCat: row.aqi_category,
+          avg: fac.baseline_summer_avg_high_f,
           status: window.CHTStatus.computeStatus(row.recent_daily_max_f, fac.baseline_summer_avg_high_f, fac.threshold_f) };
       });
       var bySlug = {}; data.forEach(function (d) { bySlug[d.slug] = d; });
@@ -72,16 +82,18 @@
         if (d.status.hasData && d.status.overAvg) return { color: cssVar("--cht-ring"), weight: 2 };
         return { color: cssVar("--cht-map-stroke"), weight: 1.2 };
       }
+      // Identical body to the statewide map tooltip (cht-statewide.js contentHtml):
+      // name, place, Now + as-of, avg summer max, AQI.
       function tip(d) {
-        var s = d.status;
         var nm = d.code ? d.name.replace(/\s*\([^)]*\)\s*$/, "") + ' <span class="cht-tcode">' + d.code + "</span>" : d.name;
-        var statusLine = s.hasData && s.overHi ? '<span class="cht-ltip__over">10°F above average max</span>'
-          : (s.hasData && s.overAvg ? '<span class="cht-ltip__over">Over average max</span>' : "");
+        var now = d.temp != null ? fmt(d.temp) + "°F" + (d.tempAsOf ? " · as of " + fmtAsOf(d.tempAsOf) : "") : "—";
+        var avgLine = d.avg != null ? '<span class="cht-ltip__sub">Avg summer max' + (baselinePeriod ? " (" + baselinePeriod + ")" : "") + ": " + fmt(d.avg) + "°F</span>" : "";
+        var aqi = d.aqi != null
+          ? '<span class="cht-ltip__val">AQI ' + d.aqi + (d.aqiCat ? " · " + d.aqiCat : "") + '<i class="cht-aqi-mini" style="background:' + aqiColor(d.aqi) + '"></i></span>'
+          : "";
         return '<span class="cht-ltip__name">' + nm + "</span>" +
           '<span class="cht-ltip__sub">' + (d.county || "") + " County · " + (d.jurisdiction || "") + "</span>" +
-          '<span class="cht-ltip__val">Now: ' + (d.temp != null ? fmt(d.temp) + "°F" : "—") + "</span>" +
-          statusLine +
-          (d.slug === activeSlug ? "" : '<span class="cht-ltip__sub">Click to view this profile</span>');
+          '<span class="cht-ltip__val">Now: ' + now + "</span>" + avgLine + aqi;
       }
 
       var map = L.map("cht-detail-map", { center: [active.lat, active.lon], zoom: 6, scrollWheelZoom: true });
