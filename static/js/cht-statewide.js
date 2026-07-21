@@ -107,7 +107,9 @@
     if (state.population.size && !state.population.has(popBucketId(d))) return false;
     if (state.county.size && !state.county.has(d.county)) return false;
     var q = state.search.trim().toLowerCase();
-    if (q && (d.name || "").toLowerCase().indexOf(q) < 0 && (d.county || "").toLowerCase().indexOf(q) < 0) return false;
+    if (q && (d.name || "").toLowerCase().indexOf(q) < 0
+          && (d.county || "").toLowerCase().indexOf(q) < 0
+          && (d.code || "").toLowerCase().indexOf(q) < 0) return false;   // also match CDCR code (e.g. CCWF)
     return true;
   }
   function anyActive() { return state.heat.size || state.jurisdiction.size || state.population.size || state.county.size || state.search.trim(); }

@@ -870,7 +870,7 @@
   {
    "id": 10002345,
    "slug": "california-mens-colony-cmc",
-   "name": "California Men'S Colony (Cmc)",
+   "name": "California Men's Colony (Cmc)",
    "county": "San Luis Obispo",
    "city": "San Luis Obispo",
    "address": "Colony Drive, San Luis Obispo, CA 93409",
@@ -1418,7 +1418,7 @@
   {
    "id": 10006705,
    "slug": "carl-f-bryan-ii-juvenile-hall",
-   "name": "Carl F. Bryan Ii Juvenile Hall",
+   "name": "Carl F. Bryan II Juvenile Hall",
    "county": "Nevada",
    "city": "Nevada City",
    "address": "15434 State Highway 49, Nevada City, CA 95959",
@@ -1482,7 +1482,7 @@
   {
    "id": 10000801,
    "slug": "central-california-womens-facility-ccfw",
-   "name": "Central California Women'S Facility (Ccfw)",
+   "name": "Central California Women's Facility (Ccfw)",
    "county": "Madera",
    "city": "Chowchilla",
    "address": "23370 Road 22, Chowchilla, CA 93610",
@@ -1666,7 +1666,7 @@
   {
    "id": 10005246,
    "slug": "charlies-place-juvenile-day-reporting-center",
-   "name": "Charlie'S Place Juvenile Day Reporting Center",
+   "name": "Charlie's Place Juvenile Day Reporting Center",
    "county": "Siskiyou",
    "city": "Yreka",
    "address": "269 Sharps Road, Yreka, CA 96097",
@@ -2470,7 +2470,7 @@
   {
    "id": 10000831,
    "slug": "fci-victorville-medium-ii",
-   "name": "Fci Victorville Medium Ii",
+   "name": "Fci Victorville Medium II",
    "county": "San Bernardino",
    "city": "Victorville",
    "address": "13777 Air Expressway Boulevard, Victorville, CA 92394",
@@ -2554,7 +2554,7 @@
   {
    "id": 10006530,
    "slug": "folsom-womens-facility-fwf",
-   "name": "Folsom Women'S Facility (Fwf)",
+   "name": "Folsom Women's Facility (Fwf)",
    "county": "Sacramento",
    "city": "Represa",
    "address": "570 E Natoma St, Represa, CA 95671",
@@ -3365,7 +3365,7 @@
    "name": "Ironwood State Prison (Isp)",
    "county": "Riverside",
    "city": "Blythe",
-   "address": "19005 Wiley'S Well Road, Blythe, CA 92225",
+   "address": "19005 Wiley's Well Road, Blythe, CA 92225",
    "jurisdiction": "State",
    "security": "Medium",
    "website": "http://www.cdcr.ca.gov/Facilities_Locator/",
@@ -4390,7 +4390,7 @@
   {
    "id": 10000888,
    "slug": "mens-central-jail",
-   "name": "Men'S Central Jail",
+   "name": "Men's Central Jail",
    "county": "Los Angeles",
    "city": "Los Angeles",
    "address": "441 Bachet Street, Los Angeles, CA 90012",
@@ -6782,7 +6782,7 @@
   {
    "id": 10005300,
    "slug": "stanislaus-county-mens-jail",
-   "name": "Stanislaus County Men'S Jail",
+   "name": "Stanislaus County Men's Jail",
    "county": "Stanislaus",
    "city": "Modesto",
    "address": "1115 H Street, Modesto, CA 95354",
@@ -7162,7 +7162,7 @@
   {
    "id": 10000823,
    "slug": "tulare-county-mens-correctional-facility",
-   "name": "Tulare County Men'S Correctional Facility",
+   "name": "Tulare County Men's Correctional Facility",
    "county": "Tulare",
    "city": "Visalia",
    "address": "36168  Road 112, Visalia, CA 93291",

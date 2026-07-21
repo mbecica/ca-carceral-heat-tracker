@@ -2391,7 +2391,7 @@
   },
   {
    "slug": "california-mens-colony-cmc",
-   "name": "California Men'S Colony (Cmc)",
+   "name": "California Men's Colony (Cmc)",
    "county": "San Luis Obispo",
    "jurisdiction": "State",
    "lat": 35.32457,
@@ -3759,7 +3759,7 @@
   },
   {
    "slug": "carl-f-bryan-ii-juvenile-hall",
-   "name": "Carl F. Bryan Ii Juvenile Hall",
+   "name": "Carl F. Bryan II Juvenile Hall",
    "county": "Nevada",
    "jurisdiction": "County",
    "lat": 39.26566,
@@ -3903,7 +3903,7 @@
   },
   {
    "slug": "central-california-womens-facility-ccfw",
-   "name": "Central California Women'S Facility (Ccfw)",
+   "name": "Central California Women's Facility (Ccfw)",
    "county": "Madera",
    "jurisdiction": "State",
    "lat": 37.09368,
@@ -4479,7 +4479,7 @@
   },
   {
    "slug": "charlies-place-juvenile-day-reporting-center",
-   "name": "Charlie'S Place Juvenile Day Reporting Center",
+   "name": "Charlie's Place Juvenile Day Reporting Center",
    "county": "Siskiyou",
    "jurisdiction": "County",
    "lat": 41.70814,
@@ -7287,7 +7287,7 @@
   },
   {
    "slug": "fci-victorville-medium-ii",
-   "name": "Fci Victorville Medium Ii",
+   "name": "Fci Victorville Medium II",
    "county": "San Bernardino",
    "jurisdiction": "Federal",
    "lat": 34.56848,
@@ -7503,7 +7503,7 @@
   },
   {
    "slug": "folsom-womens-facility-fwf",
-   "name": "Folsom Women'S Facility (Fwf)",
+   "name": "Folsom Women's Facility (Fwf)",
    "county": "Sacramento",
    "jurisdiction": "State",
    "lat": 38.69321,
@@ -13767,7 +13767,7 @@
   },
   {
    "slug": "mens-central-jail",
-   "name": "Men'S Central Jail",
+   "name": "Men's Central Jail",
    "county": "Los Angeles",
    "jurisdiction": "County",
    "lat": 34.06042,
@@ -21687,7 +21687,7 @@
   },
   {
    "slug": "stanislaus-county-mens-jail",
-   "name": "Stanislaus County Men'S Jail",
+   "name": "Stanislaus County Men's Jail",
    "county": "Stanislaus",
    "jurisdiction": "County",
    "lat": 37.64003,
@@ -23055,7 +23055,7 @@
   },
   {
    "slug": "tulare-county-mens-correctional-facility",
-   "name": "Tulare County Men'S Correctional Facility",
+   "name": "Tulare County Men's Correctional Facility",
    "county": "Tulare",
    "jurisdiction": "County",
    "lat": 36.44508,

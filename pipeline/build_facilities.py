@@ -96,6 +96,18 @@ def text(v, title=False):
     return s.title() if title else s
 
 
+def clean_name(s):
+    """Undo naive upstream .title() artifacts that survive into the displayed name:
+    possessive 'S -> 's (Women'S Facility -> Women's Facility) and standalone roman
+    numerals (Ii -> II). Slug-safe (slugify strips apostrophes/case). Does NOT fix
+    acronym casing like Fci/Mcc/Mc-names — those need a curated list (upstream)."""
+    if s is None:
+        return s
+    s = re.sub(r"'S\b", "'s", s)
+    s = re.sub(r"\bi{2,3}\b", lambda m: m.group(0).upper(), s, flags=re.I)
+    return s
+
+
 def bool_from(v):
     if v is None or pd.isna(v):
         return None
@@ -111,7 +123,7 @@ def full_address(f):
     """Compose 'street, City, ST zip' from the facility row; None if no street."""
     if pd.isna(f.get("address")):
         return None
-    street = str(f["address"]).strip()
+    street = clean_name(str(f["address"]).strip())
     city = "" if pd.isna(f.get("city")) else str(f["city"]).title()
     state = "" if pd.isna(f.get("state")) else str(f["state"]).upper()
     zc = "" if pd.isna(f.get("zip")) else str(int(float(f["zip"]))).zfill(5)
@@ -197,13 +209,13 @@ def write_stubs(facilities):
         current.add(f["slug"] + ".md")
         fm = (
             "---\n"
-            f'title: "{f["name"]}"\n'
+            f'title: "{clean_name(f["name"])}"\n'
             f'slug: "{f["slug"]}"\n'
             f'url: "/{f["slug"]}/"\n'
             f"facilityid: {f['id']}\n"
             "type: facility\n"
             "layout: single\n"
-            f'summary: "Current heat conditions at {f["name"]}, a {f["jurisdiction"].lower()}'
+            f'summary: "Current heat conditions at {clean_name(f["name"])}, a {f["jurisdiction"].lower()}'
             f' facility in {f["county"]} County, California."\n'
             "---\n"
         )
@@ -251,7 +263,7 @@ def write_boundaries(facilities, fac_by_id):
         geom = wkt.loads(raw).simplify(0.0001, preserve_topology=True)
         feats.append({
             "type": "Feature",
-            "properties": {"slug": f["slug"], "name": f["name"]},
+            "properties": {"slug": f["slug"], "name": clean_name(f["name"])},
             "geometry": mapping(geom),
         })
     fc = {"type": "FeatureCollection", "features": feats}
@@ -368,7 +380,7 @@ def main():
         facilities.append({
             "id": fid,
             "slug": slug_of[fid],
-            "name": text(f["name"]),
+            "name": clean_name(text(f["name"])),
             "county": text(f["county"], title=True),
             "city": text(f.get("city"), title=True),
             "address": full_address(f),
