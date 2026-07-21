@@ -170,7 +170,7 @@
         hourly = hourly.filter(function (h) { return new Date(h.t).getTime() >= cutoff; });
       }
       window.CHTChart.draw($("cht-chart"), {
-        hourly: hourly, band: bandData, threshold: threshold,
+        hourly: hourly, band: bandData, threshold: threshold, average: baseline,
         tz: recentData.tz, legendEl: $("cht-chart-legend")
       });
     }

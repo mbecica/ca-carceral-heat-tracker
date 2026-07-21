@@ -75,7 +75,7 @@
               {{- /* Raw FEMA capacity is null for CDCR; derive it from population ÷ occupancy rate. */ -}}
               {{- $designCap := $f.capacity }}{{ if and (not $f.capacity) $f.population $f.capacity_pct (gt $f.capacity_pct 0.0) }}{{ $designCap = math.Round (div $f.population $f.capacity_pct) }}{{ end }}
               <div><dt>Design capacity</dt><dd>{{ with $designCap }}{{ lang.FormatNumberCustom 0 . }}{{ else }}Unknown{{ end }}</dd></div>
-              <div><dt>Avg. summer max</dt><dd>{{ with $f.baseline_summer_avg_high_f }}{{ printf "%.0f°F" . }}{{ else }}Unknown{{ end }}</dd></div>
+              <div><dt>Historic summer average</dt><dd>{{ with $f.baseline_summer_avg_high_f }}{{ printf "%.0f°F" . }}{{ else }}Unknown{{ end }}</dd></div>
               {{- with $f.website }}
               <div><dt>Website</dt><dd><a href="{{ . }}" rel="noopener" target="_blank">Facility website ↗</a></dd></div>
               {{- end }}
@@ -121,7 +121,7 @@
           </div>
           <div class="cht-chart-wrap">
             <div class="cht-chart-legend" id="cht-chart-legend"></div>
-            <div class="cht-chart" id="cht-chart" role="img" aria-label="Hourly temperature for {{ $f.name }}, with the above-average line and the historic range for this window."></div>
+            <div class="cht-chart" id="cht-chart" role="img" aria-label="Hourly temperature for {{ $f.name }}, with the summer-average and 10°F-above-average reference lines and the historic range for this window."></div>
           </div>
         </section>
 

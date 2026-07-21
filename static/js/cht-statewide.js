@@ -3,14 +3,17 @@
 
    Joins static/data/statewide.json (raw live rows) + facilities.json (comparison
    line, jurisdiction, population, county) on `slug`, computes each facility's
-   status client-side via CHTStatus, and drives a Leaflet map + client-sorted
-   table. Page-wide filters — an "10°F+ above normal" toggle, jurisdiction /
-   population / county multi-select, and search — narrow the map AND the table
-   together; "Clear all" resets. A dismissable alert flags the over-normal count.
+   two-tier status client-side via CHTStatus, and drives a Leaflet map + client-
+   sorted table. Page-wide filters — a "Heat" dropdown (Over average / 10°F+ above
+   average), jurisdiction / population / county multi-select, and search — narrow
+   the map AND the table together; "Clear all" resets. A dismissable alert flags
+   the count of facilities over their historic average.
 
-   Map: dot FILL = absolute current temperature (CHTTempScale); a RING marks
-   facilities 10°F or more above their summer normal. On mobile a Map/Table toggle
-   switches panes and tapping a dot opens a popup with a "View details" link.
+   Map: dot FILL = absolute current temperature (CHTTempScale); a neutral near-
+   black RING marks status, its THICKNESS the severity (thin = over average,
+   thick = 10°F+ above average) — a colorblind-safe cue that stays legible on an
+   already-red hot dot. On mobile a Map/Table toggle switches panes and tapping a
+   dot opens a popup with a "View details" link.
    ============================================================================ */
 (function () {
   "use strict";
@@ -37,7 +40,7 @@
     return "unknown";
   }
 
-  var state = { overOnly: false, jurisdiction: new Set(), population: new Set(), county: new Set(), search: "" };
+  var state = { heat: new Set(), jurisdiction: new Set(), population: new Set(), county: new Set(), search: "" };
   var sort = { key: "today", dir: "desc" };   // default: hottest current temperature first
   var data = [], bySlug = {}, meta = null, alertDismissed = false;
   var map = null, tiles = null, circleGroup = null, polyGroup = null, polyShown = false, userMarker = null;
@@ -50,7 +53,9 @@
   function slugPath(slug) { return "/" + slug + "/"; }
   function tileUrl() { return "https://{s}.basemaps.cartocdn.com/" + BASEMAP + "/{z}/{x}/{y}{r}.png"; }
   function fillFor(d) { return window.CHTTempScale.tempColor(d.currentTemp) || cssVar("--cht-null"); }
-  function isOver(d) { return d.status.hasData && d.status.over; }
+  function isOverAvg(d) { return d.status.hasData && d.status.overAvg; }
+  function isOverHi(d) { return d.status.hasData && d.status.overHi; }
+  function heatLevel(d) { return d.status.hasData ? d.status.level : -1; }
   function fmt(n, dp) { return n == null || isNaN(n) ? "—" : (dp ? (+n).toFixed(dp) : Math.round(n)); }
   function fmtAsOf(s) { try { return new Date(s).toLocaleString(undefined, { month: "short", day: "numeric", hour: "numeric" }); } catch (e) { return s; } }
   // CDCR code -> pill; strips the "(Code)" the name already carries.
@@ -62,10 +67,14 @@
     if (a <= 200) return "#ff0000"; if (a <= 300) return "#8f3f97"; return "#7e0023";
   }
 
+  // Ring encodes status by THICKNESS on a neutral near-black stroke, not by hue,
+  // so it reads on an already-red hot dot and survives colorblindness.
+  // Tune the two weights (and --cht-ring) to taste; kept here as the single knob.
+  var RING_W_AVG = 2, RING_W_HI = 3.5;
   function strokeStyle(d) {
-    return isOver(d)
-      ? { color: cssVar("--cht-over"), weight: 3, opacity: 1 }
-      : { color: cssVar("--cht-map-stroke"), weight: 1, opacity: 1 };
+    if (isOverHi(d)) return { color: cssVar("--cht-ring"), weight: RING_W_HI, opacity: 1 };
+    if (isOverAvg(d)) return { color: cssVar("--cht-ring"), weight: RING_W_AVG, opacity: 1 };
+    return { color: cssVar("--cht-map-stroke"), weight: 1, opacity: 1 };
   }
 
   /* Shared tooltip/popup body: name, place, current temp + as-of, avg summer max, AQI. */
@@ -86,8 +95,14 @@
       '<a class="cht-lpop__link" href="' + slugPath(d.slug) + '">View details →</a></div>';
   }
 
+  // Heat filter: each checked option is a FLOOR (avg = level ≥ 1, hi = level ≥ 2);
+  // a facility passes if it clears any checked floor. Since over-hi implies over-
+  // avg, checking both is the same as checking "avg" alone.
+  function heatMatch(d) {
+    return (state.heat.has("avg") && isOverAvg(d)) || (state.heat.has("hi") && isOverHi(d));
+  }
   function matches(d) {
-    if (state.overOnly && !isOver(d)) return false;
+    if (state.heat.size && !heatMatch(d)) return false;
     if (state.jurisdiction.size && !state.jurisdiction.has(d.jurisdiction)) return false;
     if (state.population.size && !state.population.has(popBucketId(d))) return false;
     if (state.county.size && !state.county.has(d.county)) return false;
@@ -95,10 +110,10 @@
     if (q && (d.name || "").toLowerCase().indexOf(q) < 0 && (d.county || "").toLowerCase().indexOf(q) < 0) return false;
     return true;
   }
-  function anyActive() { return state.overOnly || state.jurisdiction.size || state.population.size || state.county.size || state.search.trim(); }
+  function anyActive() { return state.heat.size || state.jurisdiction.size || state.population.size || state.county.size || state.search.trim(); }
 
   function highlight(slug, on) {
-    if (circles[slug]) circles[slug].setStyle({ weight: on ? 4 : strokeStyle(bySlug[slug]).weight });
+    if (circles[slug]) circles[slug].setStyle({ weight: (on ? 1.5 : 0) + strokeStyle(bySlug[slug]).weight });
     if (on && circles[slug]) circles[slug].bringToFront();
     var row = document.querySelector('#cht-table tr[data-slug="' + slug + '"]');
     if (row) row.classList.toggle("cht-row-hl", on);
@@ -125,7 +140,8 @@
     }).addTo(map);
 
     circleGroup = L.featureGroup();
-    data.slice().sort(function (a, b) { return (isOver(a) ? 1 : 0) - (isOver(b) ? 1 : 0); }).forEach(function (d) {
+    // Hotter status on top so its thicker ring isn't occluded by calmer dots.
+    data.slice().sort(function (a, b) { return heatLevel(a) - heatLevel(b); }).forEach(function (d) {
       if (d.lat == null || d.lon == null) return;
       var st = strokeStyle(d);
       var m = L.circleMarker([d.lat, d.lon], { radius: DOT_R, weight: st.weight, color: st.color, opacity: 1, fillColor: fillFor(d), fillOpacity: 0.9 });
@@ -200,7 +216,8 @@
       '<span class="cht-legend__group"><span class="cht-legend__ends">55°</span>' +
       '<span class="cht-legend__scale">' + cells + "</span>" +
       '<span class="cht-legend__ends">110°F now</span></span>' +
-      '<span class="cht-legend__item"><span class="cht-legend__ring"></span>10°F above average</span>' +
+      '<span class="cht-legend__item"><span class="cht-legend__ring cht-legend__ring--avg"></span>Over average</span>' +
+      '<span class="cht-legend__item"><span class="cht-legend__ring cht-legend__ring--hi"></span>10°F above average</span>' +
       '<span class="cht-legend__item"><span class="cht-legend__swatch" style="background:var(--cht-null)"></span>no data</span>' +
       '<button type="button" class="cht-locate" id="cht-locate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke-linecap="round"/></svg>My location</button>';
     wireLocate();
@@ -212,7 +229,7 @@
     if (key === "county") return d.county || "";
     if (key === "jurisdiction") return d.jurisdiction || "";
     if (key === "today") return s.hasData ? s.todayMax : -Infinity;
-    if (key === "over") return s.hasData ? s.deltaF : -Infinity;
+    if (key === "over") return s.hasData ? s.deltaAvg : -Infinity;
     return 0;
   }
   function rebuildTable() {
@@ -252,22 +269,25 @@
     });
   }
 
-  /* ---- Alert (statewide total over normal) ---- */
+  /* ---- Alert (statewide count over the historic average) ---- */
   function updateAlert() {
-    var n = data.filter(isOver).length;
+    var n = data.filter(isOverAvg).length;
     var el = document.getElementById("cht-alert");
     var cEl = document.getElementById("cht-alert-count"), lEl = document.getElementById("cht-alert-label"), link = document.getElementById("cht-alert-link");
     if (cEl) cEl.textContent = n;
-    if (lEl) lEl.textContent = (n === 1 ? "facility is" : "facilities are") + " currently 10°F or more above their average summer maximum";
+    if (lEl) lEl.textContent = (n === 1 ? "facility is" : "facilities are") + " currently above their average summer maximum temperature";
     if (link) link.textContent = "View " + n + (n === 1 ? " facility" : " facilities");
     if (el) el.hidden = alertDismissed || n === 0;
   }
 
-  function setOverOnly(on) {
-    state.overOnly = on;
-    var toggle = document.getElementById("cht-over-toggle"), link = document.getElementById("cht-alert-link");
-    if (toggle) toggle.setAttribute("aria-pressed", on ? "true" : "false");
-    if (link) link.setAttribute("aria-pressed", on ? "true" : "false");
+  // Toggle one heat-filter floor ("avg" | "hi") and sync its checkbox + the alert
+  // link's pressed state. Both feed the same state.heat set as the Heat dropdown.
+  function setHeat(key, on) {
+    if (on) state.heat.add(key); else state.heat.delete(key);
+    var cb = document.querySelector('.cht-fdrop[data-filter="heat"] input[value="' + key + '"]');
+    if (cb) cb.checked = on;
+    var link = document.getElementById("cht-alert-link");
+    if (link) link.setAttribute("aria-pressed", state.heat.has("avg") ? "true" : "false");
     applyAll();
   }
 
@@ -281,7 +301,20 @@
     var panel = document.querySelector('.cht-fdrop[data-filter="' + filter + '"] .cht-fdrop__panel');
     if (panel) panel.innerHTML = html;
   }
+  // Heat dropdown: two fixed FLOOR options with a ring swatch matching the map
+  // (thickness = severity). Values "avg"/"hi" feed state.heat via the generic
+  // change handler in wireDropdowns.
+  function heatOptionRow(value, label, count, ringMod) {
+    return '<label class="cht-fopt">' +
+      '<input type="checkbox" value="' + value + '"' + (state.heat.has(value) ? " checked" : "") + ">" +
+      '<span class="cht-fopt__ring cht-fopt__ring--' + ringMod + '" aria-hidden="true"></span>' +
+      '<span class="cht-fopt__lab">' + label + "</span><span class=\"cht-fopt__ct\">" + count + "</span></label>";
+  }
   function buildDropdowns() {
+    setPanel("heat",
+      heatOptionRow("avg", "Over historic average today", data.filter(isOverAvg).length, "avg") +
+      heatOptionRow("hi", "10°F over historic average today", data.filter(isOverHi).length, "hi"));
+
     var jc = {}; data.forEach(function (d) { jc[d.jurisdiction] = (jc[d.jurisdiction] || 0) + 1; });
     setPanel("jurisdiction", Object.keys(jc).sort(function (a, b) { return jc[b] - jc[a]; })
       .map(function (j) { return optionRow("jurisdiction", j, j, jc[j], false); }).join(""));
@@ -305,6 +338,9 @@
     });
     var clear = document.getElementById("cht-clear");
     if (clear) clear.hidden = !anyActive();
+    // Keep the alert's "View facilities" link in sync with the over-average floor.
+    var link = document.getElementById("cht-alert-link");
+    if (link) link.setAttribute("aria-pressed", state.heat.has("avg") ? "true" : "false");
   }
 
   function applyAll() {
@@ -348,7 +384,7 @@
     var head = ["slug", "name", "county", "city", "jurisdiction", "security", "latitude", "longitude",
       "population", "population_as_of", "design_capacity", "pct_of_capacity",
       "avg_summer_max_f", "current_temp_f", "current_temp_as_of", "today_max_f",
-      "f_above_average", "flagged_above_average", "aqi", "aqi_category", "website"];
+      "f_above_average", "over_average", "over_10f_above_average", "aqi", "aqi_category", "website"];
     var lines = [head.join(",")];
     rows.forEach(function (d) {
       var f = d.fac || {}, s = d.status, avg = f.baseline_summer_avg_high_f;
@@ -358,7 +394,8 @@
         d.slug, d.name, d.county, f.city, d.jurisdiction, f.security, d.lat, d.lon,
         f.population, f.population_as_of, cap, f.capacity_pct == null ? "" : (f.capacity_pct * 100).toFixed(0),
         avg, d.currentTemp, d.tempAsOf, s.hasData ? s.todayMax : "",
-        (s.hasData && avg != null) ? (s.todayMax - avg).toFixed(1) : "", isOver(d) ? "yes" : "no",
+        (s.hasData && avg != null) ? (s.todayMax - avg).toFixed(1) : "",
+        isOverAvg(d) ? "yes" : "no", isOverHi(d) ? "yes" : "no",
         d.aqi, d.aqiCat, f.website
       ].map(csvCell).join(","));
     });
@@ -391,11 +428,8 @@
     var search = document.getElementById("cht-search");
     if (search) search.addEventListener("input", function () { state.search = search.value; applyAll(); });
 
-    var over = document.getElementById("cht-over-toggle");
-    if (over) over.addEventListener("click", function () { setOverOnly(!state.overOnly); });
-
     var link = document.getElementById("cht-alert-link");
-    if (link) link.addEventListener("click", function () { setOverOnly(!state.overOnly); });
+    if (link) link.addEventListener("click", function () { setHeat("avg", !state.heat.has("avg")); });
 
     var dismiss = document.getElementById("cht-alert-dismiss");
     if (dismiss) dismiss.addEventListener("click", function () { alertDismissed = true; var a = document.getElementById("cht-alert"); if (a) a.hidden = true; });
@@ -405,11 +439,11 @@
 
     var clear = document.getElementById("cht-clear");
     if (clear) clear.addEventListener("click", function () {
-      state.jurisdiction.clear(); state.population.clear(); state.county.clear(); state.search = "";
+      state.heat.clear(); state.jurisdiction.clear(); state.population.clear(); state.county.clear(); state.search = "";
       var s = document.getElementById("cht-search"); if (s) s.value = "";
       document.querySelectorAll(".cht-fdrop__panel input[type=checkbox]").forEach(function (cb) { cb.checked = false; });
       closeAllPanels();
-      setOverOnly(false);   // also clears the over toggle, then applyAll runs
+      applyAll();
     });
 
     // Mobile Map/Table view toggle.
@@ -448,7 +482,7 @@
           code: fac.cdcr ? fac.cdcr.code : null,
           lat: row.lat, lon: row.lon, currentTemp: row.current_temp_f, tempAsOf: row.current_temp_as_of,
           aqi: row.aqi, aqiCat: row.aqi_category,
-          status: window.CHTStatus.computeStatus(row.recent_daily_max_f, fac.threshold_f), fac: fac, row: row
+          status: window.CHTStatus.computeStatus(row.recent_daily_max_f, fac.baseline_summer_avg_high_f, fac.threshold_f), fac: fac, row: row
         };
       });
       data.forEach(function (d) { bySlug[d.slug] = d; });

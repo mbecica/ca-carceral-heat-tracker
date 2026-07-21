@@ -1,14 +1,15 @@
 {{- /* Statewide dashboard: temperature map (left) + client-sorted table (right).
-       A dismissable alert flags facilities running 10°F+ above their summer normal.
-       Page-wide filters (an over-10°F toggle + jurisdiction / population / county
-       multi-select + search) narrow BOTH the map and the table. On mobile, a
-       Map/Table toggle switches panes. All status is computed in the browser from
-       static/data/{statewide,facilities}.json — raw data only (see cht-status.js). */ -}}
+       A dismissable alert flags facilities running above their summer average.
+       Page-wide filters (a Heat dropdown — Over average / 10°F+ above average —
+       plus jurisdiction / population / county multi-select + search) narrow BOTH
+       the map and the table. On mobile, a Map/Table toggle switches panes. All
+       status is computed in the browser from static/data/{statewide,facilities}.json
+       — raw data only (see cht-status.js). */ -}}
 {{- define "main" }}
 <div class="cht-dash" data-mobile-view="map">
   <div class="cht-alert" id="cht-alert" role="alert" hidden>
     <span class="cht-alert__icon" aria-hidden="true">▲</span>
-    <span class="cht-alert__text"><strong id="cht-alert-count">0</strong> <span id="cht-alert-label">facilities are currently 10&deg;F or more above their average summer maximum</span></span>
+    <span class="cht-alert__text"><strong id="cht-alert-count">0</strong> <span id="cht-alert-label">facilities are currently above their average summer maximum temperature</span></span>
     <button type="button" class="cht-alert__link" id="cht-alert-link">View facilities</button>
     <button type="button" class="cht-alert__x" id="cht-alert-dismiss" aria-label="Dismiss alert">&times;</button>
   </div>
@@ -21,9 +22,13 @@
   </header>
 
   <div class="cht-filters" id="cht-filters" role="group" aria-label="Filter facilities">
-    <button type="button" class="cht-toggle-over" id="cht-over-toggle" aria-pressed="false">
-      <span class="cht-toggle-over__ring" aria-hidden="true"></span>10&deg;F above average
-    </button>
+    <div class="cht-fdrop cht-fdrop--heat" data-filter="heat">
+      <button type="button" class="cht-fdrop__btn" aria-expanded="false" aria-haspopup="true">
+        <span class="cht-fdrop__label">Temperature</span><span class="cht-fdrop__badge" hidden></span>
+        <svg class="cht-fdrop__caret" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="cht-fdrop__panel" hidden role="group" aria-label="Filter by heat status"></div>
+    </div>
     <div class="cht-fdrop" data-filter="jurisdiction">
       <button type="button" class="cht-fdrop__btn" aria-expanded="false" aria-haspopup="true">
         <span class="cht-fdrop__label">Jurisdiction</span><span class="cht-fdrop__badge" hidden></span>

@@ -15,9 +15,11 @@
   --code-bg:   #f4f2ee;   /* subtle fills, map background */
   --accent:    #2f6fd0;   /* neutral interactive accent (links, focus, UI) */
 
-  --cht-over:   #d63b2f;  /* over-threshold ring + badge */
+  --cht-over:   #d63b2f;  /* alert bar + "10°F above" chart accents */
   --cht-under:  #3a7d44;  /* under-threshold badge */
   --cht-null:   #b9b4ab;  /* no data */
+  --cht-ring:   #141414;  /* map status ring — neutral; THICKNESS carries severity (colorblind-safe) */
+  --cht-warn:   #b96e12;  /* chart "average" reference line */
   --cht-marker-stroke: rgba(0,0,0,0.55);  /* legend/table swatch borders (on dark UI) */
   --cht-map-stroke: rgba(0,0,0,0.6);      /* dot/polygon outlines on the light map canvas */
 
@@ -39,6 +41,7 @@
   --cht-over:   #ec6a5e;
   --cht-under:  #5fae6b;
   --cht-null:   #6f6a63;
+  --cht-warn:   #e0912e;   /* chart line only; map ring stays neutral (canvas is light in both themes) */
   --cht-marker-stroke: rgba(255,255,255,0.7);
   --cht-map-stroke: rgba(0,0,0,0.6);   /* map canvas stays light even in the dark UI */
 }
@@ -124,17 +127,6 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 }
 .cht-filters__right { margin-left: auto; display: flex; align-items: center; gap: 0.5rem; }   /* stick clear + search to the right */
 
-/* Over-10°F filter toggle */
-.cht-toggle-over {
-  display: inline-flex; align-items: center; gap: 0.4rem; font: inherit; font-size: 0.85rem;
-  cursor: pointer; padding: 0.34rem 0.7rem; border-radius: 8px;
-  border: 1px solid var(--border); background: var(--entry); color: var(--primary);
-}
-.cht-toggle-over:hover { border-color: var(--cht-over); }
-.cht-toggle-over:focus-visible { outline: 2px solid var(--cht-over); outline-offset: 2px; }
-.cht-toggle-over__ring { width: 12px; height: 12px; border-radius: 50%; background: var(--code-bg); border: 2.5px solid var(--cht-over); flex: 0 0 auto; }
-.cht-toggle-over[aria-pressed="true"] { background: var(--cht-over); border-color: var(--cht-over); color: #fff; font-weight: 600; }
-.cht-toggle-over[aria-pressed="true"] .cht-toggle-over__ring { background: transparent; border-color: #fff; }
 .cht-fdrop { position: relative; }
 .cht-fdrop__btn {
   display: inline-flex; align-items: center; gap: 0.35rem; font: inherit; font-size: 0.85rem;
@@ -157,12 +149,17 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
   box-shadow: 0 8px 26px rgba(0,0,0,0.35); padding: 0.4rem;
 }
 .cht-fdrop__panel--tall { max-height: 360px; }
+/* Leftmost filter: left-align its panel so it doesn't spill off the viewport. */
+.cht-fdrop--heat .cht-fdrop__panel { right: auto; left: 0; }
 .cht-fdrop__panel[hidden] { display: none; }
 .cht-fopt { display: flex; align-items: center; gap: 0.5rem; padding: 0.3rem 0.5rem; border-radius: 6px; font-size: 0.86rem; color: var(--primary); cursor: pointer; }
 .cht-fopt:hover { background: var(--code-bg); }
 .cht-fopt input { margin: 0; accent-color: var(--accent); flex: 0 0 auto; }
 .cht-fopt__lab { flex: 1 1 auto; }
 .cht-fopt__ct { color: var(--secondary); font-variant-numeric: tabular-nums; font-size: 0.8rem; }
+/* Heat-dropdown swatches mirror the map ring: neutral, thickness = severity. */
+.cht-fopt__ring { width: 13px; height: 13px; border-radius: 50%; background: var(--code-bg); border: 2px solid var(--cht-ring); flex: 0 0 auto; box-sizing: border-box; }
+.cht-fopt__ring--hi { border-width: 3.5px; }
 .cht-fopt--dis { opacity: 0.4; cursor: default; }
 .cht-fopt--dis:hover { background: none; }
 .cht-fnote { margin: 0.1rem 0.3rem 0.45rem; font-size: 0.74rem; color: var(--secondary); line-height: 1.4; max-width: 15rem; }
@@ -208,7 +205,8 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 .cht-legend__group { display: inline-flex; align-items: center; gap: 0.3rem; }
 .cht-legend__item { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.8rem; color: var(--secondary); }
 .cht-legend__swatch { width: 14px; height: 14px; border-radius: 3px; border: 1px solid var(--cht-marker-stroke); }
-.cht-legend__ring { width: 13px; height: 13px; border-radius: 50%; background: var(--code-bg); border: 2.5px solid var(--cht-over); display: inline-block; }
+.cht-legend__ring { width: 13px; height: 13px; border-radius: 50%; background: var(--code-bg); border: 2px solid var(--cht-ring); display: inline-block; box-sizing: border-box; }
+.cht-legend__ring--hi { border-width: 3.5px; }
 .cht-legend__label { font-size: 0.8rem; color: var(--secondary); }
 .cht-legend__scale { display: inline-flex; height: 12px; border-radius: 3px; overflow: hidden; border: 1px solid var(--cht-marker-stroke); }
 .cht-legend__scale-cell { width: 16px; height: 100%; }
@@ -317,10 +315,12 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 .cht-chart .cht-band-median { fill: none; stroke: var(--secondary); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.7; }
 .cht-chart .cht-trace { fill: none; stroke: var(--cht-over); stroke-width: 1.8; }
 .cht-chart .cht-threshold { stroke: var(--primary); stroke-width: 1.3; stroke-dasharray: 5 4; }
+.cht-chart .cht-average { stroke: var(--cht-warn); stroke-width: 1.3; stroke-dasharray: 2 3; }
 .cht-chart .cht-gridline { stroke: var(--border); stroke-width: 1; }
 .cht-chart .cht-axis text { fill: var(--secondary); font-size: 11px; }
 .cht-chart .cht-axis path, .cht-chart .cht-axis line { stroke: var(--border); }
 .cht-chart .cht-thresh-label, .cht-chart .cht-band-label { fill: var(--secondary); font-size: 10.5px; }
+.cht-chart .cht-avg-label { fill: var(--cht-warn); font-size: 10.5px; }
 .cht-chart-legend { display: flex; flex-wrap: wrap; gap: 0.3rem 1.1rem; margin: 0 0 0.5rem; font-size: 0.78rem; color: var(--secondary); }
 .cht-chart-legend__item { display: inline-flex; align-items: center; gap: 0.35rem; }
 .cht-chart-legend__swatch { width: 16px; height: 3px; border-radius: 2px; display: inline-block; }

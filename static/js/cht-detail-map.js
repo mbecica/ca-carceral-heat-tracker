@@ -57,25 +57,30 @@
         return { slug: row.slug, name: row.name, county: row.county, jurisdiction: row.jurisdiction,
           code: fac.cdcr ? fac.cdcr.code : null,
           lat: row.lat, lon: row.lon, temp: row.current_temp_f,
-          status: window.CHTStatus.computeStatus(row.recent_daily_max_f, fac.threshold_f) };
+          status: window.CHTStatus.computeStatus(row.recent_daily_max_f, fac.baseline_summer_avg_high_f, fac.threshold_f) };
       });
       var bySlug = {}; data.forEach(function (d) { bySlug[d.slug] = d; });
       var active = bySlug[activeSlug];
       if (!active || active.lat == null) { el.style.display = "none"; return; }
 
       function fill(d) { return window.CHTTempScale.tempColor(d.temp) || cssVar("--cht-null"); }
-      function isOver(d) { return d.status.hasData && d.status.over; }
+      // Ring thickness = status severity (matches the statewide map); active
+      // facility keeps its accent ring.
       function stroke(d) {
         if (d.slug === activeSlug) return { color: cssVar("--accent"), weight: 3.5 };
-        return isOver(d) ? { color: cssVar("--cht-over"), weight: 3 } : { color: cssVar("--cht-map-stroke"), weight: 1.2 };
+        if (d.status.hasData && d.status.overHi) return { color: cssVar("--cht-ring"), weight: 3.5 };
+        if (d.status.hasData && d.status.overAvg) return { color: cssVar("--cht-ring"), weight: 2 };
+        return { color: cssVar("--cht-map-stroke"), weight: 1.2 };
       }
       function tip(d) {
         var s = d.status;
         var nm = d.code ? d.name.replace(/\s*\([^)]*\)\s*$/, "") + ' <span class="cht-tcode">' + d.code + "</span>" : d.name;
+        var statusLine = s.hasData && s.overHi ? '<span class="cht-ltip__over">10°F above average</span>'
+          : (s.hasData && s.overAvg ? '<span class="cht-ltip__over">Over average</span>' : "");
         return '<span class="cht-ltip__name">' + nm + "</span>" +
           '<span class="cht-ltip__sub">' + (d.county || "") + " County · " + (d.jurisdiction || "") + "</span>" +
           '<span class="cht-ltip__val">Now: ' + (d.temp != null ? fmt(d.temp) + "°F" : "—") + "</span>" +
-          (s.hasData && s.over ? '<span class="cht-ltip__over">10°F above average</span>' : "") +
+          statusLine +
           (d.slug === activeSlug ? "" : '<span class="cht-ltip__sub">Click to view this profile</span>');
       }
 

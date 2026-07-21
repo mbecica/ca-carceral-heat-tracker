@@ -1,92 +1,81 @@
 ---
-title: "Methods & Data Sources"
+title: "Methods & Sources"
 type: methods
 url: "/methods/"
-summary: "How the California Carceral Facility Heat Tracker measures heat: the per-facility comparison line, the observation-anchored data sources, and the limitations."
+summary: "How the California Carceral Facility Heat Tracker measures heat and air quality, where its data comes from, and the limits of a version 0.1 tool built on public data."
 ---
 
-This tracker shows how hot it currently is at each active California carceral facility,
-relative to that facility's own long-term summer normal, with the last two weeks of hourly
-temperature for context.
+## About this tracker
 
-## How each facility is measured
+This tool tracks how hot it currently is at each active California carceral facility, measured against that facility's own long-term summer normal. It was built to help advocates spot heat events in California prisons and strengthen advocacy around a public-health and human-rights crisis, and it extends the work of [The Toxic Prisons Mapping Project](https://www.toxicprisons.com/).
 
-Each facility is compared against **its own** local climate, not a statewide number. The
-comparison line is:
+**This is version 0.1.** It has not been tested or validated by incarcerated or formerly incarcerated people, and it draws entirely on publicly available datasets, which is itself a limitation on what it can show. Until that engagement, feedback, and further iteration have happened, it should not be treated as an authoritative source. If something looks wrong, or you want to weigh in, use the email and GitHub issue links in the site footer.
 
-> **the facility's 1991–2020 June–August average daily high, plus 10°F.**
+## How heat and air quality are measured
 
-A day whose high reaches that line — 10°F or more above the local summer normal — is what the
-tracker flags. It is a single-day signal about one place on one day; it is not a "heatwave,"
-which means two or more consecutive days of above-average heat.
+Each facility is compared against its own local climate, not a statewide number, because the same temperature means very different things in different places. The tracker also shows local air quality, because heat and air pollution harm health together, not separately.
 
-**Why +10°F, and why relative to each place.** This follows [Skarha et al.
-(2023)](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0281389), a
-case-crossover study of heat-related mortality in U.S. state and private prisons (2001–2019).
-For every 10°F a day's high rose above a prison's own average summer high, the risk of death
-rose about 5% (5.2%; 95% CI 1.5–9.0%). Anchoring to each facility's own normal is what makes
-the metric meaningful everywhere: a 95°F day is unremarkable in Blythe but a genuine health
-emergency in Crescent City, and only a relative comparison captures that.
+Heat:
 
-**Why daily maximum temperature and not heat index.** Skarha et al. used daily maximum
-temperature, and tested heat index and wet-bulb globe temperature as alternatives, finding
-they did not better capture the relationship between heat and mortality. We keep daily maximum
-temperature as the comparison metric for fidelity to that calibration. (Apparent temperature /
-"feels like" may appear later as secondary context.)
+- The comparison line is the facility's 1991–2020 June–August average daily high, plus 10°F. A day that reaches it is 10°F or more above the local summer normal.
+- This is calibrated to Skarha et al. (2023): across U.S. state and private prisons, every 10°F above a prison's own summer average was associated with a 5.2% rise in all-cause mortality that day.
+- The metric is daily maximum temperature. Skarha et al. tested heat index and wet-bulb globe temperature and found they did not better capture the link between heat and death.
+- Comparing each facility to itself is what makes the measure meaningful everywhere: 95°F is ordinary in Blythe but dangerous in Crescent City.
+- The line is a single-day signal, not a "heatwave," which means two or more consecutive days of above-average heat.
 
-## Reading the map
+Air quality:
 
-On the statewide map, each facility is a dot **colored by its most recent temperature reading**
-on a standard weather-map scale — cool blues and greens through hot oranges and reds. A dot is
-**ringed** when that facility's latest daily high reaches the comparison line — 10°F or more above
-its summer normal. The dot color is absolute temperature; the ring is the relative,
-health-calibrated signal.
+- The tracker shows the current AirNow Air Quality Index (AQI) for the nearest EPA monitor, reflecting ground-level ozone and fine particulate pollution.
+- Heat and air pollution compound each other. Hotter days worsen ground-level ozone and trap particulates, and combined exposure raises mortality and worsens respiratory and cardiovascular conditions (Rahman et al., 2022; Schwarz et al., 2021; Li et al., 2025).
 
-## Data sources
+## Where the data comes from
 
-All temperature data is **observation-anchored** — drawn from station-based products, read
-directly, rather than from a global reanalysis model. This matters in California: reanalysis
-models (such as ERA5) do not resolve the marine layer that cools the coast and the Salinas
-Valley, and read some facilities 5–10°F too warm. The products below capture those
-microclimates. The two gridded climate products — PRISM and RTMA/URMA — are read through
-[Google Earth Engine](https://earthengine.google.com/); the current-conditions readings come
-straight from the National Weather Service and EPA.
+All temperature data is observation-anchored: it comes from station-based products read directly, not from a global reanalysis model. This matters in California, where reanalysis models like ERA5 miss the marine layer that cools the coast and can read some facilities 5–10°F too warm. The products below capture those local conditions. The two gridded climate products, PRISM and RTMA/URMA, are read through Google Earth Engine; the current-conditions readings come from the National Weather Service and EPA.
 
 | What | Source | Resolution | Role |
 |---|---|---|---|
-| **Baseline** — 1991–2020 Jun–Aug mean daily high, per facility | [PRISM Climate Group 30-year Normals](https://prism.oregonstate.edu/normals/) (`tmax`), Oregon State University, via Google Earth Engine | 800 m | Sets each facility's comparison line (baseline + 10°F) |
-| **Current-day high** — today's expected high | [NWS National Digital Forecast Database](https://weather-gov.github.io/api/gridpoints) via `api.weather.gov` | ~2.5 km | Same-day reading |
-| **Last 14 days, hourly** and the **10-year historic band** (2016–2025) | NOAA [Real-Time / Un-Restricted Mesoscale Analysis (RTMA/URMA)](https://www.nco.ncep.noaa.gov/pmb/products/rtma/), via Google Earth Engine | 2.5 km hourly | Detail-page chart |
-| **Temperature now** (detail page) | Nearest [NWS](https://www.weather.gov/documentation/services-web-api) observation station, fetched live in your browser | station | Current-conditions tile |
-| **Current air quality** | [AirNow](https://docs.airnowapi.org/) (EPA, monitor-based NowCast AQI) | monitor network | AQI tile |
-| **Facilities** — locations, jurisdiction, boundaries | FEMA / HIFLD "Prison Boundaries" (July 2025), with CDCR additions | — | Which facilities, where |
-| **CDCR population, cooling, vulnerability** | CDCR & CCHCS public data (see the [ca_prison_climate_justice](https://github.com/mbecica/ca_prison_climate_justice) repo) | — | CDCR-only detail panels |
+| Baseline: 1991–2020 Jun–Aug mean daily high, per facility | PRISM Climate Group 30-year Normals (`tmax`), Oregon State University, via Google Earth Engine | 800 m | Sets each facility's comparison line (baseline + 10°F) |
+| Current-day high | NWS National Digital Forecast Database (`api.weather.gov`) | ~2.5 km | Same-day reading |
+| Last 14 days, hourly, and the 2016–2025 historic band | NOAA Real-Time / Un-Restricted Mesoscale Analysis (RTMA/URMA), via Google Earth Engine | 2.5 km hourly | Detail-page chart |
+| Temperature now | Nearest NWS observation station, fetched live | station | Current-conditions reading |
+| Current air quality | AirNow (EPA, monitor-based NowCast AQI) | monitor network | AQI |
+| Facilities: locations, jurisdiction, boundaries | FEMA / HIFLD Prison Boundaries (July 2025), with CDCR additions | — | Which facilities, where |
+| CDCR population, cooling, vulnerability | CDCR and CCHCS public data | — | CDCR state-prison panels |
 
-The committed data files hold **raw observations only** — today's high, the recent hourly
-series, air quality, the historic band. Whether a facility has reached the comparison line, and by
-how many degrees, is computed in your browser by comparing those observations against it. That
-keeps the comparison a display-time choice: it can change without re-collecting a single reading.
+*Data credits: PRISM data courtesy of the PRISM Climate Group, Oregon State University. NWS, RTMA, and URMA are public-domain products of NOAA / the National Weather Service. Air quality data from the U.S. EPA AirNow program, which does not endorse derived products. Facility locations from FEMA / HIFLD.*
 
-## Limitations
+## Additional data for CDCR state prisons
 
-- **Product consistency.** The baseline (PRISM) and the displayed temperatures (RTMA/URMA) are
-  different observation-anchored products, so a small (roughly 1–2°F) systematic offset between
-  the comparison line and the plotted temperatures is possible. It is far smaller than the ~9°F
-  error a reanalysis model would introduce at coastal sites.
-- **Grid resolution.** RTMA/URMA is ~2.5 km and PRISM is 800 m — fine for most facilities, but
-  any gridded product can still miss very local effects (a narrow canyon, a specific building).
-- **Update cadence.** The recent-conditions data is refreshed on a schedule, so the pipeline's
-  "temperature now" can lag by several hours; each detail page tops it up with a live reading
-  from the nearest NWS station on load, and stamps the time each value was observed.
-- **Facility list vintage.** The facility list is a July 2025 HIFLD snapshot; a facility that
-  opened or closed since may be missing or stale.
-- **Non-CDCR data gaps.** Population, cooling, and vulnerability details exist only for CDCR
-  state prisons; county, federal, and local facilities show location and current conditions only.
-- **AQI staleness.** Air quality follows the update job's cadence (a few hours), and reflects the
-  nearest EPA monitor, which may be some distance from a rural facility.
+Some facilities show extra panels: population, cooling infrastructure, and heat-vulnerability indicators. These appear only for California's CDCR **state prisons**, and not for every CDCR facility, since fire camps and other sites are outside the tool's current scope. Comparable data may exist for some county jails or other systems, but it was not collected here.
 
-## Attribution
+These indicators are only as good as the public data CDCR releases, and that data has gaps. In particular, CDCR has not published facility-level counts of who it designates heat-vulnerable under its heat plan. In place of those counts, the tracker uses demographic shares as proxies: the share of people who are 50 or older, in the Disability Placement Program, receiving enhanced outpatient mental-health care, in a medium-or-higher medical-risk category, or people of color. Each is drawn from CDCR and CCHCS public data for 2025. The hover text on each indicator explains why that group faces elevated heat risk.
 
-PRISM data courtesy of the PRISM Climate Group, Oregon State University. NWS NDFD, RTMA, and
-URMA are public-domain products of NOAA / the National Weather Service. Air quality data from
-the U.S. EPA AirNow program. Facility locations from FEMA / HIFLD.
+## Data availability
+
+The facility-level hazard, exposure, and vulnerability data behind this tool is published as an open dataset for researchers, advocates, and policymakers: [github.com/mbecica/ca_prison_climate_justice](https://github.com/mbecica/ca_prison_climate_justice).
+
+## References
+
+Brunn, K., Toledo, O., Tran, C. C., Vasudevan, A., & Venkat, B. J. (2025). Carceral heat exposure as harmful design: An integrative model for understanding the health impacts of heat on incarcerated people in the United States. *Social Science & Medicine, 367*, 117679. https://doi.org/10.1016/j.socscimed.2025.117679
+
+California Correctional Health Care Services. (2025). *CCHCS health care services dashboard.* https://cchcs.ca.gov/dashboard/
+
+Hamstead, Z. (2023). Thermal insecurity: Violence of heat and cold in the urban climate refuge. *Urban Studies, 61.* https://doi.org/10.1177/00420980231184466
+
+Jackson, P., Larkin, D., Kinnie, K. R., & Aroke, E. N. (2022). Heat islands and chronic disease: Could African Americans be more vulnerable to heat-related health impacts? *Journal of the National Black Nurses Association, 33*(1), 33–39.
+
+Kerrison, E. M. T. (2026). Thermal abandonment: Best practices to end correctional heat death for menopausal Black women in prison. *Journal of Correctional Health Care.*
+
+Leach, O. K., Cottle, R. M., Fisher, K. G., Wolf, S. T., & Kenney, W. L. (2024). Sex differences in heat stress vulnerability among middle-aged and older adults (PSU HEAT Project). *American Journal of Physiology-Regulatory, Integrative and Comparative Physiology, 327*(3), R320–R330. https://doi.org/10.1152/ajpregu.00114.2024
+
+Li, M., et al. (2025). Urban meteorology–chemistry coupling in compound heat–ozone extremes. *Nature Cities.* https://doi.org/10.1038/s44284-025-00302-1
+
+Novisky, M. A., Prost, S. G., Fleury-Steiner, B., & Testa, A. (2025). Linkages between incarceration and health for older adults. *Health & Justice, 13*, 23. https://doi.org/10.1186/s40352-025-00331-x
+
+Rahman, M. M., McConnell, R., Schlaerth, H., Ko, J., Silva, S., Lurmann, F. W., Palinkas, L., Johnston, J., Hurlburt, M., Yin, H., Ban-Weiss, G., & Garcia, E. (2022). The effects of coexposure to extremes of heat and particulate air pollution on mortality in California: Implications for climate change. *American Journal of Respiratory and Critical Care Medicine, 206*(9), 1117–1127.
+
+Schwarz, L., Hansen, K., Alari, A., Ilango, S. D., Bernal, N., Basu, R., Gershunov, A., & Benmarhnia, T. (2021). Spatial variation in the joint effect of extreme heat events and ozone on respiratory hospitalizations in California. *Proceedings of the National Academy of Sciences.*
+
+Singh, N., Areal, A. T., Breitner, S., Zhang, S., Agewall, S., Schikowski, T., & Schneider, A. (2024). Heat and cardiovascular mortality: An epidemiological perspective. *Circulation Research, 134*(8), 1098–1112. https://doi.org/10.1161/CIRCRESAHA.123.323615
+
+Skarha, J., Spangler, K., Dosa, D., Rich, J. D., Savitz, D. A., & Zanobetti, A. (2023). Heat-related mortality in U.S. state and private prisons: A case-crossover analysis. *PLOS ONE, 18*(3), e0281389. https://doi.org/10.1371/journal.pone.0281389

@@ -42,7 +42,8 @@
     if (!el || !window.d3) return;
     el.__opts = opts;   // let the page redraw on resize with the same inputs
     var d3 = window.d3, tz = opts.tz || "America/Los_Angeles";
-    var threshold = opts.threshold != null ? +opts.threshold : null;
+    var threshold = opts.threshold != null ? +opts.threshold : null;   // "10°F above average" line
+    var average = opts.average != null ? +opts.average : null;         // summer-average reference line
     var band = opts.band || null;
 
     var pts = (opts.hourly || []).filter(function (h) { return h && h.f != null; })
@@ -75,6 +76,7 @@
     var yVals = pts.map(function (d) { return d.f; });
     if (hasBand) bandClean.forEach(function (b) { if (b.min != null) yVals.push(b.min); if (b.max != null) yVals.push(b.max); });
     if (threshold != null) yVals.push(threshold);
+    if (average != null) yVals.push(average);
     var ymin = Math.min.apply(null, yVals) - 3, ymax = Math.max.apply(null, yVals) + 3;
     var y = d3.scaleLinear().domain([ymin, ymax]).nice().range([ih, 0]);
 
@@ -99,7 +101,12 @@
       g.append("path").datum(bandPts).attr("class", "cht-band-median").attr("d", medLine);
     }
 
-    // Threshold line.
+    // Reference lines: the summer average and the "10°F above average" line.
+    if (average != null) {
+      g.append("line").attr("class", "cht-average").attr("x1", 0).attr("x2", iw).attr("y1", y(average)).attr("y2", y(average));
+      g.append("text").attr("class", "cht-avg-label").attr("x", iw).attr("y", y(average) - 4).attr("text-anchor", "end")
+        .text("Average (" + Math.round(average) + "°)");
+    }
     if (threshold != null) {
       g.append("line").attr("class", "cht-threshold").attr("x1", 0).attr("x2", iw).attr("y1", y(threshold)).attr("y2", y(threshold));
       g.append("text").attr("class", "cht-thresh-label").attr("x", iw).attr("y", y(threshold) - 4).attr("text-anchor", "end")
