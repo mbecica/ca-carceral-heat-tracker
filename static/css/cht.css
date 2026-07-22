@@ -212,10 +212,12 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 .cht-ltip__val { color: var(--primary); font-weight: 600; margin-top: 0.2rem; }
 .cht-ltip__over { color: var(--cht-over); font-weight: 600; }
 /* Aligned temperature list (Latest / 24 Hour Max / Historic avg max): label,
-   right-aligned value, de-emphasized timestamp. Higher specificity than the
-   generic `span { display: block }` above so the grid layout wins. */
+   right-aligned value, de-emphasized timestamp. Each selector must out-specify
+   its context's generic `span { display: block }` so the grid wins — for the
+   popup that means including `.leaflet-popup-content` (else the stats stack into
+   a too-tall column on mobile). */
 .cht-ltip.leaflet-tooltip .cht-ltip__temps,
-.cht-lpop .cht-ltip__temps {
+.cht-lpop .leaflet-popup-content .cht-ltip__temps {
   display: grid; grid-template-columns: auto auto 1fr;
   column-gap: 0.45rem; row-gap: 0.14rem; align-items: baseline; margin-top: 0.3rem;
 }
@@ -548,6 +550,9 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
     position: sticky; top: 0; z-index: 20; background: var(--theme);
     margin: 0 -1.7rem 0.6rem; padding: 0.55rem 1.7rem; border-bottom: 1px solid var(--border);
   }
-  .cht-dash--detail .cht-profile__back { display: inline; margin-right: 0.45rem; color: var(--secondary); font-weight: 400; text-decoration: none; }
+  /* The sticky title's back arrow appears only once the header (with its own
+     "Back to statewide view") has scrolled out of view — JS toggles .cht-scrolled. */
+  .cht-dash--detail .cht-profile__back { display: none; margin-right: 0.45rem; color: var(--secondary); font-weight: 400; text-decoration: none; }
+  .cht-dash--detail.cht-scrolled .cht-profile__back { display: inline; }
   .cht-dash--detail .cht-profile__back:hover { color: var(--accent); }
 }

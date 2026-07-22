@@ -183,6 +183,19 @@
 
     wireTips();
 
+    // Mobile: the sticky facility title carries a back arrow, shown only once the
+    // page header (with "Back to statewide view") has scrolled out of view — so the
+    // two back links never sit on screen together. Desktop keeps the arrow hidden
+    // via CSS (the header is always visible there), so this class is a no-op there.
+    (function wireScrollBack() {
+      var dash = document.querySelector(".cht-dash--detail");
+      var header = dash && dash.querySelector(".cht-dash__bar");
+      if (!dash || !header || !("IntersectionObserver" in window)) return;
+      new IntersectionObserver(function (entries) {
+        dash.classList.toggle("cht-scrolled", !entries[0].isIntersecting);
+      }, { threshold: 0 }).observe(header);
+    })();
+
     var recentData = null, bandData = null, rangeDays = 7, aqiVal = null, aqiCatVal = null;   // default: last week
 
     // Draw the chart for the last `rangeDays` days (band aligns per-point, so
