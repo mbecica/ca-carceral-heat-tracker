@@ -19,6 +19,12 @@
       <span class="cht-dash__title">California Carceral Facility Heat Tracker</span>
       <span class="cht-dash__sub">Current outdoor temperatures at California prisons and jails<span class="cht-dash__asof" id="cht-asof"></span></span>
     </div>
+    <div class="cht-dash__actions">
+      <button type="button" class="cht-fdrop__btn cht-download-btn" id="cht-download" title="Download the current view as CSV">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        CSV
+      </button>
+    </div>
   </header>
 
   <div class="cht-filters" id="cht-filters" role="group" aria-label="Filter facilities">
@@ -52,10 +58,6 @@
     </div>
     <div class="cht-filters__right">
       <button type="button" class="cht-clear" id="cht-clear" hidden>Clear all</button>
-      <button type="button" class="cht-fdrop__btn cht-download-btn" id="cht-download" title="Download the current view as CSV">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        CSV
-      </button>
       <label class="cht-search-wrap">
         <svg class="cht-search-ic" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><line x1="12.6" y1="12.6" x2="17" y2="17" stroke-linecap="round"/></svg>
         <input type="search" id="cht-search" class="cht-search" placeholder="Search facility or county…" aria-label="Search facilities by name or county">
