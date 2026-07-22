@@ -288,26 +288,44 @@ def ndfd_high_today(lat, lon):
             time.sleep(2 * (attempt + 1))
 
 
+def _airnow_time(o):
+    """AirNow observation local time as a short display string, e.g. 'Jul 21, 2 PM PDT'.
+    AirNow reports local DateObserved + HourObserved + a tz abbreviation (no offset),
+    so we pre-format for display rather than emit an ambiguous machine timestamp."""
+    d = (o.get("DateObserved") or "").strip()
+    h = o.get("HourObserved")
+    tz = (o.get("LocalTimeZone") or "").strip()
+    if not d or h is None:
+        return None
+    try:
+        dt = datetime.strptime(d, "%Y-%m-%d")
+    except ValueError:
+        return None
+    h = int(h)
+    s = dt.strftime("%b ") + str(dt.day) + f", {(h % 12) or 12} {'AM' if h < 12 else 'PM'}"
+    return s + (" " + tz if tz else "")
+
+
 def airnow_aqi(lat, lon, cache):
-    """Current AQI + category at the point via AirNow, deduped through `cache` keyed
-    by a ~0.2° lat/lon cell (a cheap proxy for AirNow's reporting areas). Returns
-    (aqi:int|None, category:str|None). No key (local) → (None, None), no error."""
+    """Current AQI + category + observation time at the point via AirNow, deduped through
+    `cache` keyed by a ~0.2° lat/lon cell (a cheap proxy for AirNow's reporting areas).
+    Returns (aqi:int|None, category:str|None, observed:str|None). No key → all None."""
     if not AIRNOW_KEY:
-        return None, None
+        return None, None, None
     key = (round(lat * 5) / 5, round(lon * 5) / 5)
     if key in cache:
         return cache[key]
     url = ("https://www.airnowapi.org/aq/observation/latLong/current/"
            f"?format=application/json&latitude={lat:.4f}&longitude={lon:.4f}"
            f"&distance=50&API_KEY={AIRNOW_KEY}")
-    result = (None, None)
+    result = (None, None, None)
     try:
         obs = _get_json(url)
         best = None
         for o in obs:  # prefer the highest AQI across reported parameters (PM2.5/O3/…)
             aqi = o.get("AQI")
             if aqi is not None and (best is None or aqi > best[0]):
-                best = (int(aqi), o.get("Category", {}).get("Name"))
+                best = (int(aqi), o.get("Category", {}).get("Name"), _airnow_time(o))
         if best:
             result = best
     except (urllib.error.URLError, ValueError):
@@ -357,7 +375,7 @@ def build_facility(fac, aqi_cache, recent):
         current_temp_as_of = hourly[-1][0].strftime("%Y-%m-%dT%H:00Z")
         cur_src = "gee"
     today_forecast_high_f = ndfd_high_today(lat, lon)   # NDFD; may be None
-    aqi, aqi_cat = airnow_aqi(lat, lon, aqi_cache)
+    aqi, aqi_cat, aqi_as_of = airnow_aqi(lat, lon, aqi_cache)
 
     row = {
         "slug": fac["slug"], "name": fac["name"], "county": fac["county"],
@@ -367,7 +385,7 @@ def build_facility(fac, aqi_cache, recent):
         "recent_daily_max_f": daily,   # raw series so the map/table can derive status+streak
         "last24h_max_f": last24h_max_f,  # raw trailing-24h peak; client compares to threshold
         "last24h_max_at": last24h_max_at,  # when that peak occurred (tooltip/detail timestamp)
-        "aqi": aqi, "aqi_category": aqi_cat, "stale": False,
+        "aqi": aqi, "aqi_category": aqi_cat, "aqi_as_of": aqi_as_of, "stale": False,
     }
     recent = {
         "slug": fac["slug"], "name": fac["name"], "tz": "America/Los_Angeles",
@@ -454,7 +472,7 @@ def main():
                              "today_forecast_high_f": None, "current_temp_f": None,
                              "current_temp_as_of": None, "recent_daily_max_f": [],
                              "last24h_max_f": None, "last24h_max_at": None,
-                             "aqi": None, "aqi_category": None, "stale": True})
+                             "aqi": None, "aqi_category": None, "aqi_as_of": None, "stale": True})
             stale += 1
             print(f"  [{i}/{len(facs)}] {fac['slug']}: STALE ({type(e).__name__}: {e})", flush=True)
 

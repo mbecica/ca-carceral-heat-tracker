@@ -21,7 +21,7 @@
   var STATEWIDE_URL = "/data/statewide.json";
   var FACILITIES_URL = "/data/facilities.json";
   var BOUND_URL = "/data/facility_boundaries.geojson";
-  var POLY_ZOOM = 10, DOT_R = 5;
+  var POLY_ZOOM = 13, DOT_R = 5;   // only swap dots→polygons well zoomed-in, so polygons are big enough to tap on mobile
   // Basemap: CARTO Positron — a neutral light canvas so hot (dark-red) dots read clearly.
   // Swap here to try others: "dark_all", "rastertiles/voyager", "light_nolabels".
   var BASEMAP = "light_all";
@@ -138,6 +138,9 @@
     if (isMobile()) {
       layer.bindPopup(popupHtml(d), { className: "cht-lpop", closeButton: true, autoPan: true });
     } else {
+      // Keep "top" intentionally: Leaflet's "auto" only flips left/right (no top/bottom),
+      // so it jumps side-to-side as you browse between markers. Consistent-above reads
+      // better; the tradeoff is it can clip near the map edge.
       layer.bindTooltip(contentHtml(d), { direction: "top", sticky: !!sticky, className: "cht-ltip", opacity: 1 });
       layer.on("click", function () { window.location.href = slugPath(d.slug); });
       layer.on("mouseover", function () { highlight(d.slug, true); });
@@ -276,7 +279,8 @@
     if (key === "name") return d.name || "";
     if (key === "county") return d.county || "";
     if (key === "jurisdiction") return d.jurisdiction || "";
-    if (key === "today") return d.currentTemp != null ? d.currentTemp : -Infinity;  // "Current" column
+    if (key === "today") return d.currentTemp != null ? d.currentTemp : -Infinity;  // "Latest" column
+    if (key === "max24") return d.max24 != null ? d.max24 : -Infinity;
     if (key === "over") return s.hasData ? s.deltaAvg : -Infinity;
     return 0;
   }
@@ -291,7 +295,7 @@
     });
 
     if (!rows.length) {
-      tbody.innerHTML = '<tr><td class="cht-empty" colspan="4">No facilities match.</td></tr>';
+      tbody.innerHTML = '<tr><td class="cht-empty" colspan="5">No facilities match.</td></tr>';
     } else {
       tbody.innerHTML = rows.map(function (d) {
         var s = d.status;
@@ -299,6 +303,7 @@
           '<td class="cht-cell-name"><span class="cht-cell-dot" style="background:' + fillFor(d) + '"></span><a href="' + slugPath(d.slug) + '">' + baseName(d) + "</a>" + codePill(d) + "</td>" +
           '<td class="cht-hide-sm">' + (d.county || "") + "</td>" +
           '<td class="cht-hide-md">' + (d.jurisdiction || "") + "</td>" +
+          '<td class="cht-num cht-only-lg">' + (d.max24 != null ? fmt(d.max24) + "°" : "—") + "</td>" +
           '<td class="cht-num">' + (d.currentTemp != null ? fmt(d.currentTemp) + "°" : "—") + "</td>" +
           "</tr>";
       }).join("");
@@ -371,17 +376,16 @@
   // Heat dropdown: two fixed FLOOR options with a ring swatch matching the map
   // (thickness = severity). Values "avg"/"hi" feed state.heat via the generic
   // change handler in wireDropdowns.
-  function heatOptionRow(value, label, count, ringMod) {
+  function heatOptionRow(value, label, count) {
     return '<label class="cht-fopt">' +
       '<input type="checkbox" value="' + value + '"' + (state.heat.has(value) ? " checked" : "") + ">" +
-      '<span class="cht-fopt__ring cht-fopt__ring--' + ringMod + '" aria-hidden="true"></span>' +
       '<span class="cht-fopt__lab">' + label + "</span><span class=\"cht-fopt__ct\">" + count + "</span></label>";
   }
   function buildDropdowns() {
     setPanel("heat",
       '<div class="cht-fhead">In the last 24 hours:</div>' +
-      heatOptionRow("avg", "Above historic avg", data.filter(isOverAvg).length, "avg") +
-      heatOptionRow("hi", "10°F above historic avg", data.filter(isOverHi).length, "hi"));
+      heatOptionRow("avg", "Above historic avg", data.filter(isOverAvg).length) +
+      heatOptionRow("hi", "10°F above historic avg", data.filter(isOverHi).length));
 
     var jc = {}; data.forEach(function (d) { jc[d.jurisdiction] = (jc[d.jurisdiction] || 0) + 1; });
     setPanel("jurisdiction", Object.keys(jc).sort(function (a, b) { return jc[b] - jc[a]; })

@@ -33,5 +33,5 @@ markup:
     endLevel: 3
 
 params:
-  description: "How hot it is right now at every active California carceral facility, relative to that facility's own long-term summer normal."
+  description: "How hot it is outdoors right now at every active California carceral facility, relative to that facility's own long-term summer normal."
   defaultTheme: auto        # light/dark follows the visitor's system setting, with a manual toggle

@@ -17,7 +17,7 @@
   <header class="cht-dash__bar">
     <div class="cht-dash__brand">
       <span class="cht-dash__title">California Carceral Facility Heat Tracker</span>
-      <span class="cht-dash__sub">Current temperatures at California prisons and jails<span class="cht-dash__asof" id="cht-asof"></span></span>
+      <span class="cht-dash__sub">Current outdoor temperatures at California prisons and jails<span class="cht-dash__asof" id="cht-asof"></span></span>
     </div>
   </header>
 
@@ -89,11 +89,12 @@
             <th scope="col" data-sort="name">Facility</th>
             <th scope="col" class="cht-hide-sm" data-sort="county">County</th>
             <th scope="col" class="cht-hide-md" data-sort="jurisdiction">Type</th>
+            <th scope="col" class="cht-num cht-only-lg" data-sort="max24">24h max</th>
             <th scope="col" class="cht-num" data-sort="today" aria-sort="descending">Latest</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td class="cht-empty" colspan="4">Loading current conditions…</td></tr>
+          <tr><td class="cht-empty" colspan="5">Loading current conditions…</td></tr>
         </tbody>
       </table>
     </aside>

@@ -77,6 +77,8 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 .cht-dash__back:hover { color: var(--accent); }
 .cht-dash__actions { display: flex; align-items: center; gap: 0.8rem; margin-left: auto; }
 .cht-dash__body { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; }
+/* Wider screens: give the table more room than the map (≈40% map / 60% table). */
+@media (min-width: 990px) { .cht-dash__body { grid-template-columns: 2fr 3fr; } }
 
 /* Map column — full-bleed (no inset); the legend is a strip below the map */
 .cht-dash__map {
@@ -244,6 +246,9 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 /* ---- Table ---- */
 .cht-table { width: 100%; border-collapse: collapse; font-size: 0.86rem; table-layout: fixed; }
 .cht-table th, .cht-table td { text-align: left; padding: 0.4rem 0.5rem; border-bottom: 1px solid var(--border); }
+/* Edge gutters so the first/last columns don't crowd the page edges. */
+.cht-table th:first-child, .cht-table td:first-child { padding-left: 1.15rem; }
+.cht-table th:last-child,  .cht-table td:last-child  { padding-right: 1.15rem; }
 .cht-table th { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--secondary); position: sticky; top: 0; background: var(--theme); z-index: 1; }
 .cht-table td.cht-num, .cht-table th.cht-num { text-align: right; font-variant-numeric: tabular-nums; }
 .cht-table tbody tr { cursor: pointer; }
@@ -254,6 +259,7 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 .cht-table th[data-sort="county"]       { width: 6rem; }
 .cht-table th[data-sort="jurisdiction"] { width: 5rem; }
 .cht-table th[data-sort="today"]        { width: 4.2rem; }
+.cht-table th[data-sort="max24"]        { width: 5.8rem; white-space: nowrap; }
 .cht-table th[data-sort="threshold"]    { width: 4.6rem; }
 .cht-table th[data-sort="over"]         { width: 4.2rem; }
 .cht-table td.cht-num { overflow: hidden; text-overflow: ellipsis; }
@@ -268,6 +274,11 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 .cht-td-over--yes { color: var(--cht-over); font-weight: 600; }
 .cht-td-over--no { color: var(--secondary); }
 .cht-cell-dot { display: inline-block; width: 0.62em; height: 0.62em; border-radius: 50%; margin-right: 0.45em; vertical-align: baseline; border: 1px solid var(--cht-marker-stroke); }
+/* "24h max" column: hidden until the table (side container) is wide enough. */
+.cht-table th.cht-only-lg, .cht-table td.cht-only-lg { display: none; }
+@container (min-width: 700px) {
+  .cht-table th.cht-only-lg, .cht-table td.cht-only-lg { display: table-cell; }
+}
 @container (max-width: 560px) {
   .cht-table .cht-hide-md { display: none; }
 }

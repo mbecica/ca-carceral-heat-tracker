@@ -15,7 +15,7 @@ This tool tracks how hot it currently is at California prisons, jails and other 
 
 Temperature Thresholds:
 
-- Each facility's historic annual average summer maximum temperature is calculated from its 1991–2020 June–August average daily maximum (PRISM Climate Group). A heatwave is typically considered 2+ consecutive days where temperatures exceed this historic average (source). 
+- Each facility's historic annual average summer maximum temperature is calculated from its 1991–2020 June–August average daily maximum (PRISM Climate Group). 
 - 10°F above a facility's historic summer average is highlighted to align with Skarha et al. (2023)'s finding: across U.S. state and private prisons, every 10°F above a prison's own summer average was associated with a 5.2% rise in all-cause mortality that day.
 
 Air quality:
@@ -47,6 +47,8 @@ These indicators are only as good as the public data CDCR releases, which has ma
 
 ## Data availability
 
+The tracker's source code is released under the MIT License, and its data under the Creative Commons Attribution 4.0 International License (CC BY 4.0), © 2026 Mary Becica. The code for this tool is available at [github.com/mbecica/ca-carceral-heat-tracker](https://github.com/mbecica/ca-carceral-heat-tracker).
+
 The facility-level hazard, exposure, and vulnerability data behind this tool is published as an open dataset for researchers, advocates, and policymakers: [github.com/mbecica/ca_prison_climate_justice](https://github.com/mbecica/ca_prison_climate_justice).
 
 ## References
@@ -67,9 +69,9 @@ Li, M., et al. (2025). Urban meteorology–chemistry coupling in compound heat�
 
 Novisky, M. A., Prost, S. G., Fleury-Steiner, B., & Testa, A. (2025). Linkages between incarceration and health for older adults. *Health & Justice, 13*, 23. https://doi.org/10.1186/s40352-025-00331-x
 
-Rahman, M. M., McConnell, R., Schlaerth, H., Ko, J., Silva, S., Lurmann, F. W., Palinkas, L., Johnston, J., Hurlburt, M., Yin, H., Ban-Weiss, G., & Garcia, E. (2022). The effects of coexposure to extremes of heat and particulate air pollution on mortality in California: Implications for climate change. *American Journal of Respiratory and Critical Care Medicine, 206*(9), 1117–1127.
+Rahman, M. M., McConnell, R., Schlaerth, H., Ko, J., Silva, S., Lurmann, F. W., Palinkas, L., Johnston, J., Hurlburt, M., Yin, H., Ban-Weiss, G., & Garcia, E. (2022). The effects of coexposure to extremes of heat and particulate air pollution on mortality in California: Implications for climate change. *American Journal of Respiratory and Critical Care Medicine, 206*(9), 1117–1127. https://doi.org/10.1164/rccm.202204-0657OC
 
-Schwarz, L., Hansen, K., Alari, A., Ilango, S. D., Bernal, N., Basu, R., Gershunov, A., & Benmarhnia, T. (2021). Spatial variation in the joint effect of extreme heat events and ozone on respiratory hospitalizations in California. *Proceedings of the National Academy of Sciences.*
+Schwarz, L., Hansen, K., Alari, A., Ilango, S. D., Bernal, N., Basu, R., Gershunov, A., & Benmarhnia, T. (2021). Spatial variation in the joint effect of extreme heat events and ozone on respiratory hospitalizations in California. *Proceedings of the National Academy of Sciences, 118*(22), e2023078118. https://doi.org/10.1073/pnas.2023078118
 
 Singh, N., Areal, A. T., Breitner, S., Zhang, S., Agewall, S., Schikowski, T., & Schneider, A. (2024). Heat and cardiovascular mortality: An epidemiological perspective. *Circulation Research, 134*(8), 1098–1112. https://doi.org/10.1161/CIRCRESAHA.123.323615
 

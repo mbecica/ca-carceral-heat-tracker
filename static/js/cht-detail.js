@@ -55,7 +55,7 @@
   }
 
   // Always render the AQI tile; when no nearby monitor reports, say so rather than vanish.
-  function fillAqiTile(aqi, category, lat, lon) {
+  function fillAqiTile(aqi, category, asOf, lat, lon) {
     var tile = $("cht-aqi-tile"), dot = $("cht-aqi-dot"), val = $("cht-aqi-val"), sub = $("cht-aqi-sub");
     if (tile) tile.hidden = false;
     if (aqi == null) {
@@ -67,7 +67,7 @@
     if (dot) dot.style.background = aqiColor(aqi);
     if (val) val.textContent = aqi;
     var link = '<a class="cht-src" href="https://www.airnow.gov/?latitude=' + lat + '&longitude=' + lon + '" target="_blank" rel="noopener">AirNow</a>';
-    if (sub) sub.innerHTML = (category ? category + " · " : "") + link;
+    if (sub) sub.innerHTML = (category ? category + " · " : "") + (asOf ? asOf + " · " : "") + link;
   }
 
   function download(filename, text) {
@@ -251,8 +251,8 @@
     fetch("/data/statewide.json").then(function (r) { return r.json(); }).then(function (sw) {
       var row = sw.facilities.filter(function (x) { return x.slug === slug; })[0];
       aqiVal = row ? row.aqi : null; aqiCatVal = row ? row.aqi_category : null;
-      fillAqiTile(aqiVal, aqiCatVal, lat, lon);
-    }).catch(function () { fillAqiTile(null, null, lat, lon); });
+      fillAqiTile(aqiVal, aqiCatVal, row ? row.aqi_as_of : null, lat, lon);
+    }).catch(function () { fillAqiTile(null, null, null, lat, lon); });
 
     // Redraw chart on resize (debounced).
     var rt; window.addEventListener("resize", function () {
