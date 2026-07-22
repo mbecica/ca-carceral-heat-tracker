@@ -41,6 +41,15 @@
   }
 
   var state = { heat: new Set(), jurisdiction: new Set(), population: new Set(), county: new Set(), search: "" };
+
+  // Max-temperature filter: a dual-handle range over the 24-hour max (d.max24),
+  // living in the Max temperature dropdown alongside the historic over-avg floors.
+  var TEMP_DOMAIN = [50, 115];   // slider bounds, °F
+  var maxState = { min: TEMP_DOMAIN[0], max: TEMP_DOMAIN[1] };
+  // A slider spanning the full domain means "no constraint"; a facility with no
+  // 24h reading can't fall inside a range.
+  function maxActive() { return maxState.min > TEMP_DOMAIN[0] || maxState.max < TEMP_DOMAIN[1]; }
+  function maxMatch(d) { return d.max24 != null && d.max24 >= maxState.min && d.max24 <= maxState.max; }
   var sort = { key: "today", dir: "desc" };   // default: hottest current temperature first
   var data = [], bySlug = {}, meta = null, alertDismissed = false, baselinePeriod = "";
   var alertTier = "avg";   // which floor the alert bar currently represents: "hi" (10°F+) or "avg"
@@ -114,6 +123,7 @@
   }
   function matches(d) {
     if (state.heat.size && !heatMatch(d)) return false;
+    if (maxActive() && !maxMatch(d)) return false;
     if (state.jurisdiction.size && !state.jurisdiction.has(d.jurisdiction)) return false;
     if (state.population.size && !state.population.has(popBucketId(d))) return false;
     if (state.county.size && !state.county.has(d.county)) return false;
@@ -123,7 +133,7 @@
           && (d.code || "").toLowerCase().indexOf(q) < 0) return false;   // also match CDCR code (e.g. CCWF)
     return true;
   }
-  function anyActive() { return state.heat.size || state.jurisdiction.size || state.population.size || state.county.size || state.search.trim(); }
+  function anyActive() { return state.heat.size || maxActive() || state.jurisdiction.size || state.population.size || state.county.size || state.search.trim(); }
 
   function highlight(slug, on) {
     if (circles[slug]) circles[slug].setStyle({ weight: (on ? 1.5 : 0) + strokeStyle(bySlug[slug]).weight });
@@ -334,7 +344,7 @@
     var n, label;
     if (nHi >= 1) {
       alertTier = "hi"; n = nHi;
-      label = (n === 1 ? "facility was" : "facilities were") + " 10°F or more above their average summer maximum temperature in the last 24 hours";
+      label = (n === 1 ? "facility was" : "facilities were") + " 10°F+ above their average summer maximum temperature in the last 24 hours";
     } else if (nAvg >= 1) {
       alertTier = "avg"; n = nAvg;
       label = (n === 1 ? "facility was" : "facilities were") + " above their average summer maximum temperature in the last 24 hours";
@@ -381,11 +391,59 @@
       '<input type="checkbox" value="' + value + '"' + (state.heat.has(value) ? " checked" : "") + ">" +
       '<span class="cht-fopt__lab">' + label + "</span><span class=\"cht-fopt__ct\">" + count + "</span></label>";
   }
-  function buildDropdowns() {
+
+  /* ---- Max-temperature range slider ----
+     A minimal dual-handle range: two <input type=range> overlaid, values derived
+     with min/max so the handles can cross without breaking the range. Bound to a
+     state object ({min,max}) by a DOM id prefix. */
+  function sliderHtml(pfx, st, noun) {
+    var lo = TEMP_DOMAIN[0], hi = TEMP_DOMAIN[1];
+    return '<div class="cht-trange">' +
+      '<div class="cht-trange__out"><span id="' + pfx + '-lo">' + st.min + '°</span>' +
+      '<span class="cht-trange__dash">–</span>' +
+      '<span id="' + pfx + '-hi">' + st.max + '°F</span></div>' +
+      '<div class="cht-trange__slider">' +
+        '<div class="cht-trange__rail"></div>' +
+        '<div class="cht-trange__fill" id="' + pfx + '-fill"></div>' +
+        '<input type="range" class="cht-trange__in" id="' + pfx + '-min" min="' + lo + '" max="' + hi + '" step="1" value="' + st.min + '" aria-label="Minimum ' + noun + '">' +
+        '<input type="range" class="cht-trange__in" id="' + pfx + '-max" min="' + lo + '" max="' + hi + '" step="1" value="' + st.max + '" aria-label="Maximum ' + noun + '">' +
+      "</div>" +
+      '<div class="cht-trange__ends"><span>' + lo + '°</span><span>' + hi + '°F</span></div>' +
+    "</div>";
+  }
+  function updateSliderUi(pfx, st) {
+    var lo = TEMP_DOMAIN[0], hi = TEMP_DOMAIN[1], span = hi - lo;
+    var loEl = document.getElementById(pfx + "-lo"), hiEl = document.getElementById(pfx + "-hi"), fill = document.getElementById(pfx + "-fill");
+    if (loEl) loEl.textContent = st.min + "°";
+    if (hiEl) hiEl.textContent = st.max + "°F";
+    if (fill) { var l = (st.min - lo) / span * 100, r = (st.max - lo) / span * 100; fill.style.left = l + "%"; fill.style.width = (r - l) + "%"; }
+  }
+  function wireSlider(pfx, st) {
+    var mi = document.getElementById(pfx + "-min"), ma = document.getElementById(pfx + "-max");
+    if (!mi || !ma) return;
+    function sync() {
+      st.min = Math.min(+mi.value, +ma.value);
+      st.max = Math.max(+mi.value, +ma.value);
+      updateSliderUi(pfx, st);
+      applyAll();
+    }
+    mi.addEventListener("input", sync);
+    ma.addEventListener("input", sync);
+    updateSliderUi(pfx, st);
+  }
+  // Max temperature dropdown: a 24-hour-max slider first under the "In the last
+  // 24 hours:" header, then the historic over-average floors (state.heat).
+  function buildHeatPanel() {
     setPanel("heat",
       '<div class="cht-fhead">In the last 24 hours:</div>' +
+      sliderHtml("cht-smax", maxState, "24-hour max temperature") +
       heatOptionRow("avg", "Above historic avg", data.filter(isOverAvg).length) +
       heatOptionRow("hi", "10°F above historic avg", data.filter(isOverHi).length));
+    wireSlider("cht-smax", maxState);
+  }
+
+  function buildDropdowns() {
+    buildHeatPanel();
 
     var jc = {}; data.forEach(function (d) { jc[d.jurisdiction] = (jc[d.jurisdiction] || 0) + 1; });
     setPanel("jurisdiction", Object.keys(jc).sort(function (a, b) { return jc[b] - jc[a]; })
@@ -405,6 +463,7 @@
   function updateBadges() {
     document.querySelectorAll(".cht-fdrop").forEach(function (dd) {
       var f = dd.getAttribute("data-filter"), badge = dd.querySelector(".cht-fdrop__badge"), n = state[f].size;
+      if (f === "heat" && maxActive()) n += 1;   // the 24h-max slider shares the Max temperature dropdown
       if (badge) { badge.textContent = n; badge.hidden = n === 0; }
       dd.classList.toggle("cht-fdrop--active", n > 0);
     });
@@ -436,6 +495,7 @@
       sessionStorage.setItem(SS_KEY, JSON.stringify({
         heat: Array.from(state.heat), jurisdiction: Array.from(state.jurisdiction),
         population: Array.from(state.population), county: Array.from(state.county),
+        maxMin: maxState.min, maxMax: maxState.max,
         search: state.search, sortKey: sort.key, sortDir: sort.dir,
         view: dash ? dash.getAttribute("data-mobile-view") : null
       }));
@@ -447,6 +507,8 @@
       if (!s) return;
       state.heat = new Set(s.heat || []); state.jurisdiction = new Set(s.jurisdiction || []);
       state.population = new Set(s.population || []); state.county = new Set(s.county || []);
+      if (typeof s.maxMin === "number") maxState.min = s.maxMin;
+      if (typeof s.maxMax === "number") maxState.max = s.maxMax;
       state.search = s.search || "";
       if (s.sortKey) { sort.key = s.sortKey; sort.dir = s.sortDir || "desc"; }
       var input = document.getElementById("cht-search");
@@ -555,8 +617,10 @@
     var clear = document.getElementById("cht-clear");
     if (clear) clear.addEventListener("click", function () {
       state.heat.clear(); state.jurisdiction.clear(); state.population.clear(); state.county.clear(); state.search = "";
+      maxState.min = TEMP_DOMAIN[0]; maxState.max = TEMP_DOMAIN[1];
       var s = document.getElementById("cht-search"); if (s) s.value = "";
       document.querySelectorAll(".cht-fdrop__panel input[type=checkbox]").forEach(function (cb) { cb.checked = false; });
+      buildHeatPanel();   // reset the 24h-max slider controls to their defaults
       closeAllPanels();
       applyAll();
     });
