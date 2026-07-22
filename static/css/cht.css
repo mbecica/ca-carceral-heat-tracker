@@ -165,6 +165,7 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 .cht-fopt { display: flex; align-items: center; gap: 0.5rem; padding: 0.3rem 0.5rem; border-radius: 6px; font-size: 0.86rem; color: var(--primary); cursor: pointer; }
 .cht-fopt:hover { background: var(--code-bg); }
 .cht-fopt input { margin: 0; accent-color: var(--accent); flex: 0 0 auto; }
+.cht-fhead { padding: 0.15rem 0.5rem 0.35rem; font-size: 0.74rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; color: var(--secondary); }
 .cht-fopt__lab { flex: 1 1 auto; }
 .cht-fopt__ct { color: var(--secondary); font-variant-numeric: tabular-nums; font-size: 0.8rem; }
 /* Heat-dropdown swatches mirror the map ring: neutral, thickness = severity. */
@@ -201,13 +202,24 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 .cht-ltip.leaflet-tooltip {
   background: var(--entry); color: var(--primary); border: 1px solid var(--border);
   border-radius: 8px; padding: 0.5rem 0.7rem; font-size: 0.85rem; line-height: 1.4;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.18); white-space: normal; width: 230px; max-width: 230px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18); white-space: normal; width: 258px; max-width: 258px;
 }
 .cht-ltip.leaflet-tooltip span { display: block; }
 .cht-ltip__name { font-weight: 600; }
 .cht-ltip__sub { color: var(--secondary); font-size: 0.8rem; }
 .cht-ltip__val { color: var(--primary); font-weight: 600; margin-top: 0.2rem; }
 .cht-ltip__over { color: var(--cht-over); font-weight: 600; }
+/* Aligned temperature list (Latest / 24 Hour Max / Historic avg max): label,
+   right-aligned value, de-emphasized timestamp. Higher specificity than the
+   generic `span { display: block }` above so the grid layout wins. */
+.cht-ltip.leaflet-tooltip .cht-ltip__temps,
+.cht-lpop .cht-ltip__temps {
+  display: grid; grid-template-columns: auto auto 1fr;
+  column-gap: 0.45rem; row-gap: 0.14rem; align-items: baseline; margin-top: 0.3rem;
+}
+.cht-ltip__k { color: var(--primary); font-weight: 400; white-space: nowrap; }
+.cht-ltip__v { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cht-ltip__t { color: var(--secondary); font-size: 0.72rem; white-space: nowrap; }
 /* Arrow matches the tooltip background for EVERY direction — the detail map's
    sticky (auto-direction) tooltips were showing Leaflet's default white arrow. */
 .cht-ltip.leaflet-tooltip-top::before { border-top-color: var(--entry); }

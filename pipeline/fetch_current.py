@@ -334,6 +334,17 @@ def build_facility(fac, aqi_cache, recent):
     tail = recent.tails.get(fac["slug"], []) if recent else []
     hourly = _merge_hourly(gee_hourly, tail)            # AWS wins on overlap
     daily = daily_max_series(hourly)                    # [{date, max_f}], now including today
+    # Trailing-24h peak ending at the latest observation — the client uses THIS (not the
+    # latest daily bucket, which is partial and under-reports) to decide over-average
+    # status, so the map rings / alert / heat filter are time-of-day independent. Also
+    # stamp WHEN the peak occurred, for the tooltips/detail "24 Hour Max" timestamp.
+    win_start = hourly[-1][0] - timedelta(hours=24)
+    win = [(t, f) for t, f in hourly if t >= win_start]
+    if win:
+        peak_t, last24h_max_f = max(win, key=lambda tf: tf[1])
+        last24h_max_at = peak_t.strftime("%Y-%m-%dT%H:00Z")
+    else:
+        last24h_max_f, last24h_max_at = None, None
     # Current temp: the newest AWS hour (~1h old); fall back to GEE's last hour (~24-30h)
     # only if AWS is down or this cell is masked, so the headline is never blank. The
     # detail page's live NWS top-up (§5) can still refine it client-side.
@@ -354,6 +365,8 @@ def build_facility(fac, aqi_cache, recent):
         "today_forecast_high_f": today_forecast_high_f,
         "current_temp_f": current_temp_f, "current_temp_as_of": current_temp_as_of,
         "recent_daily_max_f": daily,   # raw series so the map/table can derive status+streak
+        "last24h_max_f": last24h_max_f,  # raw trailing-24h peak; client compares to threshold
+        "last24h_max_at": last24h_max_at,  # when that peak occurred (tooltip/detail timestamp)
         "aqi": aqi, "aqi_category": aqi_cat, "stale": False,
     }
     recent = {
@@ -361,6 +374,7 @@ def build_facility(fac, aqi_cache, recent):
         "unit": "°F", "generated_at": _now_iso(),
         "current_temp_f": current_temp_f, "current_temp_as_of": current_temp_as_of,
         "today_forecast_high_f": today_forecast_high_f,
+        "last24h_max_f": last24h_max_f, "last24h_max_at": last24h_max_at,
         "hourly": [{"t": dt.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:00Z"), "f": f}
                    for dt, f in hourly],
         "daily_max": daily,
@@ -439,6 +453,7 @@ def main():
                              "jurisdiction": fac["jurisdiction"], "lat": fac["lat"], "lon": fac["lon"],
                              "today_forecast_high_f": None, "current_temp_f": None,
                              "current_temp_as_of": None, "recent_daily_max_f": [],
+                             "last24h_max_f": None, "last24h_max_at": None,
                              "aqi": None, "aqi_category": None, "stale": True})
             stale += 1
             print(f"  [{i}/{len(facs)}] {fac['slug']}: STALE ({type(e).__name__}: {e})", flush=True)

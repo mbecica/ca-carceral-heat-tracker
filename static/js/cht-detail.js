@@ -34,6 +34,14 @@
     if (sub) sub.innerHTML = sourceHtml + (asOf ? " · " + fmtStamp(asOf) : "");
   }
 
+  // Trailing-24h peak tile — the same value that drives the over-average status/ring
+  // elsewhere, so the profile and the map agree. Same RTMA source as the Latest tile.
+  function fill24hMax(maxF, at, sourceHtml) {
+    var val = $("cht-24hmax-val"), sub = $("cht-24hmax-sub");
+    if (val) val.innerHTML = maxF != null ? fmt(maxF) + "<span class='cht-tile__unit'>°F</span>" : "—";
+    if (sub) sub.innerHTML = maxF != null ? sourceHtml + (at ? " · " + fmtStamp(at) : "") : "unavailable";
+  }
+
   // Secondary "nearest NWS station" reading, shown under the primary (RTMA) tile.
   // The primary value is the NOAA RTMA value so it matches the map/table tooltips
   // everywhere; this is a fresher-but-spot side note, hidden when no station reports.
@@ -97,8 +105,10 @@
       if (c === "pct_of_capacity" && v != null) return (v * 100).toFixed(0);
       return v;
     });
-    var current = [recent.current_temp_f, recent.current_temp_as_of, aqi, aqiCat];
-    var head = META_COLS.concat(["current_temp_f", "current_temp_as_of", "aqi", "aqi_category", "date", "daily_max_f"]);
+    var current = [recent.current_temp_f, recent.current_temp_as_of, recent.today_forecast_high_f,
+      recent.last24h_max_f, recent.last24h_max_at, aqi, aqiCat];
+    var head = META_COLS.concat(["current_temp_f", "current_temp_as_of", "forecast_high_f",
+      "last24h_max_f", "last24h_max_at", "aqi", "aqi_category", "date", "daily_max_f"]);
     var rows = [head.map(csvCell).join(",")];
     (recent.daily_max || []).forEach(function (d) {
       rows.push(metaVals.concat(current).concat([d.date, d.max_f]).map(csvCell).join(","));
@@ -222,6 +232,7 @@
       // itself; the human-readable NWS page lives on the station note below.
       var rtmaSrc = '<a class="cht-src" href="https://developers.google.com/earth-engine/datasets/catalog/NOAA_NWS_RTMA" target="_blank" rel="noopener">NOAA RTMA</a>';
       fillTempTile(recent.current_temp_f, recent.current_temp_as_of, rtmaSrc);
+      fill24hMax(recent.last24h_max_f, recent.last24h_max_at, rtmaSrc);
       var foot = document.querySelector("[data-cht-asof]");
       if (foot) foot.textContent = recent.generated_at ? "Data as of " + fmtStamp(recent.generated_at) : "";
 

@@ -75,7 +75,7 @@
               {{- /* Raw FEMA capacity is null for CDCR; derive it from population ÷ occupancy rate. */ -}}
               {{- $designCap := $f.capacity }}{{ if and (not $f.capacity) $f.population $f.capacity_pct (gt $f.capacity_pct 0.0) }}{{ $designCap = math.Round (div $f.population $f.capacity_pct) }}{{ end }}
               <div><dt>Design capacity</dt><dd>{{ with $designCap }}{{ lang.FormatNumberCustom 0 . }}{{ else }}Unknown{{ end }}</dd></div>
-              <div><dt>Average summer max temp{{ with $all.meta.threshold.baseline_period }} <span class="cht-meta__cap">({{ replace . "-" "–" }})</span>{{ end }}</dt><dd>{{ with $f.baseline_summer_avg_high_f }}{{ printf "%.0f°F" . }}{{ else }}Unknown{{ end }}</dd></div>
+              {{- /* Average summer max moved into the "24 hour max" tile below */ -}}
               {{- with $f.website }}
               <div><dt>Website</dt><dd><a href="{{ . }}" rel="noopener" target="_blank">Facility website ↗</a></dd></div>
               {{- end }}
@@ -93,6 +93,12 @@
             <div class="cht-tile__val" id="cht-temp-now">—</div>
             <div class="cht-tile__sub" id="cht-temp-sub">Loading…</div>
             <div class="cht-tile__note" id="cht-temp-station" hidden></div>
+          </div>
+          <div class="cht-tile">
+            <div class="cht-tile__label">24 hour max</div>
+            <div class="cht-tile__val" id="cht-24hmax-val">—</div>
+            <div class="cht-tile__sub" id="cht-24hmax-sub">Loading…</div>
+            <div class="cht-tile__note">Average summer max{{ with $all.meta.threshold.baseline_period }} <span class="cht-meta__cap">({{ replace . "-" "–" }})</span>{{ end }}: <strong>{{ with $f.baseline_summer_avg_high_f }}{{ printf "%.0f°F" . }}{{ else }}Unknown{{ end }}</strong></div>
           </div>
           <div class="cht-tile" id="cht-aqi-tile" hidden>
             <div class="cht-tile__label">Air quality now</div>

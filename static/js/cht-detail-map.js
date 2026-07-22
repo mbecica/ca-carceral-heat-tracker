@@ -23,6 +23,12 @@
   function ready(fn) { document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", fn) : fn(); }
   function fmt(n) { return n == null || isNaN(n) ? "—" : Math.round(n); }
   function fmtAsOf(s) { try { return new Date(s).toLocaleString(undefined, { month: "short", day: "numeric", hour: "numeric" }); } catch (e) { return s; } }
+  // One aligned tooltip temperature row (label · right value · muted timestamp).
+  function tempRow(label, val, time) {
+    return '<span class="cht-ltip__k">' + label + "</span>" +
+      '<span class="cht-ltip__v">' + (val != null ? fmt(val) + "°F" : "—") + "</span>" +
+      '<span class="cht-ltip__t">' + (time || "") + "</span>";
+  }
   // EPA AQI category color (kept in sync with cht-statewide.js).
   function aqiColor(a) {
     if (a == null) return cssVar("--cht-null");
@@ -66,8 +72,9 @@
           code: fac.cdcr ? fac.cdcr.code : null,
           lat: row.lat, lon: row.lon, temp: row.current_temp_f,
           tempAsOf: row.current_temp_as_of, aqi: row.aqi, aqiCat: row.aqi_category,
+          max24: row.last24h_max_f, max24At: row.last24h_max_at,
           avg: fac.baseline_summer_avg_high_f,
-          status: window.CHTStatus.computeStatus(row.recent_daily_max_f, fac.baseline_summer_avg_high_f, fac.threshold_f) };
+          status: window.CHTStatus.computeStatus(row.recent_daily_max_f, fac.baseline_summer_avg_high_f, fac.threshold_f, row.last24h_max_f) };
       });
       var bySlug = {}; data.forEach(function (d) { bySlug[d.slug] = d; });
       var active = bySlug[activeSlug];
@@ -83,17 +90,20 @@
         return { color: cssVar("--cht-map-stroke"), weight: 1.2 };
       }
       // Identical body to the statewide map tooltip (cht-statewide.js contentHtml):
-      // name, place, Now + as-of, avg summer max, AQI.
+      // name, place, aligned temp list (Latest / 24 Hour Max / Historic avg max), AQI.
       function tip(d) {
         var nm = d.code ? d.name.replace(/\s*\([^)]*\)\s*$/, "") + ' <span class="cht-tcode">' + d.code + "</span>" : d.name;
-        var now = d.temp != null ? fmt(d.temp) + "°F" + (d.tempAsOf ? " · as of " + fmtAsOf(d.tempAsOf) : "") : "—";
-        var avgLine = d.avg != null ? '<span class="cht-ltip__sub">Avg summer max' + (baselinePeriod ? " (" + baselinePeriod + ")" : "") + ": " + fmt(d.avg) + "°F</span>" : "";
+        var temps = '<span class="cht-ltip__temps">' +
+          tempRow("Latest", d.temp, d.tempAsOf ? fmtAsOf(d.tempAsOf) : "") +
+          (d.max24 != null ? tempRow("24 hour max", d.max24, d.max24At ? fmtAsOf(d.max24At) : "") : "") +
+          (d.avg != null ? tempRow("Historic avg max", d.avg, baselinePeriod ? "(" + baselinePeriod + ")" : "") : "") +
+          "</span>";
         var aqi = d.aqi != null
           ? '<span class="cht-ltip__val">AQI ' + d.aqi + (d.aqiCat ? " · " + d.aqiCat : "") + '<i class="cht-aqi-mini" style="background:' + aqiColor(d.aqi) + '"></i></span>'
           : "";
         return '<span class="cht-ltip__name">' + nm + "</span>" +
           '<span class="cht-ltip__sub">' + (d.county || "") + " County · " + (d.jurisdiction || "") + "</span>" +
-          '<span class="cht-ltip__val">Now: ' + now + "</span>" + avgLine + aqi;
+          temps + aqi;
       }
 
       var map = L.map("cht-detail-map", { center: [active.lat, active.lon], zoom: 6, scrollWheelZoom: true });
