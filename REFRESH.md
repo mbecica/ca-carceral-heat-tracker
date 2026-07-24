@@ -10,7 +10,9 @@ only about turning those inputs + the climate APIs into the app's served data.
 
 - **Both repos checked out side-by-side** — the static builds read
   `../ca_prison_climate_justice/data_sources/facilities/ca_facilities.csv` and
-  `.../data/cdcr/cdcr_facilities.csv` as sibling files.
+  `.../data/cdcr/cdcr_facilities.csv` as sibling files. They read that checkout's
+  **working tree**, not a pinned commit, so make sure it is committed and on the intended
+  revision before building — uncommitted mid-edit state lands in `facilities.json` silently.
 - **Google Earth Engine auth** — baselines (PRISM) and bands (RTMA/URMA) come through GEE.
   Locally: `earthengine authenticate` once. The scheduled job uses Workload Identity
   Federation (no key). Project: `ca-carceral-heat` (or set `EE_PROJECT`).
@@ -43,6 +45,26 @@ python3 build_facilities.py                          # rerun so new thresholds l
 
 Then review the git diff — it shows exactly which facilities' numbers changed. A closure
 shows as: stub deleted, `_redirects` line added, slug marked `retired` in `slugs.csv`.
+
+**Check the CDCR block for silent nulls.** `build_facilities.py` reads the CDCR extras
+(cooling mix, demographics, medical) with `f.get("column")`, so a column that climate-justice
+renames or drops does *not* raise — it writes `null`, and the affected section quietly
+disappears from all 31 CDCR prison detail pages while the run still reports success. This
+happened in July 2026, when the cooling columns were renamed twice in one evening. So don't
+trust the exit status: after a refresh where the upstream CSVs changed, confirm the built
+JSON against the source, e.g.
+
+```python
+import json, pandas as pd
+d = json.load(open("static/data/facilities.json"))
+c = pd.read_csv("../ca_prison_climate_justice/data/cdcr/cdcr_facilities.csv").set_index("cdcr_code")
+built = sum(1 for f in d["facilities"] if f.get("cdcr") and f["cdcr"]["cooling"]["n_housing_units"])
+src = int(c["n_housing_units"].notna().sum())          # prisons the CDCR report covers
+print(built, "of", src, "prisons have a cooling mix")  # must match; 31 as of July 2026
+```
+
+An all-null CDCR block and a good build produce identical console output — the count is the
+only thing that tells them apart.
 
 **Post-season (Nov–Dec) — roll the band forward.** Rebuild every band so the 10-year window
 picks up the season just finished (the window auto-advances once the new year is complete):
