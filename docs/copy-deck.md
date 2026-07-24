@@ -33,9 +33,13 @@ it explains, the current text, and the source(s) behind any claim.
 
 ### `cooling` — CDCR cooling section, ⓘ next to "Cooling Infrastructure in Housing Units"
 - **Explains:** the source/vintage of the housing-unit cooling mix.
-- **Current:** "Reported by CDCR as of January 2026."
-- **Note:** the committed data stamps this vintage as `2025-12`. Reconcile the date —
-  update either this copy or the data's `cooling_as_of` so they agree.
+- **Current:** "From CDCR's Air Cooling Pilot Program supplemental report, January 2026
+  (conditions as of December 2025). Housing units with more than one kind of cooling are
+  counted under each, so the shares can add up to more than 100%."
+- **Note:** the report was published January 2026 and describes conditions as of December
+  2025, which is the `cooling_as_of: 2025-12` stamp in the data — both dates are in the copy
+  so they no longer look contradictory. The overlap caveat matters at SATF, where evaporative
+  reads 103%.
 
 ### `vulnerabilities_intro` — "Heat Vulnerabilities" section, ⓘ next to the heading
 - **Explains:** what the underlined percentages in the paragraph are.

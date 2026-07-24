@@ -62,7 +62,7 @@ BASELINE_PERIOD = "1991-2020"
 # Update at each base-data refresh (see REFRESH.md at the repo root). Population
 # and CCHCS years are discovered from column names; these are the rest.
 FACILITY_LIST_AS_OF = "2025-07"   # HiFLD/FEMA download vintage
-COOLING_AS_OF = "2025-12"         # CDCR Air Cooling Pilot Supplemental Report (Jan 2026) + Reuters FOIA 2025
+COOLING_AS_OF = "2025-12"         # CDCR Air Cooling Pilot Supplemental Report (Jan 2026)
 
 # Deactivated CDCR prisons to exclude from the tracker (still in the HiFLD list but
 # no longer operating, so they carry no current population / CCHCS / cooling data).
@@ -289,9 +289,18 @@ def cdcr_block(f, cchcs_year, phi_slugs):
         "planned_closure": bool_from(f.get("planned_closure")),
         "air_cooling_pilot": bool_from(f.get("cdcr_air_cooling_pilot")),
         "cooling": {
-            "pct_units_refrigeration": num(f.get("pct_units_refrigeration"), 4),
-            "pct_units_evaporation": num(f.get("pct_units_evaporation"), 4),
-            "pct_units_ventilation": num(f.get("pct_units_ventilation"), 4),
+            # Housing-unit cooling mix from the CDCR Air Cooling Pilot Supplemental
+            # Report (Jan 2026, as of Dec 2025) — the newest, complete, per-facility
+            # source. Replaces the older Reuters FOIA equipment inventory (upstream
+            # `pct_units_*`, dropped 2026-07), which missed housing at 11 of 31 prisons
+            # and overstated refrigerated A/C. A housing unit is a wing, dormitory, or
+            # cell tier, per the report's own terminology; units with mixed cooling are
+            # counted under each type, so shares can sum slightly above 1 (SATF, 1.03).
+            # Only "mechanical" is refrigerated A/C; evaporative and air handlers do not
+            # provide reliable cooling.
+            "mechanical_pct": num(f.get("pct_hu_mechanical"), 4),
+            "evaporative_pct": num(f.get("pct_hu_evaporative"), 4),
+            "air_handlers_pct": num(f.get("pct_hu_air_handlers"), 4),
             "n_housing_units": num(f.get("n_housing_units")),
         },
         "demographics": {

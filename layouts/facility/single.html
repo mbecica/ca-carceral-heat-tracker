@@ -136,7 +136,12 @@
         {{- if $cdcr }}
         {{- $c := $cdcr.cooling }}{{ $dem := $cdcr.demographics }}{{ $med := $cdcr.medical }}
         {{- if $c.n_housing_units }}
-        {{- $r := mul (default 0.0 $c.pct_units_refrigeration) 100.0 }}{{ $e := mul (default 0.0 $c.pct_units_evaporation) 100.0 }}{{ $vn := mul (default 0.0 $c.pct_units_ventilation) 100.0 }}{{ $re := add $r $e }}
+        {{- $r := mul (default 0.0 $c.mechanical_pct) 100.0 }}{{ $e := mul (default 0.0 $c.evaporative_pct) 100.0 }}{{ $vn := mul (default 0.0 $c.air_handlers_pct) 100.0 }}
+        {{- /* Housing units with more than one cooling type are counted under each,
+               so the shares can sum above 100 (SATF, 103%). The legend keeps the
+               reported percentages; the pie's arcs are normalized so it still closes. */ -}}
+        {{- $tot := add $r (add $e $vn) }}{{ $sr := 0.0 }}{{ $sre := 0.0 }}
+        {{- if gt $tot 0.0 }}{{ $sr = div (mul $r 100.0) $tot }}{{ $sre = add $sr (div (mul $e 100.0) $tot) }}{{ end }}
         <section class="cht-comp">
           <h3 class="cht-comp__title">Cooling Infrastructure in Housing Units
             <span class="cht-info" tabindex="0" data-tip="{{ $copy.cooling }}" aria-label="{{ $copy.cooling }}">i</span>
@@ -144,7 +149,7 @@
           <div class="cht-exp">
             <div class="cht-pie-wrap">
               <div>
-                <div class="cht-pie" style="background:conic-gradient(var(--cht-cool-refrig) 0 {{ $r }}%, var(--cht-cool-evap) {{ $r }}% {{ $re }}%, var(--cht-cool-vent) {{ $re }}% 100%)" role="img" aria-label="Cooling mix of housing units"></div>
+                <div class="cht-pie" style="background:conic-gradient(var(--cht-cool-refrig) 0 {{ $sr }}%, var(--cht-cool-evap) {{ $sr }}% {{ $sre }}%, var(--cht-cool-vent) {{ $sre }}% 100%)" role="img" aria-label="Cooling mix of housing units"></div>
                 <p class="cht-pie-total"><strong>{{ $c.n_housing_units }}</strong> housing units</p>
               </div>
               <ul class="cht-pie-legend">

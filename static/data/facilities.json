@@ -36,7 +36,7 @@
    "cooling_as_of": "2025-12",
    "vulnerability_as_of": "2025"
   },
-  "built": "2026-07-21"
+  "built": "2026-07-23"
  },
  "facilities": [
   {
@@ -243,10 +243,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 0,
-     "pct_units_evaporation": 1,
-     "pct_units_ventilation": 0,
-     "n_housing_units": 69
+     "mechanical_pct": 0,
+     "evaporative_pct": 1,
+     "air_handlers_pct": 0,
+     "n_housing_units": 20
     },
     "demographics": {
      "female_pct": 0,
@@ -567,10 +567,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 0.0494,
-     "pct_units_evaporation": 0.9506,
-     "pct_units_ventilation": 0,
-     "n_housing_units": 81
+     "mechanical_pct": 0.0625,
+     "evaporative_pct": 1.0312,
+     "air_handlers_pct": 0,
+     "n_housing_units": 32
     },
     "demographics": {
      "female_pct": 0,
@@ -671,10 +671,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 0,
-     "pct_units_evaporation": 0,
-     "pct_units_ventilation": 1,
-     "n_housing_units": 44
+     "mechanical_pct": 0.0455,
+     "evaporative_pct": 0,
+     "air_handlers_pct": 0.9545,
+     "n_housing_units": 22
     },
     "demographics": {
      "female_pct": 0,
@@ -715,10 +715,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 1,
-     "pct_units_evaporation": 0,
-     "pct_units_ventilation": 0,
-     "n_housing_units": 61
+     "mechanical_pct": 1,
+     "evaporative_pct": 0,
+     "air_handlers_pct": 0,
+     "n_housing_units": 29
     },
     "demographics": {
      "female_pct": 0,
@@ -759,10 +759,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 1,
-     "pct_units_evaporation": 0,
-     "pct_units_ventilation": 0,
-     "n_housing_units": 15
+     "mechanical_pct": 0.4286,
+     "evaporative_pct": 0,
+     "air_handlers_pct": 0.5714,
+     "n_housing_units": 21
     },
     "demographics": {
      "female_pct": 0,
@@ -803,10 +803,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 0.44,
-     "pct_units_evaporation": 0.56,
-     "pct_units_ventilation": 0,
-     "n_housing_units": 25
+     "mechanical_pct": 0.3636,
+     "evaporative_pct": 0.6364,
+     "air_handlers_pct": 0,
+     "n_housing_units": 11
     },
     "demographics": {
      "female_pct": 100,
@@ -847,10 +847,10 @@
     "planned_closure": null,
     "air_cooling_pilot": true,
     "cooling": {
-     "pct_units_refrigeration": 0.5,
-     "pct_units_evaporation": 0.5,
-     "pct_units_ventilation": 0,
-     "n_housing_units": 10
+     "mechanical_pct": 0.5283,
+     "evaporative_pct": 0.4717,
+     "air_handlers_pct": 0,
+     "n_housing_units": 53
     },
     "demographics": {
      "female_pct": 0.2,
@@ -891,10 +891,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 0,
-     "pct_units_evaporation": 0,
-     "pct_units_ventilation": 1,
-     "n_housing_units": 33
+     "mechanical_pct": 0.1875,
+     "evaporative_pct": 0,
+     "air_handlers_pct": 0.8125,
+     "n_housing_units": 16
     },
     "demographics": {
      "female_pct": 0,
@@ -935,10 +935,10 @@
     "planned_closure": true,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 0.8571,
-     "pct_units_evaporation": 0.1429,
-     "pct_units_ventilation": 0,
-     "n_housing_units": 14
+     "mechanical_pct": 0.0833,
+     "evaporative_pct": 0.0278,
+     "air_handlers_pct": 0.8889,
+     "n_housing_units": 36
     },
     "demographics": {
      "female_pct": 0,
@@ -979,10 +979,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 0,
-     "pct_units_evaporation": 1,
-     "pct_units_ventilation": 0,
-     "n_housing_units": 59
+     "mechanical_pct": 0,
+     "evaporative_pct": 1,
+     "air_handlers_pct": 0,
+     "n_housing_units": 24
     },
     "demographics": {
      "female_pct": 0,
@@ -1023,10 +1023,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 0.2222,
-     "pct_units_evaporation": 0.7778,
-     "pct_units_ventilation": 0,
-     "n_housing_units": 18
+     "mechanical_pct": 0.08,
+     "evaporative_pct": 0.92,
+     "air_handlers_pct": 0,
+     "n_housing_units": 25
     },
     "demographics": {
      "female_pct": 0,
@@ -1067,10 +1067,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 0.1343,
-     "pct_units_evaporation": 0.1493,
-     "pct_units_ventilation": 0.7164,
-     "n_housing_units": 67
+     "mechanical_pct": 0.16,
+     "evaporative_pct": 0.24,
+     "air_handlers_pct": 0.6,
+     "n_housing_units": 25
     },
     "demographics": {
      "female_pct": 0,
@@ -1111,10 +1111,10 @@
     "planned_closure": null,
     "air_cooling_pilot": true,
     "cooling": {
-     "pct_units_refrigeration": 0.0597,
-     "pct_units_evaporation": 0.9403,
-     "pct_units_ventilation": 0,
-     "n_housing_units": 67
+     "mechanical_pct": 0.0455,
+     "evaporative_pct": 0.9545,
+     "air_handlers_pct": 0,
+     "n_housing_units": 22
     },
     "demographics": {
      "female_pct": 0,
@@ -1155,10 +1155,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 1,
-     "pct_units_evaporation": 0,
-     "pct_units_ventilation": 0,
-     "n_housing_units": 69
+     "mechanical_pct": 1,
+     "evaporative_pct": 0,
+     "air_handlers_pct": 0,
+     "n_housing_units": 24
     },
     "demographics": {
      "female_pct": 0,
@@ -1459,10 +1459,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 1,
-     "pct_units_evaporation": 0,
-     "pct_units_ventilation": 0,
-     "n_housing_units": 68
+     "mechanical_pct": 1,
+     "evaporative_pct": 0,
+     "air_handlers_pct": 0,
+     "n_housing_units": 24
     },
     "demographics": {
      "female_pct": 0,
@@ -1503,10 +1503,10 @@
     "planned_closure": null,
     "air_cooling_pilot": true,
     "cooling": {
-     "pct_units_refrigeration": 0.0256,
-     "pct_units_evaporation": 0.9744,
-     "pct_units_ventilation": 0,
-     "n_housing_units": 78
+     "mechanical_pct": 0,
+     "evaporative_pct": 1,
+     "air_handlers_pct": 0,
+     "n_housing_units": 16
     },
     "demographics": {
      "female_pct": 97.8,
@@ -1807,10 +1807,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 0,
-     "pct_units_evaporation": 0.2,
-     "pct_units_ventilation": 0.8,
-     "n_housing_units": 10
+     "mechanical_pct": 0,
+     "evaporative_pct": 0.0455,
+     "air_handlers_pct": 0.9545,
+     "n_housing_units": 22
     },
     "demographics": {
      "female_pct": 0,
@@ -2531,10 +2531,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 0.2857,
-     "pct_units_evaporation": 0.7143,
-     "pct_units_ventilation": 0,
-     "n_housing_units": 14
+     "mechanical_pct": 0.25,
+     "evaporative_pct": 0.75,
+     "air_handlers_pct": 0,
+     "n_housing_units": 16
     },
     "demographics": {
      "female_pct": 0,
@@ -2575,9 +2575,9 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": null,
-     "pct_units_evaporation": null,
-     "pct_units_ventilation": null,
+     "mechanical_pct": null,
+     "evaporative_pct": null,
+     "air_handlers_pct": null,
      "n_housing_units": null
     },
     "demographics": {
@@ -3099,10 +3099,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 0.087,
-     "pct_units_evaporation": 0.913,
-     "pct_units_ventilation": 0,
-     "n_housing_units": 46
+     "mechanical_pct": 0.0345,
+     "evaporative_pct": 0.9655,
+     "air_handlers_pct": 0,
+     "n_housing_units": 29
     },
     "demographics": {
      "female_pct": 0,
@@ -3383,10 +3383,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 1,
-     "pct_units_evaporation": 0,
-     "pct_units_ventilation": 0,
-     "n_housing_units": 83
+     "mechanical_pct": 1,
+     "evaporative_pct": 0,
+     "air_handlers_pct": 0,
+     "n_housing_units": 23
     },
     "demographics": {
      "female_pct": 0,
@@ -3707,10 +3707,10 @@
     "planned_closure": null,
     "air_cooling_pilot": true,
     "cooling": {
-     "pct_units_refrigeration": 0.2857,
-     "pct_units_evaporation": 0.7143,
-     "pct_units_ventilation": 0,
-     "n_housing_units": 28
+     "mechanical_pct": 0.1,
+     "evaporative_pct": 0,
+     "air_handlers_pct": 0.9,
+     "n_housing_units": 20
     },
     "demographics": {
      "female_pct": 0,
@@ -4771,10 +4771,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 0.1857,
-     "pct_units_evaporation": 0.8143,
-     "pct_units_ventilation": 0,
-     "n_housing_units": 70
+     "mechanical_pct": 0.1364,
+     "evaporative_pct": 0.8636,
+     "air_handlers_pct": 0,
+     "n_housing_units": 22
     },
     "demographics": {
      "female_pct": 0,
@@ -4915,10 +4915,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 0.037,
-     "pct_units_evaporation": 0.963,
-     "pct_units_ventilation": 0,
-     "n_housing_units": 54
+     "mechanical_pct": 0.04,
+     "evaporative_pct": 0.96,
+     "air_handlers_pct": 0,
+     "n_housing_units": 25
     },
     "demographics": {
      "female_pct": 0,
@@ -5179,10 +5179,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 0.0952,
-     "pct_units_evaporation": 0,
-     "pct_units_ventilation": 0.9048,
-     "n_housing_units": 63
+     "mechanical_pct": 0.0345,
+     "evaporative_pct": 0,
+     "air_handlers_pct": 0.9655,
+     "n_housing_units": 29
     },
     "demographics": {
      "female_pct": 0,
@@ -5343,10 +5343,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 0.0606,
-     "pct_units_evaporation": 0.9394,
-     "pct_units_ventilation": 0,
-     "n_housing_units": 66
+     "mechanical_pct": 0.0435,
+     "evaporative_pct": 0.9565,
+     "air_handlers_pct": 0,
+     "n_housing_units": 23
     },
     "demographics": {
      "female_pct": 0,
@@ -5467,10 +5467,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 0.3649,
-     "pct_units_evaporation": 0,
-     "pct_units_ventilation": 0.6351,
-     "n_housing_units": 74
+     "mechanical_pct": 0.3478,
+     "evaporative_pct": 0,
+     "air_handlers_pct": 0.6522,
+     "n_housing_units": 23
     },
     "demographics": {
      "female_pct": 0,
@@ -5711,10 +5711,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 0.093,
-     "pct_units_evaporation": 0.907,
-     "pct_units_ventilation": 0,
-     "n_housing_units": 43
+     "mechanical_pct": 0.1304,
+     "evaporative_pct": 0.8696,
+     "air_handlers_pct": 0,
+     "n_housing_units": 23
     },
     "demographics": {
      "female_pct": 0,
@@ -6035,10 +6035,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 0.6154,
-     "pct_units_evaporation": 0,
-     "pct_units_ventilation": 0.3846,
-     "n_housing_units": 26
+     "mechanical_pct": 0,
+     "evaporative_pct": 0,
+     "air_handlers_pct": 1,
+     "n_housing_units": 11
     },
     "demographics": {
      "female_pct": 0,
@@ -6439,10 +6439,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 0.0517,
-     "pct_units_evaporation": 0.2586,
-     "pct_units_ventilation": 0.6897,
-     "n_housing_units": 58
+     "mechanical_pct": 0,
+     "evaporative_pct": 0.0617,
+     "air_handlers_pct": 0.9383,
+     "n_housing_units": 81
     },
     "demographics": {
      "female_pct": 0,
@@ -7403,10 +7403,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 0,
-     "pct_units_evaporation": 1,
-     "pct_units_ventilation": 0,
-     "n_housing_units": 77
+     "mechanical_pct": 0,
+     "evaporative_pct": 1,
+     "air_handlers_pct": 0,
+     "n_housing_units": 16
     },
     "demographics": {
      "female_pct": 0,
@@ -7607,10 +7607,10 @@
     "planned_closure": null,
     "air_cooling_pilot": null,
     "cooling": {
-     "pct_units_refrigeration": 0.0152,
-     "pct_units_evaporation": 0.9848,
-     "pct_units_ventilation": 0,
-     "n_housing_units": 66
+     "mechanical_pct": 0,
+     "evaporative_pct": 1,
+     "air_handlers_pct": 0,
+     "n_housing_units": 28
     },
     "demographics": {
      "female_pct": 0,

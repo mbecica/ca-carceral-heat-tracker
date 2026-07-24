@@ -21,7 +21,10 @@ tooltips:
     (Skarha et al. 2023).
 
   # Detail page — CDCR cooling section (ⓘ next to "Cooling Infrastructure in Housing Units")
-  cooling: "From CDCR as of January 2026."
+  cooling: >-
+    From CDCR's Air Cooling Pilot Program supplemental report, January 2026
+    (conditions as of December 2025). Housing units with more than one kind of
+    cooling are counted under each, so the shares can add up to more than 100%.
 
   # Detail page — CDCR "Heat Vulnerabilities" section (ⓘ next to the heading)
   vulnerabilities_intro: >-
