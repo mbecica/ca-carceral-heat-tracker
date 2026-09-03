@@ -18,7 +18,13 @@
   function isMobile() { return window.matchMedia && window.matchMedia("(max-width: 820px)").matches; }
   function isDark() { return document.documentElement.dataset.theme === "dark"; }
   function cssVar(n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
-  function tileUrl() { return "https://{s}.basemaps.cartocdn.com/" + BASEMAP + "/{z}/{x}/{y}{r}.png"; }
+  // CARTO basemap key injected at build time (window.CHT_CARTO_KEY); see cht-statewide.js.
+  var CARTO_KEY = (typeof window !== "undefined" && window.CHT_CARTO_KEY) || "";
+  function tileUrl() {
+    return CARTO_KEY
+      ? "https://basemaps.cartocdn.com/rastertiles/" + BASEMAP + "/{z}/{x}/{y}{r}.png?key=" + CARTO_KEY
+      : "https://{s}.basemaps.cartocdn.com/" + BASEMAP + "/{z}/{x}/{y}{r}.png";
+  }
   function slugPath(slug) { return "/" + slug + "/"; }
   function ready(fn) { document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", fn) : fn(); }
   function fmt(n) { return n == null || isNaN(n) ? "—" : Math.round(n); }

@@ -61,7 +61,16 @@
   function isDark() { return document.documentElement.dataset.theme === "dark"; }
   function cssVar(n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
   function slugPath(slug) { return "/" + slug + "/"; }
-  function tileUrl() { return "https://{s}.basemaps.cartocdn.com/" + BASEMAP + "/{z}/{x}/{y}{r}.png"; }
+  // CARTO basemap. The key is injected at build time (window.CHT_CARTO_KEY, set in
+  // head.html from the CARTO_BASEMAP_KEY env var). With a key we hit CARTO's keyed
+  // endpoint; without one we fall back to the keyless host, which CARTO watermarks
+  // "API KEY REQUIRED" past zoom 17 — so a missing key degrades, it doesn't break.
+  var CARTO_KEY = (typeof window !== "undefined" && window.CHT_CARTO_KEY) || "";
+  function tileUrl() {
+    return CARTO_KEY
+      ? "https://basemaps.cartocdn.com/rastertiles/" + BASEMAP + "/{z}/{x}/{y}{r}.png?key=" + CARTO_KEY
+      : "https://{s}.basemaps.cartocdn.com/" + BASEMAP + "/{z}/{x}/{y}{r}.png";
+  }
   function fillFor(d) { return window.CHTTempScale.tempColor(d.currentTemp) || cssVar("--cht-null"); }
   function isOverAvg(d) { return d.status.hasData && d.status.overAvg; }
   function isOverHi(d) { return d.status.hasData && d.status.overHi; }

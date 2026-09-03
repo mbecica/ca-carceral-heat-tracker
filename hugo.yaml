@@ -35,3 +35,13 @@ markup:
 params:
   description: "How hot it is outdoors right now at every active California carceral facility, relative to that facility's own long-term summer normal."
   defaultTheme: auto        # light/dark follows the visitor's system setting, with a manual toggle
+
+# Hugo blocks os.Getenv for any var outside this allowlist. The first two are Hugo's
+# defaults (kept, since setting the list replaces them); CARTO_BASEMAP_KEY lets
+# head.html read the basemap key at build time. See layouts/_partials/head.html.
+security:
+  funcs:
+    getenv:
+      - '^HUGO_'
+      - '^CI$'
+      - '^CARTO_BASEMAP_KEY$'

@@ -18,3 +18,12 @@
 
 <link rel="stylesheet" href="{{ partial "cht-asset.html" "css/leaflet.css" }}">
 <link rel="stylesheet" href="{{ partial "cht-asset.html" "css/cht.css" }}">
+
+{{- /* CARTO basemap key, injected at build time from the CARTO_BASEMAP_KEY env var
+       (set as a Cloudflare Pages build/environment variable; never committed to the
+       repo). The map JS reads window.CHT_CARTO_KEY. When the var is unset the value
+       is "", and the map falls back to CARTO's keyless (watermarked) tiles. Inside
+       <script>, Hugo's html/template auto-escapes the value into a safely quoted JS
+       string literal — so no jsonify (which would double-quote it). Reading a
+       non-HUGO_ env var requires the security.funcs.getenv allowlist in hugo.yaml. */ -}}
+<script>window.CHT_CARTO_KEY = {{ os.Getenv "CARTO_BASEMAP_KEY" }};</script>
