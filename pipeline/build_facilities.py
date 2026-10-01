@@ -19,9 +19,9 @@ that file is missing the export still runs with null thresholds and a warning.
 Run whenever the facility list or CDCR extras change (see REFRESH.md at the
 repo root):
 
-    python3 analysis/heatwave_app/build_facilities.py
+    python3 pipeline/build_facilities.py
 
-Outputs (into the sibling `ca-carceral-heat-tracker` repo):
+Outputs:
     static/data/facilities.json           facility master (map, table, detail pages)
     static/data/facility_boundaries.geojson
     content/facilities/<slug>.md          routable detail-page stubs (url: /<slug>/)
@@ -41,12 +41,14 @@ from shapely.geometry import mapping
 
 HERE = Path(__file__).resolve().parent                    # <app repo>/pipeline/
 APP = HERE.parent                                         # ca-carceral-heat-tracker/
-CJ = APP.parent / "ca_prison_climate_justice"             # sibling open-data repo (inputs)
+CJ = APP.parent / "ca_prison_climate_justice"             # sibling repo: facility list
+CDCR = APP.parent / "cdcr_facility_data"                  # sibling repo: CDCR institution data
+PHI = APP.parent / "cdcr_prison_heat_index"               # sibling repo: Prison Heat Index slugs
 
 FAC_CSV = CJ / "data_sources/facilities/ca_facilities.csv"
-CDCR_CSV = CJ / "data/cdcr/cdcr_facilities.csv"
+CDCR_CSV = CDCR / "data/cdcr_facilities.csv"
 BASELINES_CSV = HERE / "data/baselines.csv"
-PHI_JSON = CJ / "analysis/app_export/output/prison_heat_index.json"
+PHI_JSON = PHI / "app_export/output/prison_heat_index.json"
 REGISTRY_CSV = HERE / "data/slugs.csv"
 
 STUB_DIR = APP / "content/facilities"
