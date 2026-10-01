@@ -1,6 +1,6 @@
 # Standalone Hugo site for the CA Carceral Facility Heat Tracker.
 # No theme — this repo owns its whole shell (layouts/ + static/), ported from the
-# Prison Heat Index into the `cht-` CSS namespace. See SCOPE_AND_PLAN.md §3.
+# Prison Heat Index into the `cht-` CSS namespace. See notes/SCOPE_AND_PLAN.md §3 (local).
 baseURL: "https://heat.marybecica.com/"
 title: "California Carceral Facility Heat Tracker"
 locale: en-us

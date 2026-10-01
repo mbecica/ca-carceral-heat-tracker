@@ -8,7 +8,7 @@
 #   {avg} — a statewide CDCR average count (e.g. "3,116")
 #   {pct} — a statewide CDCR average percentage (e.g. "75%")
 #
-# Voice: see docs/website-voice-profile.md. Vulnerability-panel tooltips lead
+# Voice: see notes/website-voice-profile.md (local). Vulnerability-panel tooltips lead
 # with the heat-risk mechanism (told in the carceral setting, with its source)
 # and close with the statewide average as the final sentence.
 # ============================================================================

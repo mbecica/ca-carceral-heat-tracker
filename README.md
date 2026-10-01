@@ -26,7 +26,6 @@ California Prisons. This project acknowledges and extends the work of
   JSON against `threshold_f` (`static/js/cht-status.js`).
 - [`content/methods.md`](content/methods.md) — the public Methods & Sources page (data sources + methodology).
 - [`REFRESH.md`](REFRESH.md) — how to refresh the data.
-- [`DEPLOY.md`](DEPLOY.md) — Cloudflare Pages + subdomain setup.
 
 ## Data
 
