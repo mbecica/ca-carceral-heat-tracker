@@ -16,8 +16,8 @@ federal, multi-jurisdiction) to the app repo, mirroring the Prison Heat Index
 Thresholds come from `data/baselines.csv` (built by `build_baselines.py`); if
 that file is missing the export still runs with null thresholds and a warning.
 
-Run whenever the facility list or CDCR extras change (see REFRESH.md at the
-repo root):
+Run whenever the facility list or CDCR extras change (see "Updating the data"
+in the README):
 
     python3 pipeline/build_facilities.py
 
@@ -61,7 +61,7 @@ THRESHOLD_DELTA_F = 10.0
 BASELINE_PERIOD = "1991-2020"
 
 # --- Data vintages, rendered into meta and shown in the UI. -------------------
-# Update at each base-data refresh (see REFRESH.md at the repo root). Population
+# Update when the facility list or cooling data is refreshed. Population
 # and CCHCS years are discovered from column names; these are the rest.
 FACILITY_LIST_AS_OF = "2025-07"   # HiFLD/FEMA download vintage
 COOLING_AS_OF = "2025-12"         # CDCR Air Cooling Pilot Supplemental Report (Jan 2026)
@@ -292,14 +292,10 @@ def cdcr_block(f, cchcs_year, phi_slugs):
         "air_cooling_pilot": bool_from(f.get("cdcr_air_cooling_pilot")),
         "cooling": {
             # Housing-unit cooling mix from the CDCR Air Cooling Pilot Supplemental
-            # Report (Jan 2026, as of Dec 2025) — the newest, complete, per-facility
-            # source. Replaces the older Reuters FOIA equipment inventory (upstream
-            # `pct_units_*`, dropped 2026-07), which missed housing at 11 of 31 prisons
-            # and overstated refrigerated A/C. A housing unit is a wing, dormitory, or
-            # cell tier, per the report's own terminology; units with mixed cooling are
-            # counted under each type, so shares can sum slightly above 1 (SATF, 1.03).
-            # Only "mechanical" is refrigerated A/C; evaporative and air handlers do not
-            # provide reliable cooling.
+            # Report (Jan 2026, as of Dec 2025). A housing unit is a wing, dormitory, or
+            # cell tier; units with mixed cooling are counted under each type, so shares
+            # can sum slightly above 1 (SATF, 1.03). Only "mechanical" is refrigerated
+            # A/C; evaporative and air handlers do not provide reliable cooling.
             "mechanical_pct": num(f.get("pct_hu_mechanical"), 4),
             "evaporative_pct": num(f.get("pct_hu_evaporative"), 4),
             "air_handlers_pct": num(f.get("pct_hu_air_handlers"), 4),
@@ -341,6 +337,16 @@ def main():
     pop_col, pop_year = discover_year_column(cdcr, r"average_(\d{4})_population")
     cap_col, _ = discover_year_column(cdcr, r"capacity_percent_(\d{4})")
     _, cchcs_year = discover_year_column(cdcr, r"cchcs_dpp_pct_(\d{4})")
+    required = [
+        "facilityid", "cdcr_code", "year_opened", "planned_closure", "cdcr_air_cooling_pilot",
+        "pct_hu_mechanical", "pct_hu_evaporative", "pct_hu_air_handlers", "n_housing_units",
+        "gender_female_pct", "race_peopleofcolor_pct",
+        *(f"cchcs_{m}_pct_{cchcs_year}" for m in
+          ("age_over_50", "mental_health_eop", "dpp", "high_risk_p1", "high_risk_p2", "medium_risk")),
+    ]
+    missing = [c for c in required if c not in cdcr.columns]
+    if missing:
+        sys.exit(f"{CDCR_CSV.name} is missing expected columns: {', '.join(missing)}")
     print(f"CDCR extras: population column {pop_col}, CCHCS year {cchcs_year}")
     cdcr_by_id = cdcr.set_index("facilityid")
 

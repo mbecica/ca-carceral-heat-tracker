@@ -11,27 +11,48 @@ California Prisons. This project acknowledges and extends the work of
 
 > **Status: in development — prototype phase.**
 
-## Repository layout
-
-- **`pipeline/`** — the data build scripts (`build_facilities.py`, `build_baselines.py`,
-  `build_historic_bands.py`) and their inputs/registry (`pipeline/data/`). These read the
-  facility lists from the sibling [`ca_prison_climate_justice`](https://github.com/mbecica/ca_prison_climate_justice)
-  open-data repo. A live fetch job (`fetch_current.py`) will join them.
-- **`static/data/`** — generated data the site serves (`facilities.json`, boundaries, and
-  per-facility band/live files).
-- **`content/`** — per-facility page stubs + the methods page.
-- **`layouts/`** + **`static/{css,js}/`** — the standalone Hugo front-end (`cht-` CSS namespace):
-  statewide temperature map + jurisdiction filter + sortable table, per-facility detail pages with
-  a D3 14-day chart, and the methods page. Status / °F-over is computed in the browser from the raw
-  JSON against `threshold_f` (`static/js/cht-status.js`).
-- [`content/methods.md`](content/methods.md) — the public Methods & Sources page (data sources + methodology).
-- [`REFRESH.md`](REFRESH.md) — how to refresh the data.
-
 ## Data
 
 Facility and climate data are drawn from public sources (PRISM, NOAA/NWS, EPA, FEMA/HIFLD,
 CDCR). See the [methods page](https://heat.marybecica.com/methods/) for the full source list,
 resolutions, and methodology, including how each facility's historic summer comparison is
-built. Facility attributes originate in the open
-[`ca_prison_climate_justice`](https://github.com/mbecica/ca_prison_climate_justice) repository,
-which also publishes the facility-level hazard, exposure, and vulnerability dataset.
+built.
+
+The facility list comes from [ca_prison_climate_justice](https://github.com/mbecica/ca_prison_climate_justice),
+CDCR prison details (cooling, demographics, health care population) from
+[cdcr_facility_data](https://github.com/mbecica/cdcr_facility_data), and links to each prison's
+Prison Heat Index profile from [cdcr_prison_heat_index](https://github.com/mbecica/cdcr_prison_heat_index).
+
+## Repository layout
+
+- **`pipeline/`**: data build scripts and their inputs (`pipeline/data/`).
+  - `build_facilities.py`: facility list, detail-page stubs, boundaries, and redirects for closed facilities.
+  - `build_baselines.py`: each facility's 1991–2020 summer baseline from PRISM.
+  - `build_historic_bands.py`: each facility's historic temperature band from RTMA/URMA.
+  - `fetch_current.py`: latest conditions, run by GitHub Actions four times a day.
+- **`static/data/`**: generated data the site serves (`facilities.json`, boundaries, per-facility
+  band and recent-conditions files).
+- **`content/`**: per-facility page stubs and the [methods page](content/methods.md).
+- **`layouts/`** and **`static/{css,js}/`**: the Hugo front end (`cht-` CSS namespace): statewide
+  map, jurisdiction filter, sortable table, and per-facility pages with a 14-day chart. Status and
+  degrees over the threshold are computed in the browser against `threshold_f`
+  (`static/js/cht-status.js`).
+
+## Updating the data
+
+Latest conditions update automatically. The other builds read the upstream repositories from
+sibling checkouts and use Google Earth Engine (`earthengine authenticate`, project
+`ca-carceral-heat`); they need `earthengine-api`, `pandas`, and `shapely`. Run them from
+`pipeline/`.
+
+| Data | Script | When |
+| :--- | :--- | :--- |
+| Facility list and CDCR details | `build_facilities.py` | When the upstream facility list or CDCR data changes |
+| Summer baselines | `build_baselines.py --only-missing` | For new facilities only; the 1991–2020 normal is fixed |
+| Historic bands | `build_historic_bands.py` | Each winter, to move the 10-year window forward; `--only-missing` for new facilities |
+| Latest conditions | `fetch_current.py` | Automatic (`.github/workflows/fetch-current.yml`) |
+
+When facilities are added, run `build_facilities.py`, then the baseline and band scripts with
+`--only-missing`, then `build_facilities.py` again so the new thresholds are included. A closed
+facility's page is removed and its URL redirected; `pipeline/data/slugs.csv` is append-only, so
+retired URLs are never reused. Pushing to `main` rebuilds the site on Cloudflare Pages.
