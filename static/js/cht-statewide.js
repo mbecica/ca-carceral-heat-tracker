@@ -243,9 +243,8 @@
   }
 
   /* ---- Geolocation: "My location" on-map control ----
-     Surfaces WHY it fails (silent failure was impossible to debug): geolocation only
-     works in a secure context (https or localhost) — over a plain-http LAN IP the
-     browser refuses it with no prompt, which is the usual "nothing happens on mobile". */
+     Shows the reason when location fails. Geolocation only works in a secure context
+     (https or localhost); over plain http the browser refuses it without a prompt. */
   function flashLocate(msg, keep) {
     var host = document.querySelector(".cht-dash__map"); if (!host) return;
     var el = document.getElementById("cht-locate-msg");
