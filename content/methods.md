@@ -40,6 +40,8 @@ All temperature data comes from station-based products based on observed outdoor
 | Current air quality | AirNow (EPA, monitor-based NowCast AQI) | monitor network | AQI |
 | Facilities: locations, jurisdiction, boundaries | FEMA / HIFLD Prison Boundaries (July 2025), with CDCR additions | — | Which facilities, where |
 | CDCR population, cooling infrastructure, vulnerability indicators | CDCR and CCHCS public data | — | CDCR state prison panels |
+| CDCR housing-unit cooling types (as of December 2025) | CDCR Air Cooling Pilot Program Supplemental Report (January 2026), Table 2 | per housing unit | Cooling chart on CDCR detail pages |
+| CDCR cooling-system condition ratings, Five-Year Plan prisons | CDCR Infrastructure Master Plan (May 2026), p. 20 and Appendix 2 | per prison | Condition ratings and Five-Year Plan flag on CDCR detail pages |
 
 Reanalysis models like ERA5 were tested and set aside: at coastal facilities they miss the marine layer that cools the coast and read 5–10°F too warm.
 
@@ -59,6 +61,35 @@ Reanalysis models like ERA5 were tested and set aside: at coastal facilities the
 
 CDCR state prisons show additional data on their populations, cooling infrastructure, and heat-vulnerability indicators. Comparable data may exist for state fire camps, county jails or other systems, but were not in scope for this version of the tool.
 
+### Cooling infrastructure and condition
+
+The cooling chart counts housing units (wings, dormitories or cell tiers) by cooling type, from CDCR's [Air Cooling Pilot Program Supplemental Report](https://www.cdcr.ca.gov/fpcm/wp-content/uploads/sites/184/2026/02/Air_Cooling_Document_for_Legislature.pdf) (January 2026, conditions as of December 2025). Mechanical A/C is refrigerated air conditioning; evaporative ("swamp") coolers cool air by evaporating water; housing units with no cooling have air handlers only, which move air without cooling it. CDCR's report says air handlers and evaporative systems do not "provide adequate relief from excessive heat."
+
+Below the chart, under "Infrastructure Condition," each prison shows the 2026 condition of its mechanical A/C and evaporative cooling systems, from Appendix 2 of CDCR's [Infrastructure Master Plan](https://www.cdcr.ca.gov/fpcm/cdcr-infrastructure-master-plan/) (May 2026). Each prison's plant operations staff assigned these ratings; CDCR describes this as a relative analysis drawing on staff knowledge, not a formal facility condition assessment. The ratings mean:
+
+| Rating | CDCR's definition |
+|---|---|
+| Plus | Expected to exceed 20 years of operation |
+| Good | Generally well maintained |
+| Fair | Needs repairs, typical wear and tear |
+| Poor | Significant disrepair, not well maintained |
+| Failing | At risk of failure or unusable |
+| N/A | The system does not exist at the prison (not shown on detail pages) |
+
+Each rating covers the whole prison, including clinics, kitchens and other non-housing buildings, so it can't be tied to a particular housing unit. CDCR doesn't rate air handlers (ventilation without cooling). The 2026 assessment lists no ratings for California Rehabilitation Center (CRC), which is scheduled to close in fall 2026.
+
+Where a prison has a condition rating for a cooling type but the Air Cooling report counts no housing units with it, the detail page lists it under "Cooling in non-housing buildings." California Institution for Men (CIM) had an evaporative cooling retrofit at Facility A completed in February 2025 that is not reflected in the Air Cooling report's housing counts.
+
+### Program flags
+
+Some CDCR prison pages carry flags:
+
+- **California Model prison:** CDCR lists the prison as part of the California Model, its version of the Norwegian corrections approach.
+- **In CDCR's Air Cooling Pilot:** one of three prisons (CCWF, KVSP and LAC) in the pilot, funded in the 2025 Budget Act to evaluate air cooling alternatives in housing units.
+- **Targeted for capital projects (2026):** one of five prisons (CMF, CCWF, SCC, COR and CIM) that the Five-Year Plan in CDCR's 2026 Infrastructure Master Plan says "would require significant capital improvement projects" in the next five years, including replacement of utility systems and housing units. CDCR calls these "the targeted institutions."
+
+### Heat-vulnerability indicators
+
 These indicators are only as good as the public data CDCR releases, which has many limitations. In particular, CDCR has not published facility-level counts of who it designates heat-vulnerable under its heat plan. In place of those counts, the tracker uses demographic shares as proxies: the share of people who are 50 or older, in the Disability Placement Program, receiving enhanced outpatient mental-health care, in a medium-or-higher medical-risk category, or people of color. Each is drawn from 2025 CDCR and CCHCS public data. The hover text on each indicator explains why that group faces elevated heat risk.
 
 ## Data availability
@@ -74,6 +105,10 @@ Abdala, A., Bhola, A., Gutierrez, G., Henderson, E., & O'Neill, M. (2023). *Hidd
 Brunn, K., Toledo, O., Tran, C. C., Vasudevan, A., & Venkat, B. J. (2025). Carceral heat exposure as harmful design: An integrative model for understanding the health impacts of heat on incarcerated people in the United States. *Social Science & Medicine, 367*, 117679. https://doi.org/10.1016/j.socscimed.2025.117679
 
 Cal-Adapt. (n.d.). *Extreme heat days & warm nights* [Data tool]. Geospatial Innovation Facility, University of California, Berkeley. https://cal-adapt.org/
+
+California Department of Corrections and Rehabilitation. (2026, January). *Air Cooling Pilot Program supplemental report.* https://www.cdcr.ca.gov/fpcm/wp-content/uploads/sites/184/2026/02/Air_Cooling_Document_for_Legislature.pdf
+
+California Department of Corrections and Rehabilitation, Facility Planning, Construction and Management. (2026, May). *Infrastructure master plan* and Appendices 1–3 (Appendix 1: CDCR adult institutions; Appendix 2: Condition assessment; Appendix 3: 20-year infrastructure needs). https://www.cdcr.ca.gov/fpcm/cdcr-infrastructure-master-plan/
 
 California Correctional Health Care Services. (2025). *CCHCS health care services dashboard.* https://cchcs.ca.gov/dashboard/
 

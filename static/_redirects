@@ -6,4 +6,5 @@
 # BEGIN retired facility redirects (managed by build_facilities.py)
 /california-city-correctional-center-cac/ / 302
 /chuckawalla-valley-state-prison-cvsp/ / 302
+/folsom-womens-facility-fwf/ / 302
 # END retired facility redirects

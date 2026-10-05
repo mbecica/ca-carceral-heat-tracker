@@ -20,11 +20,52 @@ tooltips:
     Each 10°F above the average summer maximum at carceral facility sites is associated with a 5.2% rise in all-cause mortality
     (Skarha et al. 2023).
 
-  # Detail page — CDCR cooling section (ⓘ next to "Cooling Infrastructure in Housing Units")
+  # Detail page — CDCR flags under the overview grid (hover/focus on each pill)
+  flag_california_model: >-
+    CDCR lists this prison as part of the California Model, its version of the
+    Norwegian corrections approach (CDCR Infrastructure Master Plan 2026).
+
+  flag_air_cooling_pilot: >-
+    One of three prisons in CDCR's Air Cooling Pilot Program, funded in the
+    2025 Budget Act to evaluate air cooling alternatives in housing units
+    (CDCR 2026).
+
+  flag_infrastructure_priority: >-
+    CDCR's May 2026 Infrastructure Master Plan names five prisons that "would
+    require significant capital improvement projects" in the next five years,
+    including replacing utility systems and housing units. This prison is one
+    of them.
+
+  # Detail page — CDCR cooling section (ⓘ next to "Cooling in housing units")
   cooling: >-
-    From CDCR's Air Cooling Pilot Program supplemental report, January 2026
-    (conditions as of December 2025). Housing units with more than one kind of
-    cooling are counted under each, so the shares can add up to more than 100%.
+    The pie chart shows housing units by cooling type, from CDCR's Air Cooling
+    Pilot Program supplemental report, January 2026 (conditions as of December
+    2025). Mechanical A/C is refrigerated air conditioning. Evaporative ("swamp")
+    coolers cool air by evaporating water. No cooling means air handlers only,
+    which move air without cooling it. CDCR says air handlers and evaporative
+    systems do not "provide adequate relief from excessive heat." Housing units
+    with more than one kind of cooling are counted under each, so the shares can
+    add up to more than 100%.
+
+  # Detail page — ⓘ on "Cooling in non-housing buildings", shown when a cooling type is
+  # rated at the prison but counted in none of its housing units.
+  #   {types} — "This cooling type is" or "These cooling types are"
+  cooling_outside_housing: >-
+    {types} documented at this prison (CDCR 2026 condition assessment) but in
+    none of its housing units (CDCR Air Cooling report, December 2025).
+
+  # Appended to the note above at CIM only
+  cooling_outside_housing_cim: >-
+    CIM had an evaporative cooling retrofit at Facility A completed in February
+    2025 that is not reflected in CDCR's Air Cooling report.
+
+  # Detail page — ⓘ on the "Infrastructure Condition" subhead (the 2026 rating guide)
+  cooling_condition: >-
+    Ratings from CDCR's May 2026 Infrastructure Master Plan, assigned by each
+    prison's plant operations staff. CDCR's rating definitions: Plus: expected
+    to last more than 20 years. Good: generally well maintained. Fair: needs
+    repairs, typical wear and tear. Poor: significant disrepair. Failing: at
+    risk of failure or unusable.
 
   # Detail page — CDCR "Heat Vulnerabilities" section (ⓘ next to the heading)
   vulnerabilities_intro: >-

@@ -1,6 +1,6 @@
 {
  "meta": {
-  "n_facilities": 355,
+  "n_facilities": 354,
   "jurisdictions": [
    [
     "County",
@@ -20,7 +20,7 @@
    ],
    [
     "State",
-    82
+    81
    ]
   ],
   "threshold": {
@@ -34,9 +34,10 @@
    "population_cdcr_as_of": "2025",
    "population_other_as_of": null,
    "cooling_as_of": "2025-12",
+   "condition_as_of": "2026-05",
    "vulnerability_as_of": "2025"
   },
-  "built": "2026-10-01"
+  "built": "2026-10-04"
  },
  "facilities": [
   {
@@ -242,11 +243,20 @@
     "year_opened": 1987,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": null,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 0,
      "evaporative_pct": 1,
      "air_handlers_pct": 0,
-     "n_housing_units": 20
+     "n_housing_units": 20,
+     "outside_housing": [
+      "mechanical"
+     ],
+     "condition_2026": {
+      "mechanical": "Poor",
+      "evaporative": "Fair"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -566,11 +576,18 @@
     "year_opened": 1997,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": true,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 0.0625,
      "evaporative_pct": 1.0312,
      "air_handlers_pct": 0,
-     "n_housing_units": 32
+     "n_housing_units": 32,
+     "outside_housing": [],
+     "condition_2026": {
+      "mechanical": "Fair",
+      "evaporative": "Fair"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -670,11 +687,18 @@
     "year_opened": 1954,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": null,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 0.0455,
      "evaporative_pct": 0,
      "air_handlers_pct": 0.9545,
-     "n_housing_units": 22
+     "n_housing_units": 22,
+     "outside_housing": [],
+     "condition_2026": {
+      "mechanical": "Fair",
+      "evaporative": "N/A"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -714,11 +738,18 @@
     "year_opened": 2013,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": null,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 1,
      "evaporative_pct": 0,
      "air_handlers_pct": 0,
-     "n_housing_units": 29
+     "n_housing_units": 29,
+     "outside_housing": [],
+     "condition_2026": {
+      "mechanical": "Good",
+      "evaporative": "N/A"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -758,11 +789,20 @@
     "year_opened": 1941,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": null,
+    "infrastructure_priority_2026": true,
     "cooling": {
      "mechanical_pct": 0.4286,
      "evaporative_pct": 0,
      "air_handlers_pct": 0.5714,
-     "n_housing_units": 21
+     "n_housing_units": 21,
+     "outside_housing": [
+      "evaporative"
+     ],
+     "condition_2026": {
+      "mechanical": "Failing",
+      "evaporative": "Fair"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -802,11 +842,18 @@
     "year_opened": 1952,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": null,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 0.3636,
      "evaporative_pct": 0.6364,
      "air_handlers_pct": 0,
-     "n_housing_units": 11
+     "n_housing_units": 11,
+     "outside_housing": [],
+     "condition_2026": {
+      "mechanical": "Failing",
+      "evaporative": "Fair"
+     }
     },
     "demographics": {
      "female_pct": 100,
@@ -846,11 +893,18 @@
     "year_opened": 1955,
     "planned_closure": null,
     "air_cooling_pilot": true,
+    "california_model": null,
+    "infrastructure_priority_2026": true,
     "cooling": {
      "mechanical_pct": 0.5283,
      "evaporative_pct": 0.4717,
      "air_handlers_pct": 0,
-     "n_housing_units": 53
+     "n_housing_units": 53,
+     "outside_housing": [],
+     "condition_2026": {
+      "mechanical": "Poor",
+      "evaporative": "Poor"
+     }
     },
     "demographics": {
      "female_pct": 0.2,
@@ -890,11 +944,20 @@
     "year_opened": 1961,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": null,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 0.1875,
      "evaporative_pct": 0,
      "air_handlers_pct": 0.8125,
-     "n_housing_units": 16
+     "n_housing_units": 16,
+     "outside_housing": [
+      "evaporative"
+     ],
+     "condition_2026": {
+      "mechanical": "Fair",
+      "evaporative": "Fair"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -934,11 +997,15 @@
     "year_opened": 1962,
     "planned_closure": true,
     "air_cooling_pilot": null,
+    "california_model": null,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 0.0833,
      "evaporative_pct": 0.0278,
      "air_handlers_pct": 0.8889,
-     "n_housing_units": 36
+     "n_housing_units": 36,
+     "outside_housing": [],
+     "condition_2026": null
     },
     "demographics": {
      "female_pct": 0,
@@ -978,11 +1045,20 @@
     "year_opened": 1988,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": true,
+    "infrastructure_priority_2026": true,
     "cooling": {
      "mechanical_pct": 0,
      "evaporative_pct": 1,
      "air_handlers_pct": 0,
-     "n_housing_units": 24
+     "n_housing_units": 24,
+     "outside_housing": [
+      "mechanical"
+     ],
+     "condition_2026": {
+      "mechanical": "Fair",
+      "evaporative": "Poor"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -1022,11 +1098,18 @@
     "year_opened": 1986,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": true,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 0.08,
      "evaporative_pct": 0.92,
      "air_handlers_pct": 0,
-     "n_housing_units": 25
+     "n_housing_units": 25,
+     "outside_housing": [],
+     "condition_2026": {
+      "mechanical": "Fair",
+      "evaporative": "Fair"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -1066,11 +1149,18 @@
     "year_opened": 1984,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": null,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 0.16,
      "evaporative_pct": 0.24,
      "air_handlers_pct": 0.6,
-     "n_housing_units": 25
+     "n_housing_units": 25,
+     "outside_housing": [],
+     "condition_2026": {
+      "mechanical": "Fair",
+      "evaporative": "Fair"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -1110,11 +1200,18 @@
     "year_opened": 1993,
     "planned_closure": null,
     "air_cooling_pilot": true,
+    "california_model": null,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 0.0455,
      "evaporative_pct": 0.9545,
      "air_handlers_pct": 0,
-     "n_housing_units": 22
+     "n_housing_units": 22,
+     "outside_housing": [],
+     "condition_2026": {
+      "mechanical": "Fair",
+      "evaporative": "Poor"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -1154,11 +1251,18 @@
     "year_opened": 1992,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": null,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 1,
      "evaporative_pct": 0,
      "air_handlers_pct": 0,
-     "n_housing_units": 24
+     "n_housing_units": 24,
+     "outside_housing": [],
+     "condition_2026": {
+      "mechanical": "Plus",
+      "evaporative": "N/A"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -1458,11 +1562,18 @@
     "year_opened": 1993,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": null,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 1,
      "evaporative_pct": 0,
      "air_handlers_pct": 0,
-     "n_housing_units": 24
+     "n_housing_units": 24,
+     "outside_housing": [],
+     "condition_2026": {
+      "mechanical": "Failing",
+      "evaporative": "N/A"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -1502,11 +1613,20 @@
     "year_opened": 1990,
     "planned_closure": null,
     "air_cooling_pilot": true,
+    "california_model": true,
+    "infrastructure_priority_2026": true,
     "cooling": {
      "mechanical_pct": 0,
      "evaporative_pct": 1,
      "air_handlers_pct": 0,
-     "n_housing_units": 16
+     "n_housing_units": 16,
+     "outside_housing": [
+      "mechanical"
+     ],
+     "condition_2026": {
+      "mechanical": "Fair",
+      "evaporative": "Fair"
+     }
     },
     "demographics": {
      "female_pct": 97.8,
@@ -1806,11 +1926,20 @@
     "year_opened": 1946,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": null,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 0,
      "evaporative_pct": 0.0455,
      "air_handlers_pct": 0.9545,
-     "n_housing_units": 22
+     "n_housing_units": 22,
+     "outside_housing": [
+      "mechanical"
+     ],
+     "condition_2026": {
+      "mechanical": "Fair",
+      "evaporative": "Fair"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -2530,11 +2659,18 @@
     "year_opened": 1880,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": null,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 0.25,
      "evaporative_pct": 0.75,
      "air_handlers_pct": 0,
-     "n_housing_units": 16
+     "n_housing_units": 16,
+     "outside_housing": [],
+     "condition_2026": {
+      "mechanical": "Fair",
+      "evaporative": "Fair"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -2549,50 +2685,6 @@
      "medium_risk_pct": 30.2
     },
     "phi_slug": "folsom-state-prison"
-   }
-  },
-  {
-   "id": 10006530,
-   "slug": "folsom-womens-facility-fwf",
-   "name": "Folsom Women's Facility (FWF)",
-   "county": "Sacramento",
-   "city": "Represa",
-   "address": "570 E Natoma St, Represa, CA 95671",
-   "jurisdiction": "State",
-   "security": "Medium",
-   "website": "http://www.cdcr.ca.gov/Facilities_Locator/",
-   "lat": 38.69321,
-   "lon": -121.14879,
-   "population": 397,
-   "population_as_of": null,
-   "capacity": 523,
-   "capacity_pct": 0.759,
-   "baseline_summer_avg_high_f": 91.5,
-   "threshold_f": 101.5,
-   "cdcr": {
-    "code": "FWF",
-    "year_opened": 2013,
-    "planned_closure": null,
-    "air_cooling_pilot": null,
-    "cooling": {
-     "mechanical_pct": null,
-     "evaporative_pct": null,
-     "air_handlers_pct": null,
-     "n_housing_units": null
-    },
-    "demographics": {
-     "female_pct": null,
-     "poc_pct": null,
-     "age_over_50_pct": null
-    },
-    "medical": {
-     "mental_health_eop_pct": null,
-     "dpp_pct": null,
-     "high_risk_p1_pct": null,
-     "high_risk_p2_pct": null,
-     "medium_risk_pct": null
-    },
-    "phi_slug": null
    }
   },
   {
@@ -3098,11 +3190,18 @@
     "year_opened": 1995,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": null,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 0.0345,
      "evaporative_pct": 0.9655,
      "air_handlers_pct": 0,
-     "n_housing_units": 29
+     "n_housing_units": 29,
+     "outside_housing": [],
+     "condition_2026": {
+      "mechanical": "Fair",
+      "evaporative": "Fair"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -3382,11 +3481,18 @@
     "year_opened": 1994,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": null,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 1,
      "evaporative_pct": 0,
      "air_handlers_pct": 0,
-     "n_housing_units": 23
+     "n_housing_units": 23,
+     "outside_housing": [],
+     "condition_2026": {
+      "mechanical": "Good",
+      "evaporative": "N/A"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -3706,11 +3812,20 @@
     "year_opened": 2005,
     "planned_closure": null,
     "air_cooling_pilot": true,
+    "california_model": null,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 0.1,
      "evaporative_pct": 0,
      "air_handlers_pct": 0.9,
-     "n_housing_units": 20
+     "n_housing_units": 20,
+     "outside_housing": [
+      "evaporative"
+     ],
+     "condition_2026": {
+      "mechanical": "Fair",
+      "evaporative": "Fair"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -4770,11 +4885,18 @@
     "year_opened": 1987,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": null,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 0.1364,
      "evaporative_pct": 0.8636,
      "air_handlers_pct": 0,
-     "n_housing_units": 22
+     "n_housing_units": 22,
+     "outside_housing": [],
+     "condition_2026": {
+      "mechanical": "Poor",
+      "evaporative": "Poor"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -4914,11 +5036,18 @@
     "year_opened": 1993,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": null,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 0.04,
      "evaporative_pct": 0.96,
      "air_handlers_pct": 0,
-     "n_housing_units": 25
+     "n_housing_units": 25,
+     "outside_housing": [],
+     "condition_2026": {
+      "mechanical": "Fair",
+      "evaporative": "Poor"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -5178,11 +5307,20 @@
     "year_opened": 1989,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": null,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 0.0345,
      "evaporative_pct": 0,
      "air_handlers_pct": 0.9655,
-     "n_housing_units": 29
+     "n_housing_units": 29,
+     "outside_housing": [
+      "evaporative"
+     ],
+     "condition_2026": {
+      "mechanical": "Good",
+      "evaporative": "Fair"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -5342,11 +5480,18 @@
     "year_opened": 1994,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": null,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 0.0435,
      "evaporative_pct": 0.9565,
      "air_handlers_pct": 0,
-     "n_housing_units": 23
+     "n_housing_units": 23,
+     "outside_housing": [],
+     "condition_2026": {
+      "mechanical": "Fair",
+      "evaporative": "Fair"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -5466,11 +5611,18 @@
     "year_opened": 1987,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": true,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 0.3478,
      "evaporative_pct": 0,
      "air_handlers_pct": 0.6522,
-     "n_housing_units": 23
+     "n_housing_units": 23,
+     "outside_housing": [],
+     "condition_2026": {
+      "mechanical": "Poor",
+      "evaporative": "N/A"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -5710,11 +5862,18 @@
     "year_opened": 1996,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": true,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 0.1304,
      "evaporative_pct": 0.8696,
      "air_handlers_pct": 0,
-     "n_housing_units": 23
+     "n_housing_units": 23,
+     "outside_housing": [],
+     "condition_2026": {
+      "mechanical": "Fair",
+      "evaporative": "Fair"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -6034,11 +6193,21 @@
     "year_opened": 1852,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": true,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 0,
      "evaporative_pct": 0,
      "air_handlers_pct": 1,
-     "n_housing_units": 11
+     "n_housing_units": 11,
+     "outside_housing": [
+      "mechanical",
+      "evaporative"
+     ],
+     "condition_2026": {
+      "mechanical": "Poor",
+      "evaporative": "Poor"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -6438,11 +6607,20 @@
     "year_opened": 1965,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": null,
+    "infrastructure_priority_2026": true,
     "cooling": {
      "mechanical_pct": 0,
      "evaporative_pct": 0.0617,
      "air_handlers_pct": 0.9383,
-     "n_housing_units": 81
+     "n_housing_units": 81,
+     "outside_housing": [
+      "mechanical"
+     ],
+     "condition_2026": {
+      "mechanical": "Fair",
+      "evaporative": "Fair"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -7402,11 +7580,20 @@
     "year_opened": 1995,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": true,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 0,
      "evaporative_pct": 1,
      "air_handlers_pct": 0,
-     "n_housing_units": 16
+     "n_housing_units": 16,
+     "outside_housing": [
+      "mechanical"
+     ],
+     "condition_2026": {
+      "mechanical": "Poor",
+      "evaporative": "Poor"
+     }
     },
     "demographics": {
      "female_pct": 0,
@@ -7606,11 +7793,20 @@
     "year_opened": 1991,
     "planned_closure": null,
     "air_cooling_pilot": null,
+    "california_model": null,
+    "infrastructure_priority_2026": null,
     "cooling": {
      "mechanical_pct": 0,
      "evaporative_pct": 1,
      "air_handlers_pct": 0,
-     "n_housing_units": 28
+     "n_housing_units": 28,
+     "outside_housing": [
+      "mechanical"
+     ],
+     "condition_2026": {
+      "mechanical": "Fair",
+      "evaporative": "Poor"
+     }
     },
     "demographics": {
      "female_pct": 0,

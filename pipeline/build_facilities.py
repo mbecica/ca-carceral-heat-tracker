@@ -65,12 +65,22 @@ BASELINE_PERIOD = "1991-2020"
 # and CCHCS years are discovered from column names; these are the rest.
 FACILITY_LIST_AS_OF = "2025-07"   # HiFLD/FEMA download vintage
 COOLING_AS_OF = "2025-12"         # CDCR Air Cooling Pilot Supplemental Report (Jan 2026)
+CONDITION_AS_OF = "2026-05"       # CDCR Infrastructure Master Plan, Appendix 2 (May 2026)
+
+# Text columns read verbatim (no NaN coercion): in the condition ratings "N/A"
+# means the system doesn't exist at the institution, which is not the same as
+# blank (not rated).
+COND_COLS = {
+    "mechanical": "cond_cooling_mechanical_2026",
+    "evaporative": "cond_cooling_evaporative_2026",
+}
 
 # Deactivated CDCR prisons to exclude from the tracker (still in the HiFLD list but
 # no longer operating, so they carry no current population / CCHCS / cooling data).
 DEACTIVATED = {
     10000852,   # California City Correctional Center (CAC) — deactivated 2024
     10002346,   # Chuckawalla Valley State Prison (CVSP) — winding down
+    10006530,   # Folsom Women's Facility (FWF) — permanently closed
 }
 
 
@@ -290,16 +300,30 @@ def cdcr_block(f, cchcs_year, phi_slugs):
         "year_opened": num(f.get("year_opened")),
         "planned_closure": bool_from(f.get("planned_closure")),
         "air_cooling_pilot": bool_from(f.get("cdcr_air_cooling_pilot")),
+        "california_model": bool_from(f.get("california_model_facility")),
+        # One of the five "targeted institutions" the May 2026 Infrastructure Master
+        # Plan's Five-Year Plan slates for "significant capital improvement projects"
+        # (pp. 20-21). CDCR doesn't call them a priority; the upstream column name does.
+        "infrastructure_priority_2026": bool_from(f.get("infrastructure_priority_2026")),
         "cooling": {
             # Housing-unit cooling mix from the CDCR Air Cooling Pilot Supplemental
             # Report (Jan 2026, as of Dec 2025). A housing unit is a wing, dormitory, or
             # cell tier; units with mixed cooling are counted under each type, so shares
-            # can sum slightly above 1 (SATF, 1.03). Only "mechanical" is refrigerated
-            # A/C; evaporative and air handlers do not provide reliable cooling.
+            # can sum slightly above 1 (SATF, 1.03). Only mechanical A/C
+            # provides reliable cooling; evaporative and air handlers do not.
             "mechanical_pct": num(f.get("pct_hu_mechanical"), 4),
             "evaporative_pct": num(f.get("pct_hu_evaporative"), 4),
             "air_handlers_pct": num(f.get("pct_hu_air_handlers"), 4),
             "n_housing_units": num(f.get("n_housing_units")),
+            # Cooling types rated at the institution but in none of its housing units.
+            "outside_housing": [t.strip() for t in str(f.get("cooling_types_outside_housing") or "").split(";")
+                                if t.strip()],
+            # Institution-wide condition ratings from plant operations staff
+            # (Plus/Good/Fair/Poor/Failing/N/A). None if CDCR didn't rate the prison.
+            "condition_2026": (
+                {k: f.get(col) or None for k, col in COND_COLS.items()}
+                if any(f.get(col) for col in COND_COLS.values()) else None
+            ),
         },
         "demographics": {
             # gender/race are 0-1 fractions in source; CCHCS *_pct already percentages
@@ -340,6 +364,8 @@ def main():
     required = [
         "facilityid", "cdcr_code", "year_opened", "planned_closure", "cdcr_air_cooling_pilot",
         "pct_hu_mechanical", "pct_hu_evaporative", "pct_hu_air_handlers", "n_housing_units",
+        "california_model_facility", "infrastructure_priority_2026", "cooling_types_outside_housing",
+        *COND_COLS.values(),
         "gender_female_pct", "race_peopleofcolor_pct",
         *(f"cchcs_{m}_pct_{cchcs_year}" for m in
           ("age_over_50", "mental_health_eop", "dpp", "high_risk_p1", "high_risk_p2", "medium_risk")),
@@ -347,6 +373,9 @@ def main():
     missing = [c for c in required if c not in cdcr.columns]
     if missing:
         sys.exit(f"{CDCR_CSV.name} is missing expected columns: {', '.join(missing)}")
+    raw = pd.read_csv(CDCR_CSV, dtype=str, keep_default_na=False)
+    for col in ("cooling_types_outside_housing", *COND_COLS.values()):
+        cdcr[col] = raw[col].str.strip()
     print(f"CDCR extras: population column {pop_col}, CCHCS year {cchcs_year}")
     cdcr_by_id = cdcr.set_index("facilityid")
 
@@ -436,6 +465,7 @@ def main():
                 "population_cdcr_as_of": str(pop_year) if pop_year else None,
                 "population_other_as_of": None,   # HiFLD population is undated
                 "cooling_as_of": COOLING_AS_OF,
+                "condition_as_of": CONDITION_AS_OF,
                 "vulnerability_as_of": str(cchcs_year) if cchcs_year else None,
             },
             "built": date.today().isoformat(),

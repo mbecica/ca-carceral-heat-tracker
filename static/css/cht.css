@@ -25,9 +25,11 @@
   --cht-map-bg: #e7e5e0;                  /* the (always-light) basemap canvas; legend matches it */
 
   /* cooling-pie categories (CDCR only) */
-  --cht-cool-refrig: #2f6fd0;
-  --cht-cool-evap:   #ef8a3c;
-  --cht-cool-vent:   #a5182a;
+  /* Cooling types: one blue ramp (mechanical > evaporative) plus neutral gray for
+     none, kept clear of the green-to-red condition-rating fills. */
+  --cht-cool-mech:   #2a78d6;
+  --cht-cool-evap:   #9ec5f4;
+  --cht-cool-vent:   #8f8b84;
 }
 :root[data-theme="dark"] {
   --theme:     #1c1d1f;
@@ -423,19 +425,40 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 .cht-download-btn { display: inline-flex; align-items: center; gap: 0.3rem; }
 .cht-download-btn svg { flex: 0 0 auto; }
 
-/* Flags (California Model / cooling pilot) */
+/* Flags (California Model / cooling pilot / targeted for capital projects) */
 .cht-flags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.4rem; }
 .cht-flag { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.74rem; font-weight: 600; color: var(--primary); background: var(--code-bg); border: 1px solid var(--border); border-radius: 999px; padding: 0.15rem 0.6rem; }
 .cht-flag__dot { width: 0.5em; height: 0.5em; border-radius: 50%; background: var(--accent); }
+.cht-flag[data-tip] { cursor: help; }
+.cht-flag[data-tip]:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 
 /* ---- CDCR extras: cooling pie + vulnerability madlib (ported) ---- */
-.cht-exp { display: flex; gap: 0.8rem 1.6rem; flex-wrap: wrap; align-items: center; margin-top: 0.7rem; }
-.cht-pie-wrap { display: flex; align-items: center; gap: 1.4rem; flex-wrap: wrap; }
-.cht-pie { width: 118px; height: 118px; border-radius: 50%; flex: 0 0 auto; border: 1px solid var(--border); }
+/* Circle and legend share a row so the legend centers on the circle itself;
+   the housing-unit count sits under the circle in a second row. */
+.cht-pie-wrap { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 0 1.1rem; }
+.cht-pie-wrap .cht-pie-total { grid-column: 1; }
+.cht-pie { width: 104px; height: 104px; border-radius: 50%; flex: 0 0 auto; border: 1px solid var(--border); }
 .cht-pie-total { text-align: center; font-size: 0.82rem; color: var(--secondary); margin: 0.4rem 0 0; }
 .cht-pie-legend { list-style: none; margin: 0; padding: 0; font-size: 0.9rem; }
 .cht-pie-legend li { display: flex; align-items: center; gap: 0.55rem; margin: 0.3rem 0; }
 .cht-pie-sw { width: 0.9em; height: 0.9em; border-radius: 3px; flex: 0 0 auto; }
+.cht-cool-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 1.6rem; align-items: start; }
+@media (max-width: 520px) { .cht-cool-grid { grid-template-columns: minmax(0, 1fr); } }
+.cht-subhead { display: flex; align-items: center; margin: 0.9rem 0 0.5rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--secondary); }
+.cht-subhead .cht-info { font-size: 0.66rem; width: 1.45em; height: 1.45em; margin-left: 0.45em; letter-spacing: 0; text-transform: none; }
+.cht-cool-list { list-style: none; margin: 0; padding: 0; font-size: 0.9rem; color: var(--content); }
+.cht-cool-list li { display: flex; align-items: center; gap: 0.55rem; margin: 0.3rem 0; }
+.cht-cond { list-style: none; margin: 0; padding: 0; font-size: 0.9rem; color: var(--content); }
+.cht-cond li { display: flex; align-items: center; flex-wrap: nowrap; gap: 0.15rem 0.5rem; margin: 0.35rem 0; }
+/* Condition rating pill, filled with CDCR's own colors from the Master Plan's
+   Appendix 2 matrix. Fixed light fills, so the text stays dark in both themes. */
+.cht-rating { display: inline-block; box-sizing: border-box; width: 6.2em; flex: 0 0 auto; text-align: center; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #1f1f1f; border: 1px solid rgba(0,0,0,0.18); border-radius: 999px; padding: 0.12rem 0.5rem; }
+.cht-rating--plus    { background: #6aa84f; }
+.cht-rating--good    { background: #b6d7a8; }
+.cht-rating--fair    { background: #ffe599; }
+.cht-rating--poor    { background: #ea9999; }
+.cht-rating--failing { background: #e06666; }
+.cht-rating--na      { background: #ffffff; }
 .cht-madlib { font-size: 1rem; line-height: 2.1; color: var(--primary); margin: 0.4rem 0 0; }
 .cht-madlib__n { font-size: 1.4em; font-weight: 800; text-decoration: underline; text-decoration-color: var(--cht-over); text-underline-offset: 0.16em; text-decoration-thickness: 2px; cursor: help; }
 

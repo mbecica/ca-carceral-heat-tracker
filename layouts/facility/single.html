@@ -80,8 +80,12 @@
               <div><dt>Website</dt><dd><a href="{{ . }}" rel="noopener" target="_blank">Facility website ↗</a></dd></div>
               {{- end }}
             </dl>
-            {{- if and $cdcr $cdcr.air_cooling_pilot }}
-            <div class="cht-flags"><span class="cht-flag"><span class="cht-flag__dot"></span>In CDCR’s Air Cooling Pilot</span></div>
+            {{- if and $cdcr (or $cdcr.california_model $cdcr.air_cooling_pilot $cdcr.infrastructure_priority_2026) }}
+            <div class="cht-flags">
+              {{- if $cdcr.california_model }}<span class="cht-flag" tabindex="0" data-tip="{{ $copy.flag_california_model }}" aria-label="{{ $copy.flag_california_model }}"><span class="cht-flag__dot"></span>California Model prison</span>{{ end }}
+              {{- if $cdcr.air_cooling_pilot }}<span class="cht-flag" tabindex="0" data-tip="{{ $copy.flag_air_cooling_pilot }}" aria-label="{{ $copy.flag_air_cooling_pilot }}"><span class="cht-flag__dot"></span>In CDCR’s Air Cooling Pilot</span>{{ end }}
+              {{- if $cdcr.infrastructure_priority_2026 }}<span class="cht-flag" tabindex="0" data-tip="{{ $copy.flag_infrastructure_priority }}" aria-label="{{ $copy.flag_infrastructure_priority }}"><span class="cht-flag__dot"></span>Targeted for capital projects (2026)</span>{{ end }}
+            </div>
             {{- end }}
           </div>
         </div>
@@ -135,32 +139,53 @@
         {{- /* CDCR-only extras: cooling pie + vulnerability madlib */ -}}
         {{- if $cdcr }}
         {{- $c := $cdcr.cooling }}{{ $dem := $cdcr.demographics }}{{ $med := $cdcr.medical }}
-        {{- if $c.n_housing_units }}
-        {{- $r := mul (default 0.0 $c.mechanical_pct) 100.0 }}{{ $e := mul (default 0.0 $c.evaporative_pct) 100.0 }}{{ $vn := mul (default 0.0 $c.air_handlers_pct) 100.0 }}
-        {{- /* Housing units with more than one cooling type are counted under each,
-               so the shares can sum above 100 (SATF, 103%). The legend keeps the
-               reported percentages; the pie's arcs are normalized so it still closes. */ -}}
-        {{- $tot := add $r (add $e $vn) }}{{ $sr := 0.0 }}{{ $sre := 0.0 }}
-        {{- if gt $tot 0.0 }}{{ $sr = div (mul $r 100.0) $tot }}{{ $sre = add $sr (div (mul $e 100.0) $tot) }}{{ end }}
+        {{- $cond := $c.condition_2026 }}
         <section class="cht-comp">
-          <h3 class="cht-comp__title">Cooling Infrastructure in Housing Units
-            <span class="cht-info" tabindex="0" data-tip="{{ $copy.cooling }}" aria-label="{{ $copy.cooling }}">i</span>
-          </h3>
-          <div class="cht-exp">
-            <div class="cht-pie-wrap">
-              <div>
-                <div class="cht-pie" style="background:conic-gradient(var(--cht-cool-refrig) 0 {{ $sr }}%, var(--cht-cool-evap) {{ $sr }}% {{ $sre }}%, var(--cht-cool-vent) {{ $sre }}% 100%)" role="img" aria-label="Cooling mix of housing units"></div>
-                <p class="cht-pie-total"><strong>{{ $c.n_housing_units }}</strong> housing units</p>
-              </div>
-              <ul class="cht-pie-legend">
-                <li><span class="cht-pie-sw" style="background:var(--cht-cool-refrig)"></span>Refrigerated A/C: {{ printf "%.0f%%" $r }}</li>
-                <li><span class="cht-pie-sw" style="background:var(--cht-cool-evap)"></span>Evaporative (“swamp”): {{ printf "%.0f%%" $e }}</li>
-                <li><span class="cht-pie-sw" style="background:var(--cht-cool-vent)"></span>No cooling: {{ printf "%.0f%%" $vn }}</li>
-              </ul>
-            </div>
+          <h3 class="cht-comp__title">Cooling Infrastructure</h3>
+          {{- $r := mul (default 0.0 $c.mechanical_pct) 100.0 }}{{ $e := mul (default 0.0 $c.evaporative_pct) 100.0 }}{{ $vn := mul (default 0.0 $c.air_handlers_pct) 100.0 }}
+          {{- /* Housing units with more than one cooling type are counted under each,
+                 so the shares can sum above 100 (SATF, 103%). The legend keeps the
+                 reported percentages; the pie's arcs are normalized so it still closes. */ -}}
+          {{- $tot := add $r (add $e $vn) }}{{ $sr := 0.0 }}{{ $sre := 0.0 }}
+          {{- if gt $tot 0.0 }}{{ $sr = div (mul $r 100.0) $tot }}{{ $sre = add $sr (div (mul $e 100.0) $tot) }}{{ end }}
+          {{- /* Two equal columns: housing-unit cooling mix and cooling that serves only
+                 non-housing buildings on the left; 2026 condition ratings on the
+                 right. Stacks on narrow screens. */ -}}
+          <div class="cht-cool-grid">
+          <div class="cht-cool-grid__col">
+          <h4 class="cht-subhead">Cooling in housing units <span class="cht-info" tabindex="0" data-tip="{{ $copy.cooling }}" aria-label="{{ $copy.cooling }}">i</span></h4>
+          {{- if $c.n_housing_units }}
+          <div class="cht-pie-wrap">
+              <div class="cht-pie" style="background:conic-gradient(var(--cht-cool-mech) 0 {{ $sr }}%, var(--cht-cool-evap) {{ $sr }}% {{ $sre }}%, var(--cht-cool-vent) {{ $sre }}% 100%)" role="img" aria-label="Cooling mix of housing units"></div>
+            <ul class="cht-pie-legend">
+              <li><span class="cht-pie-sw" style="background:var(--cht-cool-mech)"></span>Mechanical A/C: {{ printf "%.0f%%" $r }}</li>
+              <li><span class="cht-pie-sw" style="background:var(--cht-cool-evap)"></span>Evaporative: {{ printf "%.0f%%" $e }}</li>
+              <li><span class="cht-pie-sw" style="background:var(--cht-cool-vent)"></span>No cooling: {{ printf "%.0f%%" $vn }}</li>
+            </ul>
+            <p class="cht-pie-total"><strong>{{ $c.n_housing_units }}</strong> housing units</p>
+          </div>
+          {{- else }}
+          <p class="cht-na">Not in CDCR’s Air Cooling report.</p>
+          {{- end }}
+          {{- /* Cooling types CDCR rates at this prison that reach none of its housing units. */ -}}
+          {{- with $c.outside_housing }}
+          {{- $hasM := in . "mechanical" }}{{ $hasE := in . "evaporative" }}
+          {{- $tipOut := replace $copy.cooling_outside_housing "{types}" (cond (and $hasM $hasE) "These cooling types are" "This cooling type is") }}
+          {{- if and (eq $cdcr.code "CIM") $hasE }}{{ $tipOut = printf "%s %s" $tipOut $copy.cooling_outside_housing_cim }}{{ end }}
+          <h4 class="cht-subhead">Cooling in non-housing buildings <span class="cht-info" tabindex="0" data-tip="{{ $tipOut }}" aria-label="{{ $tipOut }}">i</span></h4>
+          <ul class="cht-cool-list">
+            {{- range . }}
+            <li><span class="cht-pie-sw" style="background:var(--cht-cool-{{ cond (eq . "mechanical") "mech" "evap" }})"></span>{{ cond (eq . "mechanical") "Mechanical A/C" "Evaporative" }}</li>
+            {{- end }}
+          </ul>
+          {{- end }}
+          </div>
+          <div class="cht-cool-grid__col">
+          <h4 class="cht-subhead">Infrastructure Condition <span class="cht-info" tabindex="0" data-tip="{{ $copy.cooling_condition }}" aria-label="{{ $copy.cooling_condition }}">i</span></h4>
+          {{- partial "inline/cht-cond.html" (dict "cond" $cond "copy" $copy) }}
+          </div>
           </div>
         </section>
-        {{- end }}
 
         {{- if $f.population }}
         {{- $highMed := add (default 0.0 $med.medium_risk_pct) (add (default 0.0 $med.high_risk_p1_pct) (default 0.0 $med.high_risk_p2_pct)) }}
@@ -201,4 +226,23 @@
 <script src="{{ partial "cht-asset.html" "js/cht-chart.js" }}" defer></script>
 <script src="{{ partial "cht-asset.html" "js/cht-detail.js" }}" defer></script>
 <script src="{{ partial "cht-asset.html" "js/cht-detail-map.js" }}" defer></script>
+{{- end }}
+
+{{- /* 2026 condition ratings (institution-wide), one row per cooling type.
+       N/A (no such system at the prison) rows are skipped; nil = not rated. */ -}}
+{{- define "_partials/inline/cht-cond.html" }}
+{{- $cond := .cond }}{{ $copy := .copy }}
+<ul class="cht-cond">
+  {{- if $cond }}
+  {{- range slice (slice "Mechanical A/C" $cond.mechanical) (slice "Evaporative" $cond.evaporative) }}
+  {{- $v := index . 1 }}
+  {{- if ne $v "N/A" }}
+  <li>{{ with $v }}<span class="cht-rating cht-rating--{{ . | lower | replaceRE `[^a-z]` "" }}">{{ . }}</span>{{ else }}<span class="cht-rating cht-rating--na">Not rated</span>{{ end }}
+    <span>{{ index . 0 }}</span></li>
+  {{- end }}
+  {{- end }}
+  {{- else }}
+  <li><span class="cht-na">Not rated by CDCR</span></li>
+  {{- end }}
+</ul>
 {{- end }}
