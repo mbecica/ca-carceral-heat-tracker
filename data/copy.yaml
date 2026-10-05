@@ -67,6 +67,15 @@ tooltips:
     repairs, typical wear and tear. Poor: significant disrepair. Failing: at
     risk of failure or unusable.
 
+  # Detail page — hover on each condition pill. CDCR's definitions, verbatim
+  # (Infrastructure Master Plan, May 2026). Keys match the rating text.
+  rating_definitions:
+    Plus: "Plus: expected to exceed 20 years of operation (CDCR)."
+    Good: "Good: generally well maintained (CDCR)."
+    Fair: "Fair: needs repairs, typical wear and tear (CDCR)."
+    Poor: "Poor: significant disrepair, not well maintained (CDCR)."
+    Failing: "Failing: at risk of failure or unusable (CDCR)."
+
   # Detail page — CDCR "Heat Vulnerabilities" section (ⓘ next to the heading)
   vulnerabilities_intro: >-
     These are the shares of people held here who face elevated heat-health risk;

@@ -453,6 +453,8 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 /* Condition rating pill, filled with CDCR's own colors from the Master Plan's
    Appendix 2 matrix. Fixed light fills, so the text stays dark in both themes. */
 .cht-rating { display: inline-block; box-sizing: border-box; width: 6.2em; flex: 0 0 auto; text-align: center; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: #1f1f1f; border: 1px solid rgba(0,0,0,0.18); border-radius: 999px; padding: 0.12rem 0.5rem; }
+.cht-rating[data-tip] { cursor: help; }
+.cht-rating[data-tip]:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .cht-rating--plus    { background: #6aa84f; }
 .cht-rating--good    { background: #b6d7a8; }
 .cht-rating--fair    { background: #ffe599; }

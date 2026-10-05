@@ -237,7 +237,7 @@
   {{- range slice (slice "Mechanical A/C" $cond.mechanical) (slice "Evaporative" $cond.evaporative) }}
   {{- $v := index . 1 }}
   {{- if ne $v "N/A" }}
-  <li>{{ with $v }}<span class="cht-rating cht-rating--{{ . | lower | replaceRE `[^a-z]` "" }}">{{ . }}</span>{{ else }}<span class="cht-rating cht-rating--na">Not rated</span>{{ end }}
+  <li>{{ with $v }}{{ $def := index $copy.rating_definitions . }}<span class="cht-rating cht-rating--{{ . | lower | replaceRE `[^a-z]` "" }}"{{ with $def }} tabindex="0" data-tip="{{ . }}" aria-label="{{ . }}"{{ end }}>{{ . }}</span>{{ else }}<span class="cht-rating cht-rating--na">Not rated</span>{{ end }}
     <span>{{ index . 0 }}</span></li>
   {{- end }}
   {{- end }}
