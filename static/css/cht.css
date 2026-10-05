@@ -600,3 +600,27 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
   .cht-dash--detail.cht-scrolled .cht-profile__back { display: inline; }
   .cht-dash--detail .cht-profile__back:hover { color: var(--accent); }
 }
+
+/* ---- Historic temperatures (cht-history.js) ---- */
+.cht-select {
+  font: inherit; font-size: 0.85rem; padding: 0.3rem 0.5rem; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--entry); color: var(--primary); cursor: pointer;
+}
+.cht-select:hover { border-color: var(--accent); }
+.cht-select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.cht-hist__controls, .cht-hist__custom, .cht-hist__dates { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.8rem; }
+.cht-hist__controls { margin-top: 0.8rem; }
+.cht-hist__custom { margin-top: 0.55rem; }
+.cht-hist__custom[hidden], .cht-hist__custom [hidden] { display: none; }
+.cht-hist__ctl { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.88rem; color: var(--secondary); }
+.cht-hist__num { width: 4.2rem; cursor: text; }
+.cht-hist__total { margin-top: 0.6rem; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.6rem; }
+.cht-hist__total-val { font-size: 2.6rem; font-weight: 700; line-height: 1; color: var(--primary); font-variant-numeric: tabular-nums; }
+.cht-hist__total-sub { font-size: 0.9rem; color: var(--secondary); }
+.cht-hist__total-sub strong { color: var(--primary); font-weight: 600; }
+.cht-chart .cht-hist-dot { fill: var(--cht-over); stroke: var(--theme); stroke-width: 2; }
+.cht-chart .cht-hist-dot--partial { fill: var(--theme); stroke: var(--cht-over); stroke-width: 2; }
+.cht-chart .cht-hist-dot--hover { stroke: var(--primary); }
+.cht-chart .cht-hist-val { fill: var(--primary); font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.cht-chart .cht-hist-ylabel { fill: var(--secondary); font-size: 11px; }
+.cht-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
