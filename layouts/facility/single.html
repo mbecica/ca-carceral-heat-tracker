@@ -142,7 +142,7 @@
                applied in the browser. "10°F above average" uses the same threshold_f
                as everywhere else. */ -}}
         <section class="cht-comp cht-hist" id="cht-hist" data-slug="{{ $f.slug }}" data-threshold="{{ $f.threshold_f }}">
-          <h3 class="cht-comp__title">Historic temperatures
+          <h3 class="cht-comp__title">Historic hot days
             <span class="cht-info" tabindex="0" data-tip="{{ $copy.history }}" aria-label="{{ $copy.history }}">i</span>
           </h3>
           <div class="cht-hist__controls">
@@ -179,8 +179,9 @@
             </span>
           </div>
           <div class="cht-chart-wrap">
+            <div class="cht-chart-legend" id="cht-hist-key"></div>
             <div class="cht-chart cht-hist__chart" id="cht-hist-chart" role="img" aria-label="Number of days per year at or above the selected temperature at {{ $f.name }}."></div>
-            <table class="cht-sr" id="cht-hist-table"><caption>Days per year at or above the selected temperature</caption><thead><tr><th scope="col">Year</th><th scope="col">Days</th><th scope="col">Dates counted</th></tr></thead><tbody></tbody></table>
+            <div class="cht-sr"><table id="cht-hist-table"><caption>Days per year at or above the selected temperature</caption><thead><tr><th scope="col">Year</th><th scope="col">Days</th><th scope="col">Dates counted</th></tr></thead><tbody></tbody></table></div>
           </div>
           <div class="cht-hist__total" aria-live="polite">
             <span class="cht-hist__total-val" id="cht-hist-total">—</span>

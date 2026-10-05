@@ -1,5 +1,5 @@
 /* ============================================================================
-   Historic temperatures (detail page): days per year at or above a threshold,
+   Historic hot days (detail page): days per year at or above a threshold,
    for a chosen date range, plus the total for the whole range.
 
    Data: history/{slug}.json (final years, 1991 → …) + history/current/{slug}.json
@@ -22,6 +22,8 @@
   var DAY = 86400000;
   var T_MIN = 50, T_MAX = 125;
   var DEFAULT_T = "90", DEFAULT_RANGE = "last10";
+  var AVG_WINDOW = 5;                 // trailing average: each year + the 4 before it
+  var NORMAL_FROM = 1991, NORMAL_TO = 2020;   // same period as the facility average
   var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
   function ready(fn) { document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", fn) : fn(); }
@@ -50,7 +52,7 @@
       tCustom: $("cht-hist-tcustom"), tVal: $("cht-hist-tval"),
       dCustom: $("cht-hist-dcustom"), d0: $("cht-hist-d0"), d1: $("cht-hist-d1"),
       total: $("cht-hist-total"), totalSub: $("cht-hist-total-sub"),
-      chart: $("cht-hist-chart"), table: $("cht-hist-table")
+      chart: $("cht-hist-chart"), key: $("cht-hist-key"), table: $("cht-hist-table")
     };
     var data = null;   // { t0, last, v:[°F per day from t0] }
     // t: preset °F string, "avg", or a custom °F string (tCustom marks which).
@@ -126,8 +128,32 @@
         years.push({ year: y, n: n, from: a, to: b, partial: partial, soFar: b === data.last && partial });
         total += n;
       }
-      return { T: T, years: years, total: total };
+      return { T: T, years: years, total: total, avg: averages(T) };
     }
+
+    // Reference lines, from COMPLETE calendar years of the whole 1991→ record (never
+    // just the selected range), so a year's value never changes with the selection:
+    //   trailing[y] = mean days of y and the AVG_WINDOW−1 years before it;
+    //   normal      = mean days per year over 1991–2020.
+    function averages(T) {
+      var lastFull = data.last === ymd(yearOf(data.last), 11, 31) ? yearOf(data.last) : yearOf(data.last) - 1;
+      var byYear = {};
+      for (var y = yearOf(data.t0); y <= lastFull; y++) {
+        var n = 0, a = Math.round((ymd(y, 0, 1) - data.t0) / DAY), b = Math.round((ymd(y, 11, 31) - data.t0) / DAY);
+        for (var i = a; i <= b; i++) if (data.v[i] != null && data.v[i] >= T) n++;
+        byYear[y] = n;
+      }
+      var trailing = {};
+      for (y = yearOf(data.t0) + AVG_WINDOW - 1; y <= lastFull; y++) {
+        var sum = 0;
+        for (var k = y - AVG_WINDOW + 1; k <= y; k++) sum += byYear[k];
+        trailing[y] = sum / AVG_WINDOW;
+      }
+      var ns = 0;
+      for (y = NORMAL_FROM; y <= NORMAL_TO; y++) ns += byYear[y];
+      return { trailing: trailing, normal: ns / (NORMAL_TO - NORMAL_FROM + 1) };
+    }
+    function fmtAvg(n) { return n < 10 ? n.toFixed(1) : String(Math.round(n)); }
 
     // ---- Render -------------------------------------------------------------
     function tLabel(T) { return state.t === "avg" ? "10°F above average max (" + Math.round(T) + "°F)" : T + "°F"; }
@@ -161,7 +187,14 @@
       var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
       var x = d3.scalePoint().domain(ys.map(function (d) { return d.year; })).range([0, iw]).padding(0.5);
-      var ymax = d3.max(ys, function (d) { return d.n; }) || 1;
+      // Trailing-average points for the visible years, plus the year before the first
+      // one (when it has a value) so the line slopes in from the left edge.
+      var trail = ys.filter(function (d) { return d.year in res.avg.trailing; })
+        .map(function (d) { return { year: d.year, v: res.avg.trailing[d.year] }; });
+      var prevYear = ys[0].year - 1;
+      var lead = prevYear in res.avg.trailing ? { year: prevYear, v: res.avg.trailing[prevYear] } : null;
+      var ymax = Math.max(d3.max(ys, function (d) { return d.n; }), res.avg.normal,
+                          d3.max(trail, function (d) { return d.v; }) || 0, lead ? lead.v : 0) || 1;
       var y = d3.scaleLinear().domain([0, ymax]).nice(4).range([ih, 0]);
       var step = x.step();
 
@@ -174,7 +207,28 @@
           .filter(function (yr, i) { return (ys.length - 1 - i) % every === 0; })));
       g.append("g").attr("class", "cht-axis").call(d3.axisLeft(y).ticks(4).tickFormat(d3.format("d")).tickSizeOuter(0));
       g.append("text").attr("class", "cht-hist-ylabel").attr("transform", "rotate(-90)")
-        .attr("x", -ih / 2).attr("y", -margin.left + 11).attr("text-anchor", "middle").text("Days");
+        .attr("x", -ih / 2).attr("y", -margin.left + 11).attr("text-anchor", "middle").text("Days per year");
+
+      // Reference lines under the dots. The 1991–2020 average matches the hourly
+      // chart's "Average max" line; both lines are named in the key above. The
+      // trailing average runs through every visible year that has one (1995 → last
+      // complete year), entering from the left edge via the year before, clipped
+      // to the plot; a lone point with nothing to its left is a short tick.
+      var yN = y(res.avg.normal);
+      g.append("line").attr("class", "cht-average").attr("x1", 0).attr("x2", iw).attr("y1", yN).attr("y2", yN);
+      var clipId = "cht-hist-clip";
+      svg.append("defs").append("clipPath").attr("id", clipId).append("rect").attr("width", iw).attr("height", ih + 2).attr("y", -1);
+      var tx = function (d) { return d.year === prevYear ? x(ys[0].year) - step : x(d.year); };
+      var tpts = trail.length && lead && trail[0].year === ys[0].year ? [lead].concat(trail) : trail;
+      var trailPath = tpts.length >= 2
+        ? d3.line().x(tx).y(function (d) { return y(d.v); })(tpts)
+        : tpts.length === 1 ? "M" + (x(tpts[0].year) - Math.min(step * 0.3, 18)) + "," + y(tpts[0].v) +
+                              "H" + (x(tpts[0].year) + Math.min(step * 0.3, 18)) : null;
+      if (trailPath) g.append("path").attr("class", "cht-hist-trail").attr("clip-path", "url(#" + clipId + ")").attr("d", trailPath);
+      els.key.innerHTML = (trailPath ? '<span class="cht-chart-legend__item"><span class="cht-hist-key-trail"></span>' +
+          AVG_WINDOW + "-year trailing average</span>" : "") +
+        '<span class="cht-chart-legend__item"><span class="cht-hist-key-normal"></span>' + NORMAL_FROM + "–" + NORMAL_TO +
+        " average (" + fmtAvg(res.avg.normal) + " days)</span>";
 
       // Dots: filled for a whole year, hollow for part of one.
       var dots = g.append("g").selectAll("circle").data(ys).enter().append("circle")
@@ -199,7 +253,10 @@
           dots.classed("cht-hist-dot--hover", function (b) { return b === d; });
           var note = d.soFar ? "<br>So far this year: " + fmtShort(d.from) + " – " + fmtShort(d.to)
                    : d.partial ? "<br>" + fmtShort(d.from) + " – " + fmtShort(d.to) + " only" : "";
-          tip.innerHTML = "<strong>" + d.year + "</strong> · " + d.n + (d.n === 1 ? " day" : " days") + note;
+          var tr = res.avg.trailing[d.year];
+          tip.innerHTML = "<strong>" + d.year + "</strong> · " + d.n + (d.n === 1 ? " day" : " days") + note +
+            (tr != null ? "<br>" + AVG_WINDOW + "-year trailing average (" + (d.year - AVG_WINDOW + 1) + "–" + d.year + "): " + fmtAvg(tr) : "") +
+            "<br>" + NORMAL_FROM + "–" + NORMAL_TO + " average: " + fmtAvg(res.avg.normal);
           // Flip to the cursor's left near the right edge so it never runs off screen.
           var w = tip.offsetWidth;
           tip.style.left = (event.clientX + 12 + w > window.innerWidth - 8 ? event.clientX - 12 - w : event.clientX + 12) + "px";

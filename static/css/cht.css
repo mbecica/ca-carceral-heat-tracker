@@ -601,7 +601,7 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
   .cht-dash--detail .cht-profile__back:hover { color: var(--accent); }
 }
 
-/* ---- Historic temperatures (cht-history.js) ---- */
+/* ---- Historic hot days (cht-history.js) ---- */
 .cht-select {
   font: inherit; font-size: 0.85rem; padding: 0.3rem 0.5rem; border-radius: 8px;
   border: 1px solid var(--border); background: var(--entry); color: var(--primary); cursor: pointer;
@@ -621,6 +621,11 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 .cht-chart .cht-hist-dot { fill: var(--cht-over); stroke: var(--theme); stroke-width: 2; }
 .cht-chart .cht-hist-dot--partial { fill: var(--theme); stroke: var(--cht-over); stroke-width: 2; }
 .cht-chart .cht-hist-dot--hover { stroke: var(--primary); }
-.cht-chart .cht-hist-val { fill: var(--primary); font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.cht-chart .cht-hist-val { fill: var(--primary); font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums; paint-order: stroke; stroke: var(--theme); stroke-width: 3px; stroke-linejoin: round; }
+.cht-chart .cht-hist-trail { fill: none; stroke: var(--secondary); stroke-width: 1.3; stroke-linejoin: round; stroke-linecap: round; }
+.cht-hist-key-normal { width: 16px; height: 0; display: inline-block; border-top: 1.3px dotted var(--cht-warn); }
+.cht-hist-key-trail { width: 16px; height: 0; display: inline-block; border-top: 1.3px solid var(--secondary); }
 .cht-chart .cht-hist-ylabel { fill: var(--secondary); font-size: 11px; }
+/* Screen-reader-only. Put it on a block wrapper, never on a <table>: tables ignore
+   height/overflow, so the full table height would still extend the page. */
 .cht-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
