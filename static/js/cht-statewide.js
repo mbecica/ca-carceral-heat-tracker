@@ -556,7 +556,7 @@
     document.querySelectorAll(".cht-fdrop__btn").forEach(function (b) { b.setAttribute("aria-expanded", "false"); });
   }
 
-  /* ---- CSV download of the current (filtered, sorted) view ---- */
+  /* ---- CSV download: every facility, sorted by name (not the filtered view) ---- */
   function csvCell(v) {
     if (v == null) return "";
     var s = String(v);

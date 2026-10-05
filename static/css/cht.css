@@ -168,6 +168,10 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 .cht-fdrop__panel[hidden] { display: none; }
 .cht-fopt { display: flex; align-items: center; gap: 0.5rem; padding: 0.3rem 0.5rem; border-radius: 6px; font-size: 0.86rem; color: var(--primary); cursor: pointer; }
 .cht-fopt:hover { background: var(--code-bg); }
+/* Detail-page CSV menu (cht-detail.js) */
+.cht-csv__opt { display: block; width: 100%; text-align: left; font: inherit; font-size: 0.86rem; color: var(--primary); background: none; border: 0; padding: 0.4rem 0.55rem; border-radius: 6px; cursor: pointer; white-space: nowrap; }
+.cht-csv__opt:hover, .cht-csv__opt:focus-visible { background: var(--code-bg); outline: none; }
+.cht-csv__opt:disabled { color: var(--secondary); cursor: progress; }
 .cht-fopt input { margin: 0; accent-color: var(--accent); flex: 0 0 auto; }
 .cht-fhead { padding: 0.15rem 0.5rem 0.35rem; font-size: 0.74rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; color: var(--secondary); }
 .cht-fopt__lab { flex: 1 1 auto; }

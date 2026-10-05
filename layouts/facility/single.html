@@ -38,10 +38,19 @@
       <a class="cht-dash__back" href="{{ "/" | relURL }}">&larr; Back to statewide view</a>
     </div>
     <div class="cht-dash__actions">
-      <button type="button" class="cht-fdrop__btn cht-download-btn" id="cht-download" title="Download this facility's data as CSV">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        CSV
-      </button>
+      {{- /* CSV menu: three fixed files (cht-detail.js). None depend on page choices. */}}
+      <div class="cht-fdrop cht-csv">
+        <button type="button" class="cht-fdrop__btn cht-download-btn" id="cht-download" aria-expanded="false" aria-haspopup="true" title="Download this facility's data as CSV">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          CSV
+          <svg class="cht-fdrop__caret" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="cht-fdrop__panel" id="cht-csv-menu" hidden role="menu" aria-label="Download CSV">
+          <button type="button" class="cht-csv__opt" role="menuitem" data-csv="details">Facility details</button>
+          <button type="button" class="cht-csv__opt" role="menuitem" data-csv="recent">Daily temps (14 days)</button>
+          <button type="button" class="cht-csv__opt" role="menuitem" data-csv="annual">Hot days per year (since 1991)</button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -141,7 +150,7 @@
                history/{slug}.json + history/current/{slug}.json; the threshold is
                applied in the browser. "10°F above average" uses the same threshold_f
                as everywhere else. */ -}}
-        <section class="cht-comp cht-hist" id="cht-hist" data-slug="{{ $f.slug }}" data-threshold="{{ $f.threshold_f }}">
+        <section class="cht-comp cht-hist" id="cht-hist" data-slug="{{ $f.slug }}" data-name="{{ $f.name }}" data-threshold="{{ $f.threshold_f }}">
           <h3 class="cht-comp__title">Historic hot days
             <span class="cht-info" tabindex="0" data-tip="{{ $copy.history }}" aria-label="{{ $copy.history }}">i</span>
           </h3>

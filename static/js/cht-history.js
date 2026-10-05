@@ -44,7 +44,7 @@
   ready(function () {
     var root = $("cht-hist");
     if (!root) return;
-    var slug = root.getAttribute("data-slug");
+    var slug = root.getAttribute("data-slug"), facName = root.getAttribute("data-name") || "";
     var avgT = root.getAttribute("data-threshold");
     avgT = avgT === "" || avgT == null ? null : +avgT;
     var DEFAULT_T = avgT != null ? "avg" : "90";
@@ -63,14 +63,27 @@
     readUrl();
 
     // ---- Load lazily -------------------------------------------------------
+    // One fetch, shared by the chart (when the section scrolls near view) and the
+    // "Hot days per year" CSV (which can be requested before that).
+    var dataPromise = null;
+    function getData() {
+      if (!dataPromise) {
+        dataPromise = Promise.all([
+          fetch("/data/history/" + slug + ".json").then(function (r) { return r.json(); }),
+          fetch("/data/history/current/" + slug + ".json").then(function (r) { return r.json(); })
+        ]).then(function (res) {
+          var a = res[0], c = res[1];
+          if (parse(a.end) + DAY !== parse(c.start)) throw new Error("history files don't meet");
+          return { t0: parse(a.start), last: parse(c.end), v: a.tmax.concat(c.tmax), source: a.source,
+                   provFrom: c.provisional_from ? parse(c.provisional_from) : null };
+        });
+        dataPromise.catch(function () { dataPromise = null; });   // allow a retry
+      }
+      return dataPromise;
+    }
     function load() {
-      Promise.all([
-        fetch("/data/history/" + slug + ".json").then(function (r) { return r.json(); }),
-        fetch("/data/history/current/" + slug + ".json").then(function (r) { return r.json(); })
-      ]).then(function (res) {
-        var a = res[0], c = res[1];
-        if (parse(a.end) + DAY !== parse(c.start)) throw new Error("history files don't meet");
-        data = { t0: parse(a.start), last: parse(c.end), v: a.tmax.concat(c.tmax) };
+      getData().then(function (d) {
+        data = d;
         labelPresets();
         els.d0.min = els.d1.min = iso(data.t0); els.d0.max = els.d1.max = iso(data.last);
         syncControls();
@@ -86,6 +99,42 @@
       }, { rootMargin: "400px" });
       io.observe(root);
     } else { load(); }
+
+    // ---- "Hot days per year" CSV (header CSV menu, via cht-detail.js) --------
+    // Fixed file, independent of the page selection: one row per calendar year,
+    // counts at each threshold in the menu. The 10°F-above-average columns appear
+    // only when the facility has an average. No averages: readers can derive them.
+    var CSV_TEMPS = [80, 90, 100, 110];
+    function csvCell(v) {
+      if (v == null) return "";
+      var s = String(v);
+      return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+    }
+    function annualCsv(d) {
+      var head = ["slug", "name", "year", "first_date", "last_date", "days_counted", "complete_year"]
+        .concat(CSV_TEMPS.map(function (T) { return "days_at_or_above_" + T + "f"; }));
+      if (avgT != null) head.push("threshold_10f_above_avg_f", "days_at_or_above_10f_above_avg");
+      head.push("provisional_days", "source");
+      var rows = [head.join(",")];
+      for (var y = yearOf(d.t0); y <= yearOf(d.last); y++) {
+        var a = Math.max(d.t0, ymd(y, 0, 1)), b = Math.min(d.last, ymd(y, 11, 31));
+        var n = CSV_TEMPS.map(function () { return 0; }), nAvg = 0, prov = 0, days = 0;
+        for (var t = a; t <= b; t += DAY) {
+          var v = d.v[Math.round((t - d.t0) / DAY)];
+          days++;
+          if (d.provFrom != null && t >= d.provFrom) prov++;
+          if (v == null) continue;
+          for (var i = 0; i < CSV_TEMPS.length; i++) if (v >= CSV_TEMPS[i]) n[i]++;
+          if (avgT != null && v >= avgT) nAvg++;
+        }
+        var row = [slug, facName, y, iso(a), iso(b), days, a === ymd(y, 0, 1) && b === ymd(y, 11, 31) ? "yes" : "no"].concat(n);
+        if (avgT != null) row.push(avgT, nAvg);
+        row.push(prov, d.source || "PRISM daily tmax");
+        rows.push(row.map(csvCell).join(","));
+      }
+      return rows.join("\n");
+    }
+    window.CHTHistory = { annualCsv: function () { return getData().then(annualCsv); } };
 
     // Preset labels carry real years, from the latest day in the data.
     function labelPresets() {

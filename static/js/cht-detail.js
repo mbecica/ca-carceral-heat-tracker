@@ -81,8 +81,12 @@
     var s = String(v);
     return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
   }
-  // Detail CSV: the facility's full record + its recent daily maxes (one row per day,
-  // metadata repeated so the file is a clean tidy table).
+  // Detail CSVs (from the header menu). Like the statewide CSV, none of them depend
+  // on what the reader has selected on the page.
+  //   details — one row: the facility record + current conditions, plus CDCR
+  //             columns ONLY for CDCR prisons (other facilities don't get blank ones);
+  //   recent  — one row per day: recent daily high and low (RTMA);
+  //   annual  — hot days per year, built by cht-history.js.
   var META_COLS = ["slug", "name", "county", "city", "address", "jurisdiction", "security",
     "latitude", "longitude", "population", "population_as_of", "design_capacity", "pct_of_capacity",
     "avg_summer_max_f", "threshold_f", "website"];
@@ -94,24 +98,57 @@
       slug: fac.slug, name: fac.name, county: fac.county, city: fac.city, address: fac.address,
       jurisdiction: fac.jurisdiction, security: fac.security, latitude: fac.lat, longitude: fac.lon,
       population: fac.population, population_as_of: fac.population_as_of, design_capacity: cap,
-      pct_of_capacity: fac.capacity_pct, avg_summer_max_f: fac.baseline_summer_avg_high_f,
-      threshold_f: fac.threshold_f, website: fac.website
+      pct_of_capacity: fac.capacity_pct == null ? null : (fac.capacity_pct * 100).toFixed(0),
+      avg_summer_max_f: fac.baseline_summer_avg_high_f, threshold_f: fac.threshold_f, website: fac.website
     };
   }
-  function facilityCsv(fac, recent, aqi, aqiCat) {
-    var f = metaFrom(fac || {});
-    var metaVals = META_COLS.map(function (c) {
-      var v = f[c];
-      if (c === "pct_of_capacity" && v != null) return (v * 100).toFixed(0);
-      return v;
-    });
-    var current = [recent.current_temp_f, recent.current_temp_as_of, recent.today_forecast_high_f,
-      recent.last24h_max_f, recent.last24h_max_at, aqi, aqiCat];
+  // CDCR prison columns. Cooling shares are percent of housing units (left blank when
+  // the prison isn't in CDCR's Air Cooling report); demographics/medical are percent of people.
+  function cdcrFrom(c) {
+    var cool = c.cooling || {}, cond = cool.condition_2026 || {}, dem = c.demographics || {}, med = c.medical || {};
+    var inReport = !!cool.n_housing_units;
+    function pct(v) { return inReport && v != null ? +(v * 100).toFixed(1) : null; }
+    function yn(v) { return v ? "yes" : "no"; }
+    return [
+      ["cdcr_code", c.code], ["year_opened", c.year_opened], ["planned_closure", c.planned_closure],
+      ["california_model", yn(c.california_model)], ["air_cooling_pilot", yn(c.air_cooling_pilot)],
+      ["targeted_for_capital_projects_2026", yn(c.infrastructure_priority_2026)],
+      ["housing_units", inReport ? cool.n_housing_units : null],
+      ["housing_units_mechanical_ac_pct", pct(cool.mechanical_pct)],
+      ["housing_units_evaporative_pct", pct(cool.evaporative_pct)],
+      ["housing_units_no_cooling_pct", pct(cool.air_handlers_pct)],
+      ["cooling_in_non_housing_buildings_only", (cool.outside_housing || []).join("; ")],
+      ["condition_mechanical_ac_2026", cond.mechanical], ["condition_evaporative_2026", cond.evaporative],
+      ["people_of_color_pct", dem.poc_pct], ["age_50_plus_pct", dem.age_over_50_pct], ["women_pct", dem.female_pct],
+      ["mental_health_eop_pct", med.mental_health_eop_pct], ["disability_placement_pct", med.dpp_pct],
+      ["medium_medical_risk_pct", med.medium_risk_pct], ["high_medical_risk_p1_pct", med.high_risk_p1_pct],
+      ["high_medical_risk_p2_pct", med.high_risk_p2_pct]
+    ];
+  }
+  function detailsCsv(fac, recent, aqi, aqiCat) {
+    var m = metaFrom(fac);
     var head = META_COLS.concat(["current_temp_f", "current_temp_as_of", "forecast_high_f",
-      "last24h_max_f", "last24h_max_at", "aqi", "aqi_category", "date", "daily_max_f"]);
-    var rows = [head.map(csvCell).join(",")];
+      "last24h_max_f", "last24h_max_at", "aqi", "aqi_category"]);
+    var row = META_COLS.map(function (c) { return m[c]; }).concat([recent.current_temp_f, recent.current_temp_as_of,
+      recent.today_forecast_high_f, recent.last24h_max_f, recent.last24h_max_at, aqi, aqiCat]);
+    if (fac.cdcr) cdcrFrom(fac.cdcr).forEach(function (kv) { head.push(kv[0]); row.push(kv[1]); });
+    return head.map(csvCell).join(",") + "\n" + row.map(csvCell).join(",");
+  }
+  // Daily high and low per Pacific-time day, both from the same hourly series the
+  // pipeline's daily_max comes from. hours_of_data flags partial days (the oldest
+  // day and today are usually partial), so a reader can see which days are complete.
+  var PT_DAY = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Los_Angeles", year: "numeric", month: "2-digit", day: "2-digit" });
+  function recentCsv(slug, name, recent) {
+    var lo = {}, n = {};
+    (recent.hourly || []).forEach(function (h) {
+      if (h.f == null) return;
+      var d = PT_DAY.format(new Date(h.t));
+      n[d] = (n[d] || 0) + 1;
+      if (lo[d] == null || h.f < lo[d]) lo[d] = h.f;
+    });
+    var rows = ["slug,name,date,daily_max_f,daily_min_f,hours_of_data,source"];
     (recent.daily_max || []).forEach(function (d) {
-      rows.push(metaVals.concat(current).concat([d.date, d.max_f]).map(csvCell).join(","));
+      rows.push([slug, name, d.date, d.max_f, lo[d.date], n[d.date] || 0, "NOAA RTMA/URMA"].map(csvCell).join(","));
     });
     return rows.join("\n");
   }
@@ -223,19 +260,35 @@
       });
     });
 
-    // CSV download: the facility's full record + its recent daily maxes.
-    // The full record comes from facilities.json, fetched on demand.
-    var dl = $("cht-download");
-    if (dl) dl.addEventListener("click", function () {
-      if (!recentData) return;
-      dl.disabled = true;
-      fetch("/data/facilities.json").then(function (r) { return r.json(); }).then(function (all) {
-        var fac = all.facilities.filter(function (x) { return x.slug === slug; })[0] || {};
-        download(slug + "-data.csv", facilityCsv(fac, recentData, aqiVal, aqiCatVal));
-      }).catch(function () {
-        download(slug + "-data.csv", facilityCsv({}, recentData, aqiVal, aqiCatVal));
-      }).then(function () { dl.disabled = false; });
-    });
+    // CSV menu: open/close like the statewide filter dropdowns; each item downloads
+    // one fixed file. The facility record comes from facilities.json, fetched on demand.
+    var dl = $("cht-download"), menu = $("cht-csv-menu");
+    function setMenu(open) { if (!menu) return; menu.hidden = !open; dl.setAttribute("aria-expanded", open ? "true" : "false"); }
+    if (dl && menu) {
+      dl.addEventListener("click", function (e) { e.stopPropagation(); setMenu(menu.hidden); });
+      document.addEventListener("click", function (e) { if (!menu.hidden && !menu.contains(e.target)) setMenu(false); });
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !menu.hidden) { setMenu(false); dl.focus(); } });
+      menu.addEventListener("click", function (e) {
+        var opt = e.target.closest("[data-csv]");
+        if (!opt) return;
+        var kind = opt.getAttribute("data-csv");
+        opt.disabled = true;
+        var job;
+        if (kind === "annual") {
+          job = window.CHTHistory ? window.CHTHistory.annualCsv().then(function (csv) {
+            download(slug + "-hot-days-per-year.csv", csv);
+          }) : Promise.reject();
+        } else {
+          job = fetch("/data/facilities.json").then(function (r) { return r.json(); }).then(function (all) {
+            var fac = all.facilities.filter(function (x) { return x.slug === slug; })[0] || { slug: slug };
+            if (kind === "details") download(slug + "-details.csv", detailsCsv(fac, recentData || {}, aqiVal, aqiCatVal));
+            else download(slug + "-recent-daily-temps.csv", recentCsv(slug, fac.name, recentData || {}));
+          });
+        }
+        job.catch(function () { /* nothing downloads; the reader can pick it again */ })
+          .then(function () { opt.disabled = false; setMenu(false); });
+      });
+    }
 
     // Recent live data -> temp tile + chart.
     fetch("/data/recent/" + slug + ".json").then(function (r) { return r.json(); }).then(function (recent) {
