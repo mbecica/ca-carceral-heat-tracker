@@ -27,13 +27,38 @@ Air quality:
 - The tracker shows the current AirNow Air Quality Index (AQI) for the nearest EPA monitor, reflecting ground-level ozone and fine particulate pollution.
 - Heat and air pollution compound each other. Hotter days worsen ground-level ozone and trap particulates, and combined exposure raises mortality and worsens respiratory and cardiovascular conditions (Rahman et al., 2022; Schwarz et al., 2021; Li et al., 2025).
 
-## Where the data comes from
+## Historic hot days
 
-All temperature data comes from station-based products based on observed outdoor temperatures. The two gridded climate products, PRISM and RTMA/URMA, are read through Google Earth Engine. The latest outdoor temperature you see anywhere on the site comes from RTMA/URMA, as does the historic chart. The forecast high and the secondary nearest-station reading come from the National Weather Service, and air quality from EPA.
+The Historic hot days chart counts the days each year when a facility's daily high reached or passed the selected temperature, from January 1, 1991 through the most recent day available. Hollow dots mark years with only some of their days counted, such as the current year.
+
+The chart shows two average lines:
+
+- **5-year trailing average:** the average for each year and the four years before it, using complete years only, so it runs from 1995 to the last complete year.
+- **1991–2020 average:** the average number of days per year from 1991 through 2020.
+
+PRISM's daily data is a 4 km grid, coarser than the 800 m data behind each facility's average summer high. This leads to slight inaccuracies at ten facilities, mostly in mountains and along the coast, where PRISM's daily highs for 1991–2020 summers average 3°F or more away from the facility's average summer high:
+
+| Facility | County | PRISM daily highs vs. facility average |
+|---|---|---|
+| Fenner Canyon Conservation Camp #41 | Los Angeles | 6.4°F cooler |
+| Sierra County Jail Temporary Holding Facility | Sierra | 5.1°F cooler |
+| Santa Cruz County Juvenile Hall | Santa Cruz | 4.7°F cooler |
+| Mountain Home Conservation Camp #10 | Tulare | 3.9°F cooler |
+| Del Norte Juvenile Hall | Del Norte | 3.8°F cooler |
+| Del Norte County Jail | Del Norte | 3.4°F cooler |
+| Plumas County Correctional Facility | Plumas | 3.2°F cooler |
+| Bautista Conservation Camp #36 | Riverside | 3.0°F cooler |
+| Valley View Conservation Camp #34 | Glenn | 3.1°F warmer |
+| San Luis Obispo County Jail | San Luis Obispo | 3.7°F warmer |
+
+## Data sources
+
+All temperature data comes from station-based products based on observed outdoor temperatures. The two gridded climate products, PRISM and RTMA/URMA, are read through Google Earth Engine. The latest outdoor temperature you see anywhere on the site comes from RTMA/URMA, as does the 2016–2025 historic band on the hourly chart. The Historic hot days chart counts days using PRISM's daily highs. The forecast high and the secondary nearest-station reading come from the National Weather Service, and air quality from EPA.
 
 | What | Source | Resolution | Role |
 |---|---|---|---|
 | Baseline: 1991–2020 Jun–Aug mean daily high, per facility | PRISM Climate Group 30-year Normals (`tmax`), Oregon State University, via Google Earth Engine | 800 m | Sets each facility's comparison line (historic average + 10°F) |
+| Daily highs since 1991, per facility | PRISM Climate Group daily data (`tmax`), Oregon State University, via Google Earth Engine | 4 km daily | Historic hot days chart and totals |
 | Latest outdoor temperature, last 14 days (hourly), and the 2016–2025 historic band | NOAA Real-Time / Un-Restricted Mesoscale Analysis (RTMA/URMA), via Google Earth Engine | 2.5 km hourly | Current outdoor temperature everywhere on the site, and the detail-page chart and historic band |
 | Current-day forecast high | NWS National Digital Forecast Database (`api.weather.gov`) | ~2.5 km | Same-day forecast high |
 | Nearest-station reading (secondary) | Nearest NWS observation station, fetched live | station | A fresher spot cross-check, shown as a note beside the latest outdoor temperature on detail pages |
@@ -43,15 +68,14 @@ All temperature data comes from station-based products based on observed outdoor
 | CDCR housing-unit cooling types (as of December 2025) | CDCR Air Cooling Pilot Program Supplemental Report (January 2026), Table 2 | per housing unit | Cooling chart on CDCR detail pages |
 | CDCR cooling-system condition ratings, Five-Year Plan prisons | CDCR Infrastructure Master Plan (May 2026), p. 20 and Appendix 2 | per prison | Condition ratings and Five-Year Plan flag on CDCR detail pages |
 
-Reanalysis models like ERA5 were tested and set aside: at coastal facilities they miss the marine layer that cools the coast and read 5–10°F too warm.
-
 **How often the data refreshes:**
 
 | Data | Refresh |
 |---|---|
 | Current temperature, forecast high, air quality, and 14-day history | Every 6 hours |
 | Nearest-station reading (detail pages) | Live, on each page load |
-| 10-year historic band | Yearly, shifting the window forward once each year completes |
+| Hourly chart's 10-year historic band | Yearly, shifting the window forward once each year completes |
+| Historic hot days (daily highs since 1991) | Daily; PRISM publishes each day about two days later |
 | Baseline and threshold (1991–2020 normal) | Fixed |
 | Facility list and CDCR data | Before each summer season |
 
