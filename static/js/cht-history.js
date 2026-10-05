@@ -13,7 +13,8 @@
    uses — just a shortcut to that °F, so it works for every year). A day counts
    when its high is AT OR ABOVE the threshold, matching cht-status.js.
 
-   State lives in the URL (?t=97&range=last5, or ?t=95&from=2018-03-14&to=2022-09-01)
+   Default view: 10°F above average, since 1991. Other choices live in the URL
+   (?t=97&range=last5, or ?t=95&from=2018-03-14&to=2022-09-01)
    so a result can be linked to or cited.
    ============================================================================ */
 (function () {
@@ -21,7 +22,7 @@
 
   var DAY = 86400000;
   var T_MIN = 50, T_MAX = 125;
-  var DEFAULT_T = "90", DEFAULT_RANGE = "last10";
+  var DEFAULT_RANGE = "all";   // default threshold: 10°F above average, or 90°F if a facility has none
   var AVG_WINDOW = 5;                 // trailing average: each year + the 4 before it
   var NORMAL_FROM = 1991, NORMAL_TO = 2020;   // same period as the facility average
   var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -46,6 +47,7 @@
     var slug = root.getAttribute("data-slug");
     var avgT = root.getAttribute("data-threshold");
     avgT = avgT === "" || avgT == null ? null : +avgT;
+    var DEFAULT_T = avgT != null ? "avg" : "90";
 
     var els = {
       thr: $("cht-hist-thr"), range: $("cht-hist-range"), custom: $("cht-hist-custom"),

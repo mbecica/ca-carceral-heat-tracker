@@ -606,6 +606,12 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
   font: inherit; font-size: 0.85rem; padding: 0.3rem 0.5rem; border-radius: 8px;
   border: 1px solid var(--border); background: var(--entry); color: var(--primary); cursor: pointer;
 }
+/* Own arrow (native one sits flush against the right edge), inset from the border. */
+select.cht-select {
+  appearance: none; -webkit-appearance: none; padding-right: 1.9rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none' stroke='%238f8b84' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 0.65rem center; background-size: 0.7rem;
+}
 .cht-select:hover { border-color: var(--accent); }
 .cht-select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .cht-hist__controls, .cht-hist__custom, .cht-hist__dates { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.8rem; }
@@ -615,6 +621,7 @@ h1, h2, h3 { color: var(--primary); line-height: 1.2; }
 .cht-hist__ctl { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.88rem; color: var(--secondary); }
 .cht-hist__num { width: 4.2rem; cursor: text; }
 .cht-hist__total { margin-top: 0.6rem; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.6rem; }
+.cht-hist__total-label { flex-basis: 100%; }
 .cht-hist__total-val { font-size: 2.6rem; font-weight: 700; line-height: 1; color: var(--primary); font-variant-numeric: tabular-nums; }
 .cht-hist__total-sub { font-size: 0.9rem; color: var(--secondary); }
 .cht-hist__total-sub strong { color: var(--primary); font-weight: 600; }

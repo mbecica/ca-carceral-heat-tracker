@@ -149,10 +149,10 @@
             <label class="cht-hist__ctl">Days at or above
               <select class="cht-select" id="cht-hist-thr">
                 {{- range slice 80 90 100 110 }}
-                <option value="{{ . }}"{{ if eq . 90 }} selected{{ end }}>{{ . }}°F</option>
+                <option value="{{ . }}"{{ if and (eq . 90) (not $f.threshold_f) }} selected{{ end }}>{{ . }}°F</option>
                 {{- end }}
                 {{- with $f.threshold_f }}
-                <option value="avg">10°F above average max ({{ math.Round . }}°F)</option>
+                <option value="avg" selected>10°F above average max ({{ math.Round . }}°F)</option>
                 {{- end }}
                 <option value="custom">Custom…</option>
               </select>
@@ -163,8 +163,8 @@
                 <option value="ytd">This year so far</option>
                 <option value="pair">Last year and this year</option>
                 <option value="last5">Last 5 years</option>
-                <option value="last10" selected>Last 10 years</option>
-                <option value="all">Since 1991</option>
+                <option value="last10">Last 10 years</option>
+                <option value="all" selected>Since 1991</option>
                 <option value="custom">Custom…</option>
               </select>
             </label>
@@ -184,6 +184,7 @@
             <div class="cht-sr"><table id="cht-hist-table"><caption>Days per year at or above the selected temperature</caption><thead><tr><th scope="col">Year</th><th scope="col">Days</th><th scope="col">Dates counted</th></tr></thead><tbody></tbody></table></div>
           </div>
           <div class="cht-hist__total" aria-live="polite">
+            <span class="cht-tile__label cht-hist__total-label">Total</span>
             <span class="cht-hist__total-val" id="cht-hist-total">—</span>
             <span class="cht-hist__total-sub" id="cht-hist-total-sub">Loading…</span>
           </div>
