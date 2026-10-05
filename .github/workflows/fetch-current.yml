@@ -51,11 +51,19 @@ jobs:
           AIRNOW_API_KEY: ${{ secrets.AIRNOW_API_KEY }}
         run: python3 pipeline/fetch_current.py
 
+      # PRISM daily highs for the history section (~6 s; one Earth Engine request).
+      # Allowed to fail without blocking the current-conditions commit above; the
+      # last step turns the run red so a gap is never silent.
+      - name: Update daily-high history
+        id: history
+        continue-on-error: true
+        run: python3 pipeline/fetch_daily_history.py
+
       - name: Commit refreshed data
         run: |
           git config user.name "heat-tracker-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add static/data/statewide.json static/data/recent
+          git add static/data/statewide.json static/data/recent static/data/history
           if git diff --cached --quiet; then
             echo "No data changes this run."
           else
@@ -69,3 +77,9 @@ jobs:
               sleep $((attempt * 5))
             done
           fi
+
+      - name: Flag a failed history update
+        if: steps.history.outcome == 'failure'
+        run: |
+          echo "::error::fetch_daily_history.py failed; history files were not updated this run (see its step log)."
+          exit 1
