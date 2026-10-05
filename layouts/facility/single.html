@@ -136,6 +136,60 @@
           </div>
         </section>
 
+        {{- /* Hot-day history: days per year at or above a threshold, 1991 → latest PRISM
+               day, for a chosen date range. Filled by cht-history.js from
+               history/{slug}.json + history/current/{slug}.json; the threshold is
+               applied in the browser. "10°F above average" uses the same threshold_f
+               as everywhere else. */ -}}
+        <section class="cht-comp cht-hist" id="cht-hist" data-slug="{{ $f.slug }}" data-threshold="{{ $f.threshold_f }}">
+          <h3 class="cht-comp__title">Historic hot days
+            <span class="cht-info" tabindex="0" data-tip="{{ $copy.history }}" aria-label="{{ $copy.history }}">i</span>
+          </h3>
+          <div class="cht-hist__controls">
+            <label class="cht-hist__ctl">Days at or above
+              <select class="cht-select" id="cht-hist-thr">
+                {{- range slice 80 90 100 110 }}
+                <option value="{{ . }}"{{ if and (eq . 90) (not $f.threshold_f) }} selected{{ end }}>{{ . }}°F</option>
+                {{- end }}
+                {{- with $f.threshold_f }}
+                <option value="avg" selected>10°F above average max ({{ math.Round . }}°F)</option>
+                {{- end }}
+                <option value="custom">Custom…</option>
+              </select>
+            </label>
+            <label class="cht-hist__ctl">in
+              {{- /* Labels with years are filled in from the data by cht-history.js. */}}
+              <select class="cht-select" id="cht-hist-range">
+                <option value="ytd">This year so far</option>
+                <option value="pair">Last year and this year</option>
+                <option value="last5">Last 5 years</option>
+                <option value="last10">Last 10 years</option>
+                <option value="all" selected>Since 1991</option>
+                <option value="custom">Custom…</option>
+              </select>
+            </label>
+          </div>
+          <div class="cht-hist__custom" id="cht-hist-custom" hidden>
+            <label class="cht-hist__ctl" id="cht-hist-tcustom" hidden>Temperature
+              <input type="number" class="cht-select cht-hist__num" id="cht-hist-tval" min="50" max="125" step="1" inputmode="numeric">°F
+            </label>
+            <span class="cht-hist__dates" id="cht-hist-dcustom" hidden>
+              <label class="cht-hist__ctl">From <input type="date" class="cht-select" id="cht-hist-d0"></label>
+              <label class="cht-hist__ctl">to <input type="date" class="cht-select" id="cht-hist-d1"></label>
+            </span>
+          </div>
+          <div class="cht-chart-wrap">
+            <div class="cht-chart-legend" id="cht-hist-key"></div>
+            <div class="cht-chart cht-hist__chart" id="cht-hist-chart" role="img" aria-label="Number of days per year at or above the selected temperature at {{ $f.name }}."></div>
+            <div class="cht-sr"><table id="cht-hist-table"><caption>Days per year at or above the selected temperature</caption><thead><tr><th scope="col">Year</th><th scope="col">Days</th><th scope="col">Dates counted</th></tr></thead><tbody></tbody></table></div>
+          </div>
+          <div class="cht-hist__total" aria-live="polite">
+            <span class="cht-tile__label cht-hist__total-label">Total</span>
+            <span class="cht-hist__total-val" id="cht-hist-total">—</span>
+            <span class="cht-hist__total-sub" id="cht-hist-total-sub">Loading…</span>
+          </div>
+        </section>
+
         {{- /* CDCR-only extras: cooling pie + vulnerability madlib */ -}}
         {{- if $cdcr }}
         {{- $c := $cdcr.cooling }}{{ $dem := $cdcr.demographics }}{{ $med := $cdcr.medical }}
@@ -226,6 +280,7 @@
 <script src="{{ partial "cht-asset.html" "js/cht-chart.js" }}" defer></script>
 <script src="{{ partial "cht-asset.html" "js/cht-detail.js" }}" defer></script>
 <script src="{{ partial "cht-asset.html" "js/cht-detail-map.js" }}" defer></script>
+<script src="{{ partial "cht-asset.html" "js/cht-history.js" }}" defer></script>
 {{- end }}
 
 {{- /* 2026 condition ratings (institution-wide), one row per cooling type.
@@ -237,7 +292,7 @@
   {{- range slice (slice "Mechanical A/C" $cond.mechanical) (slice "Evaporative" $cond.evaporative) }}
   {{- $v := index . 1 }}
   {{- if ne $v "N/A" }}
-  <li>{{ with $v }}<span class="cht-rating cht-rating--{{ . | lower | replaceRE `[^a-z]` "" }}">{{ . }}</span>{{ else }}<span class="cht-rating cht-rating--na">Not rated</span>{{ end }}
+  <li>{{ with $v }}{{ $def := index $copy.rating_definitions . }}<span class="cht-rating cht-rating--{{ . | lower | replaceRE `[^a-z]` "" }}"{{ with $def }} tabindex="0" data-tip="{{ . }}" aria-label="{{ . }}"{{ end }}>{{ . }}</span>{{ else }}<span class="cht-rating cht-rating--na">Not rated</span>{{ end }}
     <span>{{ index . 0 }}</span></li>
   {{- end }}
   {{- end }}

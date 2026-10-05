@@ -20,6 +20,12 @@ tooltips:
     Each 10°F above the average summer maximum at carceral facility sites is associated with a 5.2% rise in all-cause mortality
     (Skarha et al. 2023).
 
+  # Detail page — hot-day history (ⓘ next to "Historic hot days")
+  history: >-
+    Counts the days this facility's daily high reached or passed the selected
+    temperature since 1991 (PRISM Climate Group, Oregon State University). Recent
+    months are provisional and may be revised.
+
   # Detail page — CDCR flags under the overview grid (hover/focus on each pill)
   flag_california_model: >-
     CDCR lists this prison as part of the California Model, its version of the
@@ -66,6 +72,15 @@ tooltips:
     to last more than 20 years. Good: generally well maintained. Fair: needs
     repairs, typical wear and tear. Poor: significant disrepair. Failing: at
     risk of failure or unusable.
+
+  # Detail page — hover on each condition pill. CDCR's definitions, verbatim
+  # (Infrastructure Master Plan, May 2026). Keys match the rating text.
+  rating_definitions:
+    Plus: "Plus: expected to exceed 20 years of operation (CDCR)."
+    Good: "Good: generally well maintained (CDCR)."
+    Fair: "Fair: needs repairs, typical wear and tear (CDCR)."
+    Poor: "Poor: significant disrepair, not well maintained (CDCR)."
+    Failing: "Failing: at risk of failure or unusable (CDCR)."
 
   # Detail page — CDCR "Heat Vulnerabilities" section (ⓘ next to the heading)
   vulnerabilities_intro: >-

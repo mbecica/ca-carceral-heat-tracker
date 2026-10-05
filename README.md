@@ -30,8 +30,10 @@ Prison Heat Index profile from [cdcr_prison_heat_index](https://github.com/mbeci
   - `build_baselines.py`: each facility's 1991–2020 summer baseline from PRISM.
   - `build_historic_bands.py`: each facility's historic temperature band from RTMA/URMA.
   - `fetch_current.py`: latest conditions, run by GitHub Actions four times a day.
+  - `fetch_daily_history.py`: each facility's daily highs since 1991 from PRISM, run in the same
+    workflow.
 - **`static/data/`**: generated data the site serves (`facilities.json`, boundaries, per-facility
-  band and recent-conditions files).
+  band, recent-conditions, and daily-high history files).
 - **`content/`**: per-facility page stubs and the [methods page](content/methods.md).
 - **`layouts/`** and **`static/{css,js}/`**: the Hugo front end (`cht-` CSS namespace): statewide
   map, jurisdiction filter, sortable table, and per-facility pages with a 14-day chart. Status and
@@ -51,6 +53,7 @@ sibling checkouts and use Google Earth Engine (`earthengine authenticate`, proje
 | Summer baselines | `build_baselines.py --only-missing` | For new facilities only; the 1991–2020 normal is fixed |
 | Historic bands | `build_historic_bands.py` | Each winter, to move the 10-year window forward; `--only-missing` for new facilities |
 | Latest conditions | `fetch_current.py` | Automatic (`.github/workflows/fetch-current.yml`) |
+| Daily-high history | `fetch_daily_history.py` | Automatic, same workflow; backfills new facilities on its own |
 
 When facilities are added, run `build_facilities.py`, then the baseline and band scripts with
 `--only-missing`, then `build_facilities.py` again so the new thresholds are included. A closed
