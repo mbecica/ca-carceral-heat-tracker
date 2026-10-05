@@ -636,6 +636,8 @@ select.cht-select {
 .cht-chart .cht-hist-trail { fill: none; stroke: var(--secondary); stroke-width: 1.3; stroke-linejoin: round; stroke-linecap: round; }
 .cht-hist-key-normal { width: 16px; height: 0; display: inline-block; border-top: 1.3px dotted var(--cht-warn); }
 .cht-hist-key-trail { width: 16px; height: 0; display: inline-block; border-top: 1.3px solid var(--secondary); }
+.cht-chart .cht-hist-opened { stroke: var(--secondary); stroke-width: 1; stroke-dasharray: 4 3; }
+.cht-chart .cht-hist-opened-label { fill: var(--secondary); font-size: 11px; }
 .cht-chart .cht-hist-ylabel { fill: var(--secondary); font-size: 11px; }
 /* Screen-reader-only. Put it on a block wrapper, never on a <table>: tables ignore
    height/overflow, so the full table height would still extend the page. */

@@ -48,6 +48,8 @@
     var avgT = root.getAttribute("data-threshold");
     avgT = avgT === "" || avgT == null ? null : +avgT;
     var DEFAULT_T = avgT != null ? "avg" : "90";
+    // Year the prison opened (CDCR prisons only; year, no month or day).
+    var opened = +root.getAttribute("data-year-opened") || null;
 
     var els = {
       thr: $("cht-hist-thr"), range: $("cht-hist-range"), custom: $("cht-hist-custom"),
@@ -281,6 +283,15 @@
         '<span class="cht-chart-legend__item"><span class="cht-hist-key-normal"></span>' + NORMAL_FROM + "–" + NORMAL_TO +
         " average (" + fmtAvg(res.avg.normal) + " days)</span>";
 
+      // Opening year: a line through that year's column, under the dots. Skipped when
+      // it's the first year of the record (nothing before it to set apart).
+      if (opened && opened > yearOf(data.t0) && x(opened) != null) {
+        var xo = x(opened), right = xo > iw - 70;
+        g.append("line").attr("class", "cht-hist-opened").attr("x1", xo).attr("x2", xo).attr("y1", -12).attr("y2", ih);
+        g.append("text").attr("class", "cht-hist-opened-label").attr("x", right ? xo - 4 : xo + 4).attr("y", -4)
+          .attr("text-anchor", right ? "end" : "start").text("Opened " + opened);
+      }
+
       // Dots: filled for a whole year, hollow for part of one.
       var dots = g.append("g").selectAll("circle").data(ys).enter().append("circle")
         .attr("class", function (d) { return "cht-hist-dot" + (d.partial ? " cht-hist-dot--partial" : ""); })
@@ -306,6 +317,7 @@
                    : d.partial ? "<br>" + fmtShort(d.from) + " – " + fmtShort(d.to) + " only" : "";
           var tr = res.avg.trailing[d.year];
           tip.innerHTML = "<strong>" + d.year + "</strong> · " + d.n + (d.n === 1 ? " day" : " days") + note +
+            (d.year === opened ? "<br>Prison opened in " + opened : "") +
             (tr != null ? "<br>" + AVG_WINDOW + "-year trailing average (" + (d.year - AVG_WINDOW + 1) + "–" + d.year + "): " + fmtAvg(tr) : "") +
             "<br>" + NORMAL_FROM + "–" + NORMAL_TO + " average: " + fmtAvg(res.avg.normal);
           // Flip to the cursor's left near the right edge so it never runs off screen.

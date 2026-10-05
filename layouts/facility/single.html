@@ -150,7 +150,7 @@
                history/{slug}.json + history/current/{slug}.json; the threshold is
                applied in the browser. "10°F above average" uses the same threshold_f
                as everywhere else. */ -}}
-        <section class="cht-comp cht-hist" id="cht-hist" data-slug="{{ $f.slug }}" data-name="{{ $f.name }}" data-threshold="{{ $f.threshold_f }}">
+        <section class="cht-comp cht-hist" id="cht-hist" data-slug="{{ $f.slug }}" data-name="{{ $f.name }}" data-threshold="{{ $f.threshold_f }}"{{ with $cdcr }}{{ with .year_opened }} data-year-opened="{{ . }}"{{ end }}{{ end }}>
           <h3 class="cht-comp__title">Historic hot days
             <span class="cht-info" tabindex="0" data-tip="{{ $copy.history }}" aria-label="{{ $copy.history }}">i</span>
           </h3>
