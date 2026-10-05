@@ -120,7 +120,9 @@
     // Hover: cursor + dot + tooltip.
     var cursor = g.append("line").attr("class", "cht-chart__cursor").attr("y1", 0).attr("y2", ih).style("display", "none");
     var dot = g.append("circle").attr("class", "cht-chart__dot").attr("r", 3.5).style("display", "none");
-    var tip = document.createElement("div"); tip.className = "cht-chart__tip"; document.body.appendChild(tip);
+    // One tooltip for the page, reused across redraws (range toggle, resize).
+    var tip = document.querySelector(".cht-hourly-tip");
+    if (!tip) { tip = document.createElement("div"); tip.className = "cht-chart__tip cht-hourly-tip"; document.body.appendChild(tip); }
     var bis = d3.bisector(function (d) { return d.date; }).left;
     svg.append("rect").attr("transform", "translate(" + margin.left + "," + margin.top + ")")
       .attr("width", iw).attr("height", ih).style("fill", "none").style("pointer-events", "all")
